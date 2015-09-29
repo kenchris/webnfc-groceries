@@ -1,0 +1,149 @@
+<!doctype html>
+<!--
+@license
+Copyright (c) 2015, 2016 Intel Corporation. All rights reserved.
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+-->
+
+<html lang="">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="generator" content="Web NFC Shopping Cart" />
+  <title>Web NFC Shopping Cart</title>
+  <!-- Place favicon.ico in the `app/` directory -->
+
+  <!-- Chrome for Android theme color -->
+  <meta name="theme-color" content="#2E3AA1">
+
+  <!-- Web Application Manifest -->
+  <link rel="manifest" href="manifest.json">
+
+  <!-- Tile color for Win8 -->
+  <meta name="msapplication-TileColor" content="#3372DF">
+
+  <!-- Add to homescreen for Chrome on Android -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="application-name" content="PSK">
+  <link rel="icon" sizes="192x192" href="images/touch/chrome-touch-icon-192x192.png">
+
+  <!-- Add to homescreen for Safari on iOS -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="Shopping Cart">
+  <link rel="apple-touch-icon" href="images/touch/apple-touch-icon.png">
+
+  <!-- Tile icon for Win8 (144x144) -->
+  <meta name="msapplication-TileImage" content="images/touch/ms-touch-icon-144x144-precomposed.png">
+
+  <!-- 1. Async HTML Imports do not block rending. Benefit of keeping it declarative
+     (instead of dynamically loading it later in JS) is that the parser can go
+     to town pre-fetching resources, etc. -->
+  <link rel="import" id="bundle" href="/elements/elements.html" async>
+
+  <style>
+    body {
+      background: #fafafa;
+      font-family: 'Roboto', Helvetica, Arial, sans-serif;
+      font-display: fallback;
+      color: #616161;
+      margin: 0;
+    }
+    #skeleton .main > .app-header {
+      display: block;
+      position: fixed;
+      top: 0;
+      right: 0;
+      z-index: 1;
+      background-color: #FFC107;
+      color: #444;
+      transform: translate3d(0px, 0px, 0px);
+      left: 0px;
+    }
+    #skeleton .app-toolbar {
+      height: 64px;
+      padding: 0 16px;
+      position: relative;
+      pointer-events: none;
+      display: -ms-flexbox;
+      display: -webkit-flex;
+      display: flex;
+      -ms-flex-direction: row;
+      -webkit-flex-direction: row;
+      flex-direction: row;
+      -ms-flex-align: center;
+      -webkit-align-items: center;
+      align-items: center;
+      -ms-flex-pack: center;
+      -webkit-justify-content: center;
+      justify-content: center;
+      font-size: 20px;
+    }
+    #skeleton .app-title {
+      font-size: 40px;
+      font-weight: 300;
+      color: white;
+
+      position: absolute;
+      left: 148px;
+      top: -9px;
+
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+    @media (max-width: 640px) {
+      #skeleton .app-toolbar {
+        height: 56px;
+      }
+      #skeleton .app-title {
+        left: 124px;
+        top: -13px;
+      }
+    }
+  </style>
+</head>
+
+<body unresolved class="fullbleed layout vertical">
+  <span id="browser-sync-binding"></span>
+
+  <div id="skeleton">
+    <!-- main panel -->
+    <div class="main">
+      <div class="app-header">
+        <!-- top toolbar -->
+        <div class="app-toolbar"></div>
+        <!-- bottom toolbar -->
+        <div class="app-toolbar">
+          <div class="app-title">Shopping Cart</div>
+        </div>
+        <div class="app-toolbar"></div>
+      </div>
+    </div>
+  </div>
+
+  <main-app></main-app>
+
+  <template is="dom-bind" id="app">
+    <paper-toast id="caching-complete"
+                duration="6000"
+                text="Caching complete! This app will work offline.">
+    </paper-toast>
+
+    <platinum-sw-register auto-register
+                          clients-claim
+                          skip-waiting
+                          on-service-worker-installed="displayInstalledToast">
+      <platinum-sw-cache default-cache-strategy="fastest"
+                        cache-config-file="cache-config.json">
+      </platinum-sw-cache>
+    </platinum-sw-register>
+  </template>
+
+  <!-- build:js scripts/app.js -->
+  <script src="scripts/app.js"></script>
+  <!-- endbuild-->
+</body>
+
+</html>

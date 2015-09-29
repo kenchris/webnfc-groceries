@@ -1,0 +1,71 @@
+<!--
+@license
+Copyright (c) 2015, 2016 Intel Corporation. All rights reserved.
+-->
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<dom-module id="item-store">
+  <script>
+    (function() {
+      'use strict';
+
+      Polymer({
+        is: 'item-store',
+
+        properties: {
+          data: {
+            type: Array,
+            value: function() {
+              return [];
+            },
+            notify: true,
+            observer: '_dataChanged'
+          },
+          image: {
+            type: String,
+            value: '',
+            notify: true
+          }
+        },
+
+        observers: [
+          '_dataChanged(data.splices)'
+        ],
+
+        created: function() {
+        },
+
+        _dataChanged: function(dataRecord) {
+          this.image = 'images/basket.jpg';
+          if (!dataRecord || dataRecord instanceof Array) {
+            return;
+          }
+          if (!this.data.length) {
+            this.fire('complete');
+          }
+        },
+
+        addItem: function(name) {
+          this.push('data', { name: name });
+          document.querySelector('#tobuy').fire('resize');
+        },
+
+        onItemComplete: function(event) {
+          var index = event.model.__data__.index;
+
+          var elem = event.path[0];
+          if (!elem.hasAttribute('checked')) {
+            return;
+          }
+
+          setTimeout(function() {
+            elem.removeAttribute('checked');
+            this.splice('data', index, 1);
+            event.model.dataHost.fire('resize');
+          }.bind(this), 300);
+        }
+      });
+    })();
+  </script>
+
+</dom-module>

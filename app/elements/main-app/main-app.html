@@ -1,0 +1,484 @@
+<!--
+@license
+Copyright (c) 2015, 2016 Intel Corporation. All rights reserved.
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+-->
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<dom-module id="main-app">
+  <style>
+  :host {
+    width: 100%;
+    height: 100%;
+    color: #212121;
+    @apply(--paper-font-body1);
+  }
+
+  h4 {
+    @apply(--paper-font-title);
+    color: #616161;
+  }
+
+  write-dialog {
+    max-height: 90%;
+    max-width: 90%;
+    width: 480px;
+    height: 600px;
+  }
+
+  :root {
+    --layout-vertical: {
+      @apply(--layout);
+      -ms-flex-direction: column;
+      -webkit-flex-direction: column;
+      flex-direction: column;
+      /* this fixes rendering on chrome canary/chrome dev for android */
+      min-height: 0;
+    };
+  }
+
+  .card-content {
+    padding: 0px;
+    margin: 20px;
+    position: relative;
+  }
+
+  .card-actions {
+    border-top: 1px solid #e8e8e8;
+    padding: 5px 16px;
+    position:relative;
+  }
+
+  #drawerToolbar {
+    color: white;
+    background: url(../images/menubg.png);
+    background-color: var(--default-primary-color);
+
+    height: 150px;
+    position: relative;
+  }
+
+  #drawerToolbar .title {
+    font-size: 16px;
+    line-height: 1;
+    color: white;
+    position: absolute;
+    bottom: 8px;
+    left: 16px;
+    height: 16px;
+    font-weight: 500;
+  }
+
+  .bottom-title {
+    font-size: 16px;
+    margin: 10px 0 0 0;
+    white-space: nowrap;
+    color: var(--light-primary-color);
+  }
+
+  paper-scroll-header-panel {
+    height: 100%;
+  }
+
+  paper-fab {
+    color: white;
+    position: absolute;
+    right: 20px;
+    top: 140px;
+  }
+
+  paper-material {
+    border-radius: 2px;
+    height: 100%;
+    padding: 16px 0 16px 0;
+    width: calc(98.66% - 16px);
+    max-width: 600px;
+    margin: 16px auto;
+    background: white;
+  }
+
+  paper-card {
+    border-radius: 2px;
+    height: 100%;
+    width: calc(100% - 10px);
+    max-width: 600px;
+    margin: 16px auto;
+    background: white;
+  }
+
+  #shopping-list-card {
+    min-height: calc(100vh - 352px);
+  }
+
+  paper-icon-button  {
+    color: white;
+  }
+
+  paper-menu iron-icon {
+    margin-right: 33px;
+    opacity: 0.54;
+  }
+
+  .paper-menu > .iron-selected {
+    color: var(--default-primary-color);
+  }
+
+  paper-menu a {
+    text-decoration: none;
+    color: var(--menu-link-color);
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -ms-flex-direction: row;
+    -webkit-flex-direction: row;
+    flex-direction: row;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+    font-family: 'Roboto', 'Noto', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 24px;
+    min-height: 48px;
+    padding: 0 16px;
+  }
+
+  paper-toolbar.tall .app-name {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+
+    font-size: 40px;
+    font-weight: 300;
+    color: white;
+  }
+
+  paper-toolbar.tall .logo {
+      width: 96px;
+  }
+
+  #mainToolbar .middle-container  {
+    height: 100%;
+    margin-left: 36px;
+  }
+
+  iron-pages {
+    padding: 16px;
+  }
+
+  footer {
+    background: #e7e7e7;
+    padding: 22px 42px;
+  }
+
+  footer ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .badge {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #ff4081;
+    color: #fff;
+    text-align: center;
+  }
+
+  .badge > span {
+    font-weight: 600;
+    font-size: 12px;
+    vertical-align: 1px;
+  }
+
+  #basket {
+    min-width: 160px;
+    min-height: 160px;
+    max-height: 250px;
+  }
+
+  .card-title-box {
+    @apply(--layout-vertical);
+    @apply(--layout-end-justified);
+    height: 150px;
+    background: #77909D;
+    color: white;
+    padding: 0px 20px 10px;
+  }
+
+  #tobuy {
+    overflow: hidden;
+  }
+
+  @media (max-width: 400px) {
+    paper-toolbar.tall .app-name {
+      font-size: 32px;
+      font-weight: 300;
+      color: white;
+    }
+  }
+
+  /* Breakpoints */
+  /* Small */
+  @media (max-width: 600px) {
+
+    #basket {
+      display: none;
+    }
+
+    paper-toolbar.tall .logo {
+      width: 72px;
+    }
+
+    #drawer .paper-toolbar {
+      margin-left: 16px;
+    }
+
+    #overlay {
+      min-width: 360px;
+    }
+
+    .bg {
+      background: white;
+    }
+
+  }
+
+  /* Tablet+ */
+  @media (min-width: 601px) {
+
+    .card-content {
+      margin: 40px;
+    }
+
+    .card-title-box {
+      padding: 0px 40px 10px;
+    }
+
+    paper-fab {
+      top: 164px;
+    }
+
+    #drawer.paper-drawer-panel > [drawer] {
+      border-right: 1px solid rgba(0, 0, 0, 0.14);
+    }
+  }
+  </style>
+  <template>
+    <weneed-nfc id="adapter" faking="{{isFaking}}">
+      <item-store id="shop" data="{{shoppingItems}}" image="{{imageSrc}}" on-complete="gotoHome"></item-store>
+    </weneed-nfc>
+    <paper-drawer-panel id="paperDrawerPanel" force-narrow="true">
+      <!-- Drawer Scroll Header Panel -->
+      <paper-scroll-header-panel drawer fixed>
+
+        <!-- Drawer Toolbar -->
+        <div id="drawerToolbar" style="background: url(../../images/menubg.png)">
+          <div class="title">Web NFC Shopping Cart</div>
+        </div>
+
+        <!-- Drawer Content -->
+        <paper-menu class="list" attr-for-selected="data-route" selected="[[route]]">
+          <a data-route="home" on-click="gotoHome">
+            <iron-icon icon="home"></iron-icon>
+            <span>Home</span>
+          </a>
+
+          <a data-route="pending" on-click="gotoShoppingList">
+            <iron-icon icon="maps:local-grocery-store"></iron-icon>
+            <span>Shopping list</span>
+          </a>
+          <template is="dom-if" if="{{isFaking}}">
+            <hr>
+            <a onclick="adapter.onItemReceived();">
+              <iron-icon icon="icons:add-circle"></iron-icon>
+              <span>Add random item</span>
+            </a>
+            <div style="position: absolute; bottom: 16px; right: 16px;font-size: 14px; opacity: .54;">Faking mode</div>
+          </template>
+        </paper-menu>
+      </paper-scroll-header-panel>
+
+      <!-- Main Area -->
+      <paper-scroll-header-panel main id="headerPanelMain" fixed keep-condensed-header>
+        <!-- Main Toolbar -->
+        <paper-toolbar id="mainToolbar" class="tall">
+          <paper-icon-button id="paperToggle" icon="menu" paper-drawer-toggle></paper-icon-button>
+          <span class="flex"></span>
+
+          <div class="middle middle-container center horizontal layout">
+            <img class="logo" src="/images/touch/icon_512.svg" style="margin: 0 0 10px 0;" on-click="gotoHome"></img>
+            <div class="center-justified vertical layout flex">
+            <!-- Application name -->
+              <div class="app-name">Shopping Cart</div>
+              <div class="bottom-title paper-font-subhead">Tap so you don't forget to buy</div>
+            </div>
+          </div>
+          <paper-fab icon="add"
+            onclick="document.querySelector('#writeguide').toggle()"></paper-fab>
+
+        </paper-toolbar>
+
+        <!-- Main Content -->
+        <div class="content fit layout vertical">
+          <iron-pages class="flex" attr-for-selected="data-route" selected="{{route}}">
+            <section data-route="home" class="vertical layout center">
+              <paper-card>
+                <div class="horizontal layout">
+                  <iron-image id="basket" sizing="contain"
+                    preload fade src="{{imageSrc}}"></iron-image>
+                  <div class="card-content flex">
+
+                    <h4 style="margin-top: 0;">Overview</h4>
+                    <template is="dom-if" if="{{!shoppingItems.length}}">
+                      <div>You have everything you need</div>
+                    </template>
+                    <template is="dom-if" if="{{shoppingItems.length}}">
+                      <div>You have <div class="badge"><span>{{shoppingItems.length}}<span></div> item to buy in your list</div>
+                    </template>
+
+                  </div>
+                </div>
+                <div class="card-actions horizontal layout end-justified">
+                  <paper-button data-route="pending"
+                      on-click="gotoShoppingList">Shopping list</paper-button>
+                </div>
+              </paper-card>
+
+              <paper-card>
+                <div class="vertical layout">
+                  <div class="card-title-box">
+                    <div class="paper-font-title">Now to get started</div>
+                  </div>
+                  <div class="card-content">
+                    <div>
+                      Create a new tag to put near some of your appliances when they run
+                    out of something you often need, and add the product to your
+                    shopping list by a single tap! Press the action button to get
+                    started.
+                    </div>
+                    <br><br>
+                    <a style="font-size: 12px;" href="#" onclick="document.querySelector('#about').toggle()">More info</a>
+                </div>
+              </paper-card>
+            </section>
+
+            <section data-route="pending">
+              <paper-card id="shopping-list-card" class="vertical layout">
+                <div class="card-content flex vertical layout">
+                  <h4 style="margin-top: 0;">Shopping list</h4>
+                  <template is="dom-if" if="{{!shoppingItems.length}}">
+                    <div class="flex">Your shopping list is currently empty</div>
+                  </template>
+                  <template is="dom-if" if="{{shoppingItems.length}}">
+                    <iron-list id="tobuy" items="[[shoppingItems]]" as="item" class="flex">
+                      <template>
+                        <div style="padding: 5px;">
+                          <paper-checkbox on-iron-change="onItemComplete">[[item.name]]</paper-checkbox>
+                        </div>
+                      </template>
+                    </iron-list>
+                  </template>
+                </div>
+              </paper-card>
+            </section>
+
+          </iron-pages>
+
+          <footer>
+			      <div>
+			      <div style="margin-bottom: 16px; color: #2E3AA1; font-weight: bold;">Web NFC Shopping Cart</div>
+				      <ul style="color: #77909D; font-size: 14px; font-weight: 300;">
+				        <li><a href="https://www.outpan.com/">Outpan</a> is licensed under <a href="http://creativecommons.org/licenses/by-sa/3.0/">CC BY-SA 3.0</a></li>
+				      </ul>
+				     </div>
+			    </footer>
+        </div>
+      </paper-scroll-header-panel>
+    </paper-drawer-panel>
+
+    <write-dialog id="writeguide"></write-dialog>
+    <about-dialog id="about"></about-dialog>
+
+    <paper-toast id="console"
+                 duration="6000">
+    </paper-toast>
+  </template>
+  <script src="../../bower_components/page/page.js"></script>
+  <script>
+    (function() {
+      'use strict';
+
+      Polymer({
+        is: 'main-app',
+
+        properties: {
+          route: {
+            type: String,
+            value: 'home',
+            notify: true
+          }
+        },
+
+        _log: function(ev) {
+          console.log(ev.detail.value);
+          this.$.console.text = ev.detail.value;
+          this.$.console.show();
+        },
+
+        ready: function() {
+          // We use Page.js for routing. This is a Micro
+          // client-side router inspired by the Express router
+          // More info: https://visionmedia.github.io/page.js/
+
+          let scrollToTop = function (ctx, next) {
+            this.$.headerPanelMain.scrollToTop(true);
+            next();
+          }.bind(this);
+
+          page('/', scrollToTop, () => { this.route = 'home'; });
+          page('/home', scrollToTop, () => { this.route = 'home'; });
+          page('/pending', scrollToTop, () => { this.route = 'pending'; });
+
+          // add #! before urls
+          page({
+            hashbang: true
+          });
+
+          addEventListener('warn', this._log.bind(this));
+          addEventListener('info', this._log.bind(this));
+        },
+
+        gotoHome: function() {
+          this.route = 'home';
+          this.onDataRouteClick();
+        },
+
+        gotoShoppingList: function() {
+          this.route = 'pending';
+          this.onDataRouteClick();
+        },
+
+        // Close drawer after menu item is selected if drawerPanel is narrow
+        onDataRouteClick: function() {
+          var drawerPanel = document.querySelector('#paperDrawerPanel');
+          if (drawerPanel.narrow) {
+            drawerPanel.closeDrawer();
+          }
+          document.location.hash = '#!/' + this.route;
+        },
+
+        onItemComplete: function(event) {
+          var el = document.querySelector('#shop');
+          if (el) {
+            el.onItemComplete(event);
+          }
+        }
+      });
+    })();
+  </script>
+
+</dom-module>

@@ -1,0 +1,154 @@
+{
+  "/bower_components/webcomponentsjs/webcomponents-lite.min.js": {
+    "weight": 1,
+    "type": "script"
+  },
+  "/scripts/app.js": {
+    "weight": 1,
+    "type": "script"
+  },
+  "/bower_components/page/page.js": {
+    "weight": 1,
+    "type": "script"
+  },
+  "/elements/main-app/main-app.html": {
+    "weight": 1,
+    "type": "document"
+  },
+  "/elements/about-dialog/about-dialog.html": {
+    "weight": 1,
+    "type": "document"
+  },
+  "/bower_components/paper-dialog-behavior/paper-dialog-common.css": {
+    "weight": 1,
+    "type": "style"
+  },
+  "/bower_components/quagga/dist/quagga.min.js": {
+    "weight": 1,
+    "type": "script"
+  },
+  "/bower_components/paper-dialog-behavior/paper-dialog-behavior.html": {
+    "weight": 1,
+    "type": "document"
+  },
+  "/bower_components/paper-dialog-scrollable/paper-dialog-scrollable.html": {
+    "weight": 1,
+    "type": "document"
+  },
+  "/bower_components/paper-styles/paper-styles.html": {
+    "weight": 1,
+    "type": "document"
+  },
+  "/elements/write-dialog/write-dialog.html": {
+    "weight": 1,
+    "type": "document"
+  },
+  "/elements/weneed-nfc/weneed-nfc.html": {
+    "weight": 1,
+    "type": "document"
+  },
+  "/bower_components/polymer/polymer.html": {
+    "weight": 1,
+    "type": "document"
+  },
+  "/elements/item-store/item-store.html": {
+    "weight": 1,
+    "type": "document"
+  },
+  "/styles/app-theme.html": {
+    "weight": 1,
+    "type": "document"
+  },
+  "/bower_components/platinum-sw/platinum-sw-register.html": {
+    "weight": 1,
+    "type": "document"
+  },
+  "/bower_components/platinum-sw/platinum-sw-cache.html": {
+    "weight": 1,
+    "type": "document"
+  },
+  "/bower_components/paper-button/paper-button.html": {
+    "weight": 1,
+    "type": "document"
+  },
+  "/bower_components/paper-fab/paper-fab.html": {
+    "weight": 1,
+    "type": "document"
+  },
+  "/bower_components/paper-toolbar/paper-toolbar.html": {
+    "weight": 1,
+    "type": "document"
+  },
+  "/bower_components/paper-toast/paper-toast.html": {
+    "weight": 1,
+    "type": "document"
+  },
+  "/bower_components/paper-styles/paper-styles-classes.html": {
+    "weight": 1,
+    "type": "document"
+  },
+  "/bower_components/paper-scroll-header-panel/paper-scroll-header-panel.html": {
+    "weight": 1,
+    "type": "document"
+  },
+  "/bower_components/paper-menu/paper-menu.html": {
+    "weight": 1,
+    "type": "document"
+  },
+  "/bower_components/paper-material/paper-material.html": {
+    "weight": 1,
+    "type": "document"
+  },
+  "/bower_components/paper-icon-button/paper-icon-button.html": {
+    "weight": 1,
+    "type": "document"
+  },
+  "/bower_components/paper-drawer-panel/paper-drawer-panel.html": {
+    "weight": 1,
+    "type": "document"
+  },
+  "/bower_components/paper-input/paper-input.html": {
+    "weight": 1,
+    "type": "document"
+  },
+  "/bower_components/paper-checkbox/paper-checkbox.html": {
+    "weight": 1,
+    "type": "document"
+  },
+  "/bower_components/paper-card/paper-card.html": {
+    "weight": 1,
+    "type": "document"
+  },
+  "/bower_components/iron-selector/iron-selector.html": {
+    "weight": 1,
+    "type": "document"
+  },
+  "/bower_components/iron-pages/iron-pages.html": {
+    "weight": 1,
+    "type": "document"
+  },
+  "/bower_components/iron-list/iron-list.html": {
+    "weight": 1,
+    "type": "document"
+  },
+  "/bower_components/iron-icons/maps-icons.html": {
+    "weight": 1,
+    "type": "document"
+  },
+  "/bower_components/iron-image/iron-image.html": {
+    "weight": 1,
+    "type": "document"
+  },
+  "/bower_components/iron-icons/iron-icons.html": {
+    "weight": 1,
+    "type": "document"
+  },
+  "/bower_components/iron-flex-layout/classes/iron-flex-layout.html": {
+    "weight": 1,
+    "type": "document"
+  },
+  "/elements/elements.html": {
+    "weight": 1,
+    "type": "document"
+  }
+}

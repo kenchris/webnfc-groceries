@@ -1,0 +1,69 @@
+<!--
+@license
+Copyright (c) 2015, 2016 Intel Corporation. All rights reserved.
+-->
+
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<dom-module id="weneed-nfc">
+  <script>
+    (function() {
+      'use strict';
+
+      Polymer({
+        is: 'weneed-nfc',
+
+        properties: {
+          faking: {
+            type: Boolean,
+            value: false,
+            notify: true
+          }
+        },
+
+        created: function() {
+          this.randomData = ['Washing powder', 'Dishwasher tabs', 'Toilet paper', 'Milk'];
+        },
+
+        ready: function() {
+          this.faking = !navigator.nfc;
+        },
+
+        attached: function() {
+          if (this.faking) {
+            return;
+          }
+
+          (() => {
+            if (this.adapter) {
+              return Promise.resolve(this.adapter);
+            } else {
+              return navigator.nfc.requestAdapter();
+            }
+          })().then((adapter) => {
+            this.adapter = adapter;
+            this.adapter.watch({}, (message) => {
+              if (message[0].kind !== 'json') {
+                this.fire('warn', { value: 'Malformed NFC tag' });
+                return;
+              }
+              console.log(message);
+              var tmpData = JSON.parse(message[0].data);
+              var name = tmpData.name;
+              this.onItemReceived(name); 
+            });
+          });
+        },
+
+        onItemReceived: function(name) {
+          if (!name || this.faking) {
+             name = this.randomData[Math.floor(Math.random() * this.randomData.length)];
+          }
+          var store = this.$$('item-store:nth-of-type(1)');
+          store.addItem(name);
+        }
+      });
+    })();
+  </script>
+
+</dom-module>

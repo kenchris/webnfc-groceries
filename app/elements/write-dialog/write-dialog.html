@@ -1,0 +1,404 @@
+<!--
+@license
+Copyright (c) 2015, 2016 Intel Corporation. All rights reserved.
+-->
+
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/paper-styles/paper-styles.html">
+<link rel="import" href="../../bower_components/paper-dialog-scrollable/paper-dialog-scrollable.html">
+<link rel="import" href="../../bower_components/paper-dialog-behavior/paper-dialog-behavior.html">
+
+<style>
+  .fit-contain {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%    !important;
+    height: auto   !important;
+  }
+</style>
+
+<dom-module id="write-dialog">
+  <link rel="import" type="css" href="../../bower_components/paper-dialog-behavior/paper-dialog-common.css">
+  <template>
+    <style>
+    :host {
+      --paper-dialog-background-color: white;
+      @apply(--layout-vertical);
+    }
+
+    :host > * {
+      padding: 0;
+    }
+
+    iron-pages {
+      @apply(--layout-flex);
+      @apply(--layout-vertical);
+      margin: 0px;
+    }
+
+    section {
+      @apply(--layout-flex);
+      @apply(--layout-vertical);
+    }
+
+    h2 {
+      @apply(--paper-font-title);
+      font-weight: 300 !important;
+      color: #212121;
+      padding: 0px 24px 16px;
+    }
+
+    p {
+      @apply(--paper-font-body1);
+      color: #212121;
+    }
+
+    paper-button {
+      color: var(--paper-indigo-500);
+    }
+
+    paper-dialog-scrollable {
+      @apply(--layout-flex);
+    }
+
+    .buttons {
+      border-top: 1px solid rgba(0, 0, 0, 0.12);
+    }
+
+    img {
+      width: 100%;
+    }
+
+    video {
+      width: 100%    !important;
+      height: auto   !important;
+    }
+
+    .illustration {
+      background-size: cover !important;
+      height: 0px;
+      padding-top: 65%;
+      position: relative;
+    }
+    </style>
+
+    <h2>Add a new item for the shopping list</h2>
+
+    <iron-pages selected="{{state}}" class="vertical layout">
+      <section>
+        <paper-dialog-scrollable>
+          <div id="interactive" class="viewport illustration" style="background: url(/images/write-prepare.png) no-repeat;">
+            <video class="fit-contain"></video>
+          </div>
+          <p>
+            Write the name of the shopping item to add, or write the UPC/EAN of the item to
+            look up the name. You can also directly scan the barcode of the product.
+          </p>
+          <paper-input id="input" label="Item name or barcode numbers" value="{{value}}"
+            autocapitalize maxlength="20">
+          </paper-input>
+          <br>
+        </paper-dialog-scrollable>
+        <div class="buttons">
+          <paper-button on-tap="scan" disabled="{{!supportsBarcodeScanner}}">SCAN BARCODE</paper-button>
+          <paper-button on-tap="action" disabled="{{!value}}">{{actionButtonText(isProductCode)}}</paper-button>
+        </div>
+      </section>
+
+      <section>
+        <paper-dialog-scrollable>
+          <div class="illustration" style="background: url(/images/write-tap.png) no-repeat;"
+            onclick="document.querySelector('write-dialog').onWriteSucceeded();">
+          </div>
+          <p>
+            Touch the NFC tag with the device, and the system will store the new information
+            on it. Afterwards, the tag can be used for adding items to the shopping list, by
+            simply tapping it.
+          </p>
+        </paper-dialog-scrollable>
+        <div class="buttons">
+          <paper-button on-tap="reset">REGISTER ANOTHER ITEM</paper-button>
+        </div>
+      </section>
+
+      <section>
+        <paper-dialog-scrollable>
+          <div class="illustration" style="background: url(/images/write-success.png) no-repeat;"
+            onclick="document.querySelector('write-dialog').onWriteFailed();">
+          </div>
+          <p>
+            Content was written successfully to the tag.
+          </p>
+        </paper-dialog-scrollable>
+        <div class="buttons">
+          <paper-button on-tap="reset">REGISTER ANOTHER ITEM</paper-button>
+          <paper-button on-tap="close">DONE</paper-button>
+        </div>
+      </section>
+
+      <section>
+        <paper-dialog-scrollable>
+          <div class="illustration" style="background: url(/images/write-failure.png) no-repeat;"
+            onclick="document.querySelector('write-dialog').onWriteSucceeded();">
+          </div>
+          <p>
+            Error writing content, please try again.
+          </p>
+        </paper-dialog-scrollable>
+        <div class="buttons">
+          <paper-button on-tap="close">CANCEL</paper-button>
+          <paper-button on-tap="write">TRY AGAIN</paper-button>
+        </div>
+      </section>
+
+      <section>
+        <paper-dialog-scrollable>
+        Dummy element workaround!
+        </paper-dialog-scrollable>
+      </section>
+
+    </iron-pages>
+  </template>
+
+  <script src="../../bower_components/quagga/dist/quagga.min.js" type="text/javascript"></script>
+  <script>
+    (function() {
+      'use strict';
+
+      var dialog = null;
+
+      Quagga.onProcessed(function(result) {
+        var drawingCtx = Quagga.canvas.ctx.overlay,
+            drawingCanvas = Quagga.canvas.dom.overlay;
+
+        if (!result)
+          return;
+
+        if (result.boxes) {
+          drawingCtx.clearRect(0, 0, parseInt(drawingCanvas.getAttribute("width")), parseInt(drawingCanvas.getAttribute("height")));
+          result.boxes.filter((box) => box !== result.box).forEach((box) => {
+            Quagga.ImageDebug.drawPath(box, {x: 0, y: 1}, drawingCtx, {color: "green", lineWidth: 2});
+          });
+        }
+
+        if (result.box) {
+          Quagga.ImageDebug.drawPath(result.box, {x: 0, y: 1}, drawingCtx, {color: "#00F", lineWidth: 2});
+        }
+
+        if (result.codeResult && result.codeResult.code) {
+          Quagga.ImageDebug.drawPath(result.line, {x: 'x', y: 'y'}, drawingCtx, {color: 'red', lineWidth: 3});
+        }
+      });
+
+      Quagga.onDetected(function(result) {
+        var code = result.codeResult.code;
+        console.log("Detected " + code);
+
+        let canvas = Quagga.canvas.dom.image;
+        document.querySelector('#interactive').setAttribute('style', `background: url(${canvas.toDataURL()}) no-repeat;`);
+        Quagga.stop();
+
+        if (dialog) {
+          dialog.lookup(code);
+        }
+      });
+
+      Polymer({
+        is: 'write-dialog',
+        behaviors: [
+          Polymer.PaperDialogBehavior
+        ],
+
+        properties: {
+          state: {
+            type: Number,
+            value: 0,
+            notify: true
+          },
+          value: {
+            type: String,
+            value: '',
+            notify: true
+          },
+          isProductCode: {
+            type: Boolean,
+            value: false,
+            notify: true
+          },
+          supportsBarcodeScanner: {
+            type: Boolean,
+            value: false,
+            notify: true
+          }
+        },
+
+        listeners: {
+          'iron-overlay-closed': 'reset',
+          'iron-overlay-opened': 'checkForFeatureAndPermission'
+        },
+
+        ready: function() {
+          window.addEventListener('resize', this.windowChange.bind(this));
+          this.$.input.addEventListener('input', this.inputChange.bind(this));
+
+          Polymer.dom(this.root).querySelectorAll('paper-dialog-scrollable').forEach((node) => {
+            node.dialogElement = this;
+          });
+
+          // For Quagga.
+          dialog = this;
+        },
+
+        checkForFeatureAndPermission: function() {
+          navigator.getUserMedia = navigator.getUserMedia ||
+            navigator.webkitGetUserMedia ||
+            navigator.mozGetUserMedia;
+
+          navigator.getUserMedia({ video: true },
+            () => { this.supportsBarcodeScanner = true },
+            () => { this.supportsBarcodeScanner = false }
+          );
+        },
+
+        windowChange: function() {
+          this.resetFit();
+          if (this.opened) {
+            this.refit();
+          }
+        },
+
+        inputChange: function(ev) {
+          this.isProductCode = /^([0-9]*)$/.test(this.value);
+
+          if (this.$.input.invalid) {
+            this.$.input.invalid = false;
+            this.$.input.errorMessage = '';
+          }
+        },
+
+        actionButtonText: function(value) {
+          return this.isProductCode ? 'LOOKUP' : 'ADD';
+        },
+
+        scan: function() {
+          // Reset input and any potential errors.
+          this.$.input.value = '';
+
+          let size = this.$.interactive.getBoundingClientRect();
+
+          Quagga.init(
+            {
+              inputStream: {
+                type: 'LiveStream',
+                constraints: {
+                  video: {
+                    width: 640,
+                    height: 480,
+                    facingMode: {
+                      exact: "environment"
+                    }
+                  }
+                }
+              },
+              locator: {
+                patchSize: 'medium',
+                halfSample: true
+              },
+              numOfWorkers: 4,
+              decoder: {
+                readers : ['ean_reader', 'ean_8_reader', 'upc_reader', 'upc_e_reader']
+              },
+              locate: true
+            }, function(err) {
+              if (err) {
+                console.log(err);
+                return;
+              }
+              Quagga.start();
+              document.querySelector('canvas.drawingBuffer').setAttribute('class', 'drawingBuffer fit-contain');
+            });
+        },
+
+        lookup: function(value) {
+          let key = '7a10574349051f0a4843d14c9b6ae14d';
+          let id = value || this.value;
+
+          this.$.input.invalid = false;
+
+          fetch(`https://api.outpan.com/v2/products/${id}?apikey=${key}`, { })
+            .then((response) => { return response.json(); })
+            .then((json) => {
+              if (!json.name) {
+                throw Error;
+              }
+              this.value = json.name;
+            })
+            .catch(() => {
+              this.$.input.invalid = true;
+              this.$.input.errorMessage = 'Lookup failed, please try again.';
+            });
+        },
+
+        action: function() {
+          if (this.isProductCode) {
+            this.lookup();
+          } else {
+            this.write();
+          }
+        },
+
+        onWriteSucceeded: function() {
+          this.state = 2;
+        },
+
+        onWriteFailed: function() {
+          this.state = 3;
+        },
+
+        reset: function() {
+          this.state = 0;
+          this.value = '';
+          this.isProductCode = false;
+          // TODO: Cancel writes.
+        },
+
+        write: function() {
+          this.state = 1;
+
+          if (!navigator.nfc) {
+            //this.fire('warn', { value: 'Failed to write; no WebNFC support'});
+            //this.toggle();
+            return;
+          }
+
+          (() => {
+            if (this.adapter) {
+              return Promise.resolve(this.adapter);
+            } else {
+              return navigator.nfc.requestAdapter();
+            }
+          })().then((adapter) => {
+            this.adapter = adapter;
+            this.adapter.pushMessage([{
+              kind: 'json',
+              type: 'application/json',
+              data: JSON.stringify({ name: this.value })
+            }], { target: 'tag', timeout: 5 })
+            .then(() => {
+              this.fire('info', { value: 'Wrote ' + this.value });
+              this.onWriteSucceeded();
+            })
+            .catch(() => {
+              this.fire('warn', { value: 'Failed to write; unknown error' });
+              this.onWriteFailed();
+            });
+          });
+        }
+      });
+    })();
+  </script>
+
+</dom-module>

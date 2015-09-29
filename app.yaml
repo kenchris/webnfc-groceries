@@ -1,0 +1,60 @@
+runtime: python27
+api_version: 1
+threadsafe: yes
+
+libraries:
+- name: webapp2
+  version: "2.5.2"
+
+handlers:
+
+- url: /sw-import.js
+  static_files: static/sw-import.js
+  upload: static/sw-import.js
+
+- url: /cache-config.json
+  static_files: static/cache-config.json
+  upload: static/cache-config.json
+
+- url: /manifest.json
+  static_files: static/manifest.json
+  upload: static/manifest.json
+
+- url: /styles
+  static_dir: static/styles
+  secure: always
+
+- url: /bower_components
+  static_dir: static/bower_components
+  secure: always
+
+- url: /scripts
+  static_dir: static/scripts
+  secure: always
+
+- url: /elements
+  static_dir: static/elements
+  secure: always
+
+- url: /images/.*
+  script: main.app
+  secure: always
+
+- url: .*
+  script: main.app
+  secure: always
+
+skip_files:
+- ^(.*/)?app\.yaml
+- ^(.*/)?app\.yml
+- ^(.*/)?index\.yaml
+- ^(.*/)?index\.yml
+- ^(.*/)?bower\.json
+- ^(.*/)?#.*#
+- ^(.*/)?.*~
+- ^(.*/)?.*\.py[co]
+- ^(.*/)?.*/RCS/.*
+- ^(.*/)?\..*
+- ^(.*/)?.*\.bak$
+- ^(.*/)?node_modules/.*
+- ^.*.md|markdown
