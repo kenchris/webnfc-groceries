@@ -170,6 +170,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
         attached: function() {
           Polymer.dom(this.root).querySelectorAll('paper-dialog-scrollable').forEach((node) => {
             node.dialogElement = this;
+            node.scrollTarget.classList.add('fit');
           });
         },
 

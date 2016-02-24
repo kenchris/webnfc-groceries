@@ -246,6 +246,7 @@ Copyright (c) 2015, 2016 Intel Corporation. All rights reserved.
 
           Polymer.dom(this.root).querySelectorAll('paper-dialog-scrollable').forEach((node) => {
             node.dialogElement = this;
+            node.scrollTarget.classList.add('fit');
           });
 
           // For Quagga.
