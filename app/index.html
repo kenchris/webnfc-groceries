@@ -93,13 +93,20 @@ Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
       white-space: nowrap;
       text-overflow: ellipsis;
     }
-    @media (max-width: 640px) {
+    @media (max-width: 600px) {
       #skeleton .app-toolbar {
         height: 56px;
       }
       #skeleton .app-title {
         left: 124px;
         top: -13px;
+      }
+    }
+    @media (max-width: 400px) {
+      #skeleton .app-title {
+        font-size: 32px;
+        left: 124px;
+        top: -8px;
       }
     }
   </style>
