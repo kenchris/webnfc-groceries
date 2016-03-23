@@ -39,23 +39,31 @@ class MainHandler(http2.PushHandler):
 class ImageHandler(webapp2.RequestHandler):
 
   def get(self):
-    name, ext = self.request.path.split(".")
     device_pixel_ratio = "1"
     if (self.request.headers.get('DPR', 1) > 1):
       device_pixel_ratio = "2"
-
-    if ext == "png":
-      self.response.headers['Content-Type'] = 'image/png'
-    elif ext == "svg":
-      self.response.headers['Content-Type'] = 'image/svg+xml'
-
     self.response.headers.add_header('Content-DPR', device_pixel_ratio);
-    if ext == "png" and not "touch/" in name:
-      path = os.path.join(os.path.dirname(__file__), 'static/' + name + '@' + device_pixel_ratio + '.' + ext)
-    else:
-      path = os.path.join(os.path.dirname(__file__), 'static/' + name + '.' + ext)
-    return self.response.write(file(path, 'rb').read())
 
+    if '.' in os.path.basename(self.request.path):
+      name, ext = self.request.path.split(".");
+
+      if ext == "png" and not "touch/" in name:
+        path = os.path.join(os.path.dirname(__file__), 'static/' + name + '@' + device_pixel_ratio + '.' + ext)
+      else:
+        path = os.path.join(os.path.dirname(__file__), 'static/' + name + '.' + ext)
+
+      if os.path.exists(path):
+        if ext == "png":
+          self.response.headers['Content-Type'] = 'image/png'
+        elif ext == "svg":
+          self.response.headers['Content-Type'] = 'image/svg+xml'
+        return self.response.write(file(path, 'rb').read())
+
+    path = os.path.join(os.path.dirname(__file__), 'static/' + os.path.dirname(self.request.path));
+    self.response.out.write("<ul>");
+    for filename in os.listdir(path):
+      self.response.out.write("<li>" + filename + "</li>")
+    self.response.out.write("</ul>");
 
 app = webapp2.WSGIApplication([
     ('/images/.*', ImageHandler),

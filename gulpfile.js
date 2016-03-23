@@ -24,6 +24,7 @@ var historyApiFallback = require('connect-history-api-fallback');
 var packageJson = require('./package.json');
 var crypto = require('crypto');
 var console = require("gulp-util");
+var Manifest = require('http2-push-manifest/lib/manifest');
 var ensureFiles = require('./tasks/ensure-files.js');
 
 $.cache.clear();
@@ -189,38 +190,83 @@ gulp.task('html', function() {
     dist());
 });
 
-// Generate config data for the <sw-precache-cache> element.
-// This include a list of files that should be precached, as well as a (hopefully unique) cache
-// id that ensure that multiple PSK projects don't share the same Cache Storage.
-// This task does not run by default, but if you are interested in using service worker caching
-// in your project, please enable it within the 'default' task.
-// See https://github.com/PolymerElements/polymer-starter-kit#enable-service-worker-support
-// for more context.
-gulp.task('cache-config', function(callback) {
+var ensurePath = function(file) {
+  // Make a path if one wasn't given. e.g. basic.html -> ./basic.html
+  return (file.indexOf(path.sep) === -1) ? `.${path.sep}${file}` : file;
+};
+
+gulp.task('push-manifest', function(done) {
+  let dir = dist();
+  let result = {};
+
+  let src = ['index.html'];
+  let manifestName = 'push_manifest.json';
+
+  function processFile(file, singleFile) {
+    let f = ensurePath(file);
+    let basePath = f.slice(0, f.lastIndexOf(path.sep))
+    let inputPath = f.slice(f.lastIndexOf(path.sep) + 1);
+
+    let manifest = new Manifest({basePath, inputPath, name: manifestName });
+    return manifest.generate().then(output => {
+      if (singleFile)
+        manifest.write(output.file);
+      else
+        result[inputPath] = output.file;
+    });
+  }
+
+  glob(src, {cwd: dir}, (error, files) => {
+    let singleFile = files.length < 2;
+    return Promise.all(files.map(file => processFile(path.join(dir, file), singleFile)))
+    .then(() => {
+      if (!singleFile) {
+        let manifest = new Manifest({name: manifestName})
+        manifest.write(result);
+      }
+      done();
+    });
+  });
+});
+
+gulp.task('cache-config', function(done) {
   var dir = dist();
   var config = {
     cacheId: packageJson.name || path.basename(__dirname),
     disabled: false
   };
 
-  glob([
-    'index.html',
-    './',
-    'bower_components/webcomponentsjs/webcomponents-lite.min.js',
-    '{elements,scripts,styles}/**/*.*'],
-    {cwd: dir}, function(error, files) {
-    if (error) {
-      callback(error);
-    } else {
-      config.precache = files;
+  let src = ['index.html', '{elements,scripts,styles}/**/*.*'];
+  let manifestName = 'cache-config.json';
 
-      var md5 = crypto.createHash('md5');
+  function processFile(file) {
+    let f = ensurePath(file);
+    let basePath = f.slice(0, f.lastIndexOf(path.sep))
+    let inputPath = f.slice(f.lastIndexOf(path.sep) + 1);
+
+    let manifest = new Manifest({basePath, inputPath, name: manifestName });
+    return manifest.generate().then(output => {
+      config.precache = output.urls.map((url) => {
+        return url.startsWith('/') ? url.slice(1) : url;
+      });
+    });
+  }
+
+  glob(src, {cwd: dir}, (error, files) => {
+    return Promise.all(files.map(file => processFile(path.join(dir, file))))
+    .then(() => {
+      config.precache.push('./');
+
+      let md5 = crypto.createHash('md5');
       md5.update(JSON.stringify(config.precache));
       config.precacheFingerprint = md5.digest('hex');
 
-      var configPath = path.join(dir, 'cache-config.json');
-      fs.writeFile(configPath, JSON.stringify(config), callback);
-    }
+      var configPath = path.join(dir, manifestName);
+      return new Promise(function(resolve) {
+        fs.writeFile(configPath, JSON.stringify(config), resolve);
+      })
+      .then(() => done());
+    });
   });
 });
 
@@ -297,6 +343,7 @@ gulp.task('default', ['clean'], function(cb) {
     'elements',
     [//'lint',
     'images', 'fonts', 'html'],
+    'push-manifest',
     'cache-config',
     cb);
 });

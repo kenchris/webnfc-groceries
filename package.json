@@ -35,8 +35,7 @@
   "scripts": {
     "test": "gulp test:local",
     "start": "gulp serve",
-    "lint": "gulp lint",
-    "push": "http2-push-manifest -f app/index.html"
+    "lint": "gulp lint"
   },
   "engines": {
     "node": ">=0.10.0"

@@ -44,10 +44,19 @@ Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
   <link rel="import" id="bundle" href="/elements/elements.html" async>
 
   <style>
+    @font-face {
+      font-family: 'Roboto-shell';
+      font-style: normal;
+      font-display: block;
+      font-weight: 300;
+      src: local('Roboto Light'), local('Roboto-Light'), local('sans-serif-light'), url(https://fonts.gstatic.com/s/roboto/v15/Hgo13k-tfSpn0qi1SFdUfZBw1xU1rKptJj_0jans920.woff2) format('woff2');
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+    }
+
     body {
       background: #fafafa;
-      font-family: 'Roboto', Helvetica, Arial, sans-serif;
-      font-display: fallback;
+      font-family: 'Roboto-shell';
+      font-display: block;
       color: #616161;
       margin: 0;
     }
@@ -112,7 +121,7 @@ Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
   </style>
 </head>
 
-<body unresolved class="fullbleed layout vertical">
+<body class="fullbleed layout vertical">
   <span id="browser-sync-binding"></span>
 
   <div id="skeleton">
