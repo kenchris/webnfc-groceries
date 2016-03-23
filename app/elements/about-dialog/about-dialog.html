@@ -10,18 +10,6 @@ Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
 <link rel="import" href="../../bower_components/paper-dialog-scrollable/paper-dialog-scrollable.html">
 <link rel="import" href="../../bower_components/paper-dialog-behavior/paper-dialog-behavior.html">
 
-<style>
-  .fit-contain {
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    width: 100%    !important;
-    height: auto   !important;
-  }
-</style>
-
 <dom-module id="about-dialog">
   <template>
     <style>
@@ -61,12 +49,14 @@ Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
         max-width: 480px;
         height: 90%;
         max-height: 600px;
+        overflow: hidden;
       }
       .fullscreen-only {
         display: none;
       }
       paper-toolbar {
         background-color: white;
+        color: black;
       }
     }
 
@@ -168,13 +158,6 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
         behaviors: [
           Polymer.PaperDialogBehavior
         ],
-
-        attached: function() {
-          Polymer.dom(this.root).querySelectorAll('paper-dialog-scrollable').forEach((node) => {
-            node.dialogElement = this;
-            node.scrollTarget.classList.add('fit');
-          });
-        },
 
         ready: function() {
           window.addEventListener('resize', this.windowChange.bind(this));
