@@ -3,7 +3,7 @@
   "short_name": "Shopping Cart",
   "icons": [
       {
-        "src": "images/touch/drawable-mdpi-icon.png",
+        "src": "images/touch/icon-48.png",
         "sizes": "48x48",
         "type": "image/png"
       }, {

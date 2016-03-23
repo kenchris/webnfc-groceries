@@ -36,7 +36,7 @@ handlers:
   static_dir: static/elements
   secure: always
 
-- url: /images/.*
+- url: /images
   script: main.app
   secure: always
 
