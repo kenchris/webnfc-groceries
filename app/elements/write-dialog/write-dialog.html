@@ -103,8 +103,8 @@ Copyright (c) 2015, 2016 Intel Corporation. All rights reserved.
           <br>
         </paper-dialog-scrollable>
         <div class="buttons">
-          <paper-button on-tap="scan" disabled="{{!supportsBarcodeScanner}}">SCAN BARCODE</paper-button>
-          <paper-button on-tap="action" disabled="{{!value}}">{{actionButtonText(isProductCode)}}</paper-button>
+          <paper-button on-tap="scan" disabled="[[!supportsBarcodeScanner]]">SCAN BARCODE</paper-button>
+          <paper-button on-tap="action" disabled="[[!value]]">[[actionButtonText(isProductCode)]]</paper-button>
         </div>
       </section>
 
@@ -243,11 +243,6 @@ Copyright (c) 2015, 2016 Intel Corporation. All rights reserved.
         ready: function() {
           window.addEventListener('resize', this.windowChange.bind(this));
           this.$.input.addEventListener('input', this.inputChange.bind(this));
-
-          Polymer.dom(this.root).querySelectorAll('paper-dialog-scrollable').forEach((node) => {
-            node.dialogElement = this;
-            node.scrollTarget.classList.add('fit');
-          });
 
           // For Quagga.
           dialog = this;
