@@ -269,7 +269,7 @@ Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
   </style>
   <template>
     <weneed-nfc id="adapter" faking="{{isFaking}}">
-      <item-store id="shop" data="{{shoppingItems}}" image="{{imageSrc}}" on-complete="gotoHome"></item-store>
+      <item-store id="shop" data="{{shoppingItems}}" image="{{imageSrc}}" on-complete="changeRoute" data-route="home"></item-store>
     </weneed-nfc>
     <paper-drawer-panel id="paperDrawerPanel" force-narrow="true">
       <!-- Drawer Scroll Header Panel -->
@@ -312,7 +312,8 @@ Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
           <span class="flex"></span>
 
           <div class="middle middle-container center horizontal layout">
-            <img class="logo" src="/images/touch/icon_512.svg" style="margin: 0 0 10px 0;" on-click="gotoHome"></img>
+            <img class="logo" src="/images/touch/icon_512.svg" style="margin: 0 0 10px 0;"
+                 on-click="changeRoute" data-route="home"></img>
             <div class="center-justified vertical layout flex">
             <!-- Application name -->
               <div class="app-name">Shopping Cart</div>
@@ -345,8 +346,7 @@ Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
                   </div>
                 </div>
                 <div class="card-actions horizontal layout end-justified">
-                  <paper-button data-route="list"
-                      on-click="gotoShoppingList">Shopping list</paper-button>
+                  <paper-button on-click="changeRoute" data-route="list">Shopping list</paper-button>
                 </div>
               </paper-card>
 
@@ -391,13 +391,13 @@ Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
           </iron-pages>
 
           <footer>
-			      <div>
-			      <div style="margin-bottom: 16px; color: #2E3AA1; font-weight: bold;">Web NFC Shopping Cart</div>
-				      <ul style="color: #77909D; font-size: 14px; font-weight: 300;">
-				        <li><a href="https://www.outpan.com/">Outpan</a> is licensed under <a href="http://creativecommons.org/licenses/by-sa/3.0/">CC BY-SA 3.0</a></li>
-				      </ul>
-				     </div>
-			    </footer>
+			<div>
+			<div style="margin-bottom: 16px; color: #2E3AA1; font-weight: bold;">Web NFC Shopping Cart</div>
+			  <ul style="color: #77909D; font-size: 14px; font-weight: 300;">
+				<li><a href="https://www.outpan.com/">Outpan</a> is licensed under <a href="http://creativecommons.org/licenses/by-sa/3.0/">CC BY-SA 3.0</a></li>
+			  </ul>
+			</div>
+		  </footer>
         </div>
       </paper-scroll-header-panel>
     </paper-drawer-panel>
@@ -405,8 +405,7 @@ Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
     <write-dialog id="writeguide"></write-dialog>
     <about-dialog id="about"></about-dialog>
 
-    <paper-toast id="console"
-                 duration="6000">
+    <paper-toast id="console" duration="6000">
     </paper-toast>
   </template>
   <script>
@@ -419,10 +418,13 @@ Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
         properties: {
           route: {
             type: Object,
-            notify: true,
-            observer: "onRouteChanged"
+            notify: true
           }
         },
+
+        observers: [
+          'onRouteChanged(route.page)'
+        ],
 
         _log: function(ev) {
           console.log(ev.detail.value);
@@ -435,12 +437,9 @@ Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
           addEventListener('info', this._log.bind(this));
         },
 
-        gotoHome: function() {
-          window.location.hash = '!/home';
-        },
-
-        gotoShoppingList: function() {
-          window.location.hash = '!/list';
+        changeRoute: function(ev) {
+          let page = ev.target.dataset.route;
+          window.location.hash = '!/' + page;
         },
 
         // Close drawer after menu item is selected if drawerPanel is narrow
