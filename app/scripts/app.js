@@ -9,7 +9,7 @@ Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
 
   function finishLazyLoading() {
     // (Optional) Use native Shadow DOM if it's available in the browser.
-    window.Polymer = window.Polymer || {dom: 'shadow'};
+    //window.Polymer = window.Polymer || {dom: 'shadow'};
 
     var onImportLoaded = function() {
       var skeleton = document.getElementById('skeleton');
