@@ -33,7 +33,7 @@ class MainHandler(http2.PushHandler):
   def get(self):
     path = os.path.join(os.path.dirname(__file__), 'static/index.html')
 #    self.response.headers.add_header('Accept-CH', 'DPR')
-    return self.response.write(template.render(path, {}))
+    return self.response.write(file(path, 'rb').read())
 
 
 class ImageHandler(webapp2.RequestHandler):

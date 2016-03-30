@@ -281,25 +281,27 @@ Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
         </div>
 
         <!-- Drawer Content -->
-        <paper-menu class="list" attr-for-selected="data-route" selected="[[route]]">
-          <a data-route="home" on-click="gotoHome">
+        <paper-menu class="list" attr-for-selected="data-route" selected="{{route.page}}">
+          <a data-route="home">
             <iron-icon icon="home"></iron-icon>
             <span>Home</span>
           </a>
 
-          <a data-route="pending" on-click="gotoShoppingList">
+          <a data-route="list">
             <iron-icon icon="maps:local-grocery-store"></iron-icon>
             <span>Shopping list</span>
           </a>
-          <template is="dom-if" if="{{isFaking}}">
-            <hr>
-            <a onclick="adapter.onItemReceived();">
+        </paper-menu>
+        <template is="dom-if" if="{{isFaking}}">
+          <hr>
+          <paper-menu>
+            <a data-route="list" onclick="adapter.onItemReceived();">
               <iron-icon icon="icons:add-circle"></iron-icon>
               <span>Add random item</span>
             </a>
             <div style="position: absolute; bottom: 16px; right: 16px;font-size: 14px; opacity: .54;">Faking mode</div>
-          </template>
-        </paper-menu>
+          </paper-menu>
+        </template>
       </paper-scroll-header-panel>
 
       <!-- Main Area -->
@@ -324,7 +326,7 @@ Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
 
         <!-- Main Content -->
         <div class="content fit layout vertical">
-          <iron-pages class="flex" attr-for-selected="data-route" selected="{{route}}">
+          <iron-pages class="flex" attr-for-selected="data-route" selected="{{route.page}}">
             <section data-route="home" class="vertical layout center">
               <paper-card>
                 <div class="horizontal layout">
@@ -343,7 +345,7 @@ Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
                   </div>
                 </div>
                 <div class="card-actions horizontal layout end-justified">
-                  <paper-button data-route="pending"
+                  <paper-button data-route="list"
                       on-click="gotoShoppingList">Shopping list</paper-button>
                 </div>
               </paper-card>
@@ -366,7 +368,7 @@ Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
               </paper-card>
             </section>
 
-            <section data-route="pending">
+            <section data-route="list">
               <paper-card id="shopping-list-card" class="vertical layout">
                 <div class="card-content flex vertical layout">
                   <h4 style="margin-top: 0;">Shopping list</h4>
@@ -407,7 +409,6 @@ Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
                  duration="6000">
     </paper-toast>
   </template>
-  <script src="../../bower_components/page/page.js"></script>
   <script>
     (function() {
       'use strict';
@@ -417,9 +418,9 @@ Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
 
         properties: {
           route: {
-            type: String,
-            value: 'home',
-            notify: true
+            type: Object,
+            notify: true,
+            observer: "onRouteChanged"
           }
         },
 
@@ -430,45 +431,30 @@ Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
         },
 
         ready: function() {
-          // We use Page.js for routing. This is a Micro
-          // client-side router inspired by the Express router
-          // More info: https://visionmedia.github.io/page.js/
-
-          let scrollToTop = function (ctx, next) {
-            this.$.headerPanelMain.scrollToTop(true);
-            next();
-          }.bind(this);
-
-          page('/', scrollToTop, () => { this.route = 'home'; });
-          page('/home', scrollToTop, () => { this.route = 'home'; });
-          page('/pending', scrollToTop, () => { this.route = 'pending'; });
-
-          // add #! before urls
-          page({
-            hashbang: true
-          });
-
           addEventListener('warn', this._log.bind(this));
           addEventListener('info', this._log.bind(this));
         },
 
         gotoHome: function() {
-          this.route = 'home';
-          this.onDataRouteClick();
+          window.location.hash = '!/home';
         },
 
         gotoShoppingList: function() {
-          this.route = 'pending';
-          this.onDataRouteClick();
+          window.location.hash = '!/list';
         },
 
         // Close drawer after menu item is selected if drawerPanel is narrow
-        onDataRouteClick: function() {
+        onRouteChanged: function() {
+          console.log(this.route)
+          if (["home", "list"].indexOf(this.route.page) < 0) {
+            this.async(() => window.location.hash = '!/home');
+            return;
+          }
+
           var drawerPanel = document.querySelector('#paperDrawerPanel');
           if (drawerPanel.narrow) {
             drawerPanel.closeDrawer();
           }
-          document.location.hash = '#!/' + this.route;
         },
 
         onItemComplete: function(event) {
