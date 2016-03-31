@@ -20,11 +20,6 @@ Copyright (c) 2015, 2016 Intel Corporation. All rights reserved.
             },
             notify: true,
             observer: '_dataChanged'
-          },
-          image: {
-            type: String,
-            value: '',
-            notify: true
           }
         },
 
@@ -36,7 +31,6 @@ Copyright (c) 2015, 2016 Intel Corporation. All rights reserved.
         },
 
         _dataChanged: function(dataRecord) {
-          this.image = 'images/basket.jpg';
           if (!dataRecord || dataRecord instanceof Array) {
             return;
           }
@@ -47,22 +41,6 @@ Copyright (c) 2015, 2016 Intel Corporation. All rights reserved.
 
         addItem: function(name) {
           this.push('data', { name: name });
-          document.querySelector('#tobuy').fire('resize');
-        },
-
-        onItemComplete: function(event) {
-          var index = event.model.__data__.index;
-
-          var elem = event.path[0];
-          if (!elem.hasAttribute('checked')) {
-            return;
-          }
-
-          setTimeout(function() {
-            elem.removeAttribute('checked');
-            this.splice('data', index, 1);
-            event.model.dataHost.fire('resize');
-          }.bind(this), 300);
         }
       });
     })();

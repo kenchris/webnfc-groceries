@@ -1,0 +1,93 @@
+   
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/paper-checkbox/paper-checkbox.html">
+<link rel="import" href="../../bower_components/iron-list/iron-list.html">
+   
+<dom-module id="shopping-list">
+  <template>
+    <style>
+      :host {
+        display: block;
+        @apply(--layout-vertical);
+      }
+        
+      paper-card {
+        background: white;
+        padding: 20px;
+      }
+     
+      iron-list {
+        overflow: hidden;
+      }
+      
+      @media (min-width: 601px) {
+        paper-card {
+          padding: 40px;
+        }
+      }
+    </style>
+   
+    <paper-card id="shopping-list-card" class="vertical layout flex">
+        <h4 style="margin-top: 0;">Shopping list</h4>
+        <template is="dom-if" if="[[!items.length]]">
+          <div class="flex">Your shopping list is currently empty</div>
+        </template>
+        <iron-list id="list" items="[[items]]" as="item" class="flex">
+          <template>
+            <div style="padding: 5px;">
+              <paper-checkbox on-iron-change="onItemComplete">[[item.name]]</paper-checkbox>
+            </div>
+          </template>
+        </iron-list>
+    </paper-card>
+  </template>
+  <script>
+    (function() {
+      'use strict';
+
+      Polymer({
+        is: 'shopping-list',
+        
+        behaviors: [
+          Polymer.IronResizableBehavior
+        ],
+        
+        properties: {
+          items: {
+            type: Array,
+            value: function() {
+              return [];
+            },
+            notify: true,
+            observer: '_itemsChanged'
+          }
+        },
+
+        observers: [
+          '_itemsChanged(items.splices)'
+        ],
+        
+        _itemsChanged: function() {
+          // Note, this is needed as it is fuzzy-loaded after items have size.
+          this.$.list.fire('iron-resize');   
+        },
+        
+        onItemComplete: function(event) {
+          var index = event.model.__data__.index;
+
+          var elem = event.path[0];
+          if (!elem.hasAttribute('checked')) {
+            return;
+          }
+
+          setTimeout(function() {
+            elem.removeAttribute('checked');
+            this.splice('items', index, 1);
+            event.model.dataHost.fire('resize');
+          }.bind(this), 300);
+        }
+      });
+    })();
+  </script>
+
+</dom-module>
