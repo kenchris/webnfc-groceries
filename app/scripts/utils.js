@@ -1,4 +1,4 @@
- 
+
 window.requestIdleCallback =
   window.requestIdleCallback ||
   function (cb) {
@@ -12,20 +12,24 @@ window.requestIdleCallback =
       });
     }, 1);
   }
-  
+
+  function whenIdle() {
+    return new Promise(resolve => {
+       requestIdleCallback(() => resolve());
+    });
+  }
+
   function ensureUpgraded(elem) {
     return new Promise((resolve, reject) => {
       if (Polymer.isInstance(elem)) {
         resolve(elem);
         return;
       }
-    
-      requestIdleCallback(() => {
-        let name = elem.nodeName.toLowerCase();
-        console.log(`fuzzy loading elements/${name}/${name}.html`);
-        Polymer.Base.importHref(`elements/${name}/${name}.html`,
-          () => resolve(elem),
-          () => reject());
-      });
+
+      let name = elem.nodeName.toLowerCase();
+      console.log(`fuzzy loading elements/${name}/${name}.html`);
+      Polymer.Base.importHref(`elements/${name}/${name}.html`,
+        () => resolve(elem),
+        () => reject());
     });
   }

@@ -395,12 +395,16 @@ Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
           
           switch (this.route.page) {
             case "list":
-              ensureUpgraded(this.$['shopping-list']);
+              whenIdle().then(() => {
+                ensureUpgraded(this.$['shopping-list']);
+              });
               break;
             case "home":
-              let p1 = ensureUpgraded(this.$['overview-card']);
-              let p2 = ensureUpgraded(this.$['get-started-card']);
-              Promise.all([p1, p2]).then(elems => elems.map(elem => elem.removeAttribute("unresolved")));
+              whenIdle().then(() => {
+                let p1 = ensureUpgraded(this.$['overview-card']);
+                let p2 = ensureUpgraded(this.$['get-started-card']);
+                Promise.all([p1, p2]).then(elems => elems.map(elem => elem.removeAttribute("unresolved")));
+              });
               break;
             default:
               this.async(() => window.location.hash = '!/home');
