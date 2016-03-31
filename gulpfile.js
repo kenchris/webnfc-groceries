@@ -152,6 +152,7 @@ gulp.task('copy', function() {
     'app/*',
     '!app/test',
     '!app/elements',
+    '!app/scripts',
     '!bower_components',
     '!app/cache-config.json',
     '!**/.DS_Store'
@@ -168,7 +169,10 @@ gulp.task('copy', function() {
   var elements = gulp.src(['app/elements/**/*.html'])
     .pipe(gulp.dest(dist('elements')));
 
-  return merge(app, bower, elements)
+  var scripts = gulp.src(['app/scripts/*.js'])
+    .pipe(gulp.dest(dist('scripts')));
+
+  return merge(app, bower, elements, scripts)
     .pipe($.size({
       title: 'copy'
     }));
