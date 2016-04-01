@@ -31,7 +31,7 @@ Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
     color: #212121;
     @apply(--paper-font-body1);
   }
-  
+
   [unresolved] {
     opacity: 0;
   }
@@ -212,7 +212,7 @@ Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
 
   /* Breakpoints */
   /* Small */
-  
+
   @media (max-width: 600px) {
     paper-toolbar.tall .logo {
       width: 72px;
@@ -369,18 +369,20 @@ Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
           addEventListener('warn', this._log.bind(this));
           addEventListener('info', this._log.bind(this));
         },
-        
+
         showAboutDialog: function() {
           ensureUpgraded(this.$.about)
           .then((elem) => {
-            elem.toggle();
+            if (!elem.opened)
+              elem.openWithHistory();
           });
         },
 
         showWriteGuide: function() {
           ensureUpgraded(this.$.writeguide)
           .then((elem) => {
-            elem.toggle();
+            if (!elem.opened)
+              elem.openWithHistory();
           });
         },
 
@@ -392,7 +394,7 @@ Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
         // Close drawer after menu item is selected if drawerPanel is narrow
         onRouteChanged: function() {
           console.log(this.route)
-          
+
           switch (this.route.page) {
             case "list":
               whenIdle().then(() => {
