@@ -8,8 +8,6 @@ Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
 
 <link rel="import" href="../../bower_components/paper-card/paper-card.html">
 <link rel="import" href="../../bower_components/paper-fab/paper-fab.html">
-<link rel="import" href="../../bower_components/paper-drawer-panel/paper-drawer-panel.html">
-<link rel="import" href="../../bower_components/paper-toolbar/paper-toolbar.html">
 <link rel="import" href="../../bower_components/paper-menu/paper-menu.html">
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../../bower_components/iron-image/iron-image.html">
@@ -73,16 +71,16 @@ Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
     position:relative;
   }
 
-  #drawerToolbar {
+  app-drawer app-toolbar {
     color: white;
-    background: url(../images/menubg.png);
+    background: url(../../images/menubg.png);
     background-color: var(--default-primary-color);
 
     height: 150px;
     position: relative;
   }
 
-  #drawerToolbar .title {
+  .title {
     font-size: 16px;
     line-height: 1;
     color: white;
@@ -102,6 +100,11 @@ Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
 
   paper-scroll-header-panel {
     height: 100%;
+  }
+
+  paper-icon-button {
+    min-width: 40px;
+    min-height: 40px;
   }
 
   paper-fab {
@@ -167,11 +170,11 @@ Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
     padding: 0 16px;
   }
 
-  paper-toolbar {
+  app-toolbar {
     background-color: var(--default-primary-color);
   }
 
-  paper-toolbar.tall .app-name {
+  app-toolbar .app-name {
     white-space: nowrap;
     text-overflow: ellipsis;
 
@@ -180,7 +183,7 @@ Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
     color: white;
   }
 
-  paper-toolbar.tall .logo {
+  app-toolbar .logo {
       width: 96px;
   }
 
@@ -204,8 +207,16 @@ Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
     padding: 0;
   }
 
+  app-header app-toolbar {
+    height: 192px;
+  }
+
+  app-drawer app-toolbar {
+    height: 150px;
+  }
+
   @media (max-width: 400px) {
-    paper-toolbar.tall .app-name {
+    app-toolbar .app-name {
       font-size: 32px;
       font-weight: 300;
       color: white;
@@ -216,16 +227,20 @@ Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
   /* Small */
 
   @media (max-width: 600px) {
-    paper-toolbar.tall .logo {
+    app-toolbar .logo {
       width: 72px;
     }
 
-    #drawer .paper-toolbar {
+    #drawer app-toolbar {
       margin-left: 16px;
     }
 
     #overlay {
       min-width: 360px;
+    }
+
+    app-header app-toolbar {
+      height: 168px;
     }
   }
 
@@ -243,15 +258,6 @@ Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
     paper-fab {
       top: 164px;
     }
-
-    #drawer.paper-drawer-panel > [drawer] {
-      border-right: 1px solid rgba(0, 0, 0, 0.14);
-    }
-  }
-
-  app-header {
-    height: 192px;
-    background-color: #FFC107;
   }
 
   </style>
@@ -260,9 +266,9 @@ Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
       <item-store id="shop" data="{{shoppingItems}}" on-complete="changeRoute" data-route="home"></item-store>
     </weneed-nfc>
 
-    <app-drawer-layout drawer-width="288px" responsive-width="640px" style="background-color: yellow" force-narrow>
+    <app-drawer-layout drawer-width="288px" style="background-color: yellow" force-narrow>
       <app-drawer id="appDrawer" swipe-open>
-        <app-toolbar style="background: url(../../images/menubg.png)">
+        <app-toolbar>
           <div class="title">Web NFC Shopping Cart</div>
         </app-toolbar>
         <paper-menu class="list" attr-for-selected="data-route" selected="{{route.page}}">
@@ -283,15 +289,15 @@ Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
               <iron-icon icon="icons:add-circle"></iron-icon>
               <span>Add random item</span>
             </a>
-            <div style="position: absolute; bottom: 16px; right: 16px;font-size: 14px; opacity: .54;">Faking mode</div>
           </paper-menu>
         </template>
+        <div style="position: absolute; bottom: 132px; right: 16px; font-size: 14px; opacity: .54;">Faking mode</div>
       </app-drawer>
 
       <app-header-layout style="background-color: green">
-        <app-header effects="waterfall" condenses fixed shadow>
-          <app-toolbar>
-            <paper-icon-button icon="menu" on-tap="showDrawer"></paper-icon-button>
+        <app-header effects="waterfall" condenses fixed>
+          <app-toolbar class="horizontal layout">
+            <paper-icon-button class="self-start" style="margin-top: 12px" icon="menu" drawer-toggle></paper-icon-button>
             <div class="middle middle-container center horizontal layout">
               <img class="logo" src="/images/touch/icon_512.svg" style="margin: 0 0 10px 0;"
                   on-click="changeRoute" data-route="home"></img>
@@ -366,11 +372,6 @@ Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
         ready: function() {
           addEventListener('warn', this._log.bind(this));
           addEventListener('info', this._log.bind(this));
-        },
-
-        showDrawer: function() {
-          var appDrawer = document.querySelector('#appDrawer');
-          appDrawer.open();
         },
 
         showAboutDialog: function() {
