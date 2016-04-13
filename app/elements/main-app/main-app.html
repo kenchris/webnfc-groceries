@@ -248,19 +248,19 @@ Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
       border-right: 1px solid rgba(0, 0, 0, 0.14);
     }
   }
- 
+
   app-header {
     height: 192px;
-    background-color: #FFC107; 
+    background-color: #FFC107;
   }
-  
+
   </style>
   <template>
     <weneed-nfc id="adapter" faking="{{isFaking}}">
       <item-store id="shop" data="{{shoppingItems}}" on-complete="changeRoute" data-route="home"></item-store>
     </weneed-nfc>
-    
-    <app-drawer-layout drawer-width="288px" responsive-width="640px" style="background-color: yellow">
+
+    <app-drawer-layout drawer-width="288px" responsive-width="640px" style="background-color: yellow" force-narrow>
       <app-drawer id="appDrawer" swipe-open>
         <app-toolbar style="background: url(../../images/menubg.png)">
           <div class="title">Web NFC Shopping Cart</div>
@@ -287,11 +287,11 @@ Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
           </paper-menu>
         </template>
       </app-drawer>
-      
+
       <app-header-layout style="background-color: green">
         <app-header effects="waterfall" condenses fixed shadow>
           <app-toolbar>
-            <paper-icon-button icon="menu" id="paperToggle"></paper-icon-button>
+            <paper-icon-button icon="menu" on-tap="showDrawer"></paper-icon-button>
             <div class="middle middle-container center horizontal layout">
               <img class="logo" src="/images/touch/icon_512.svg" style="margin: 0 0 10px 0;"
                   on-click="changeRoute" data-route="home"></img>
@@ -331,12 +331,8 @@ Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
           </footer>
         </div>
       </app-header-layout>
-      
-    </app-drawer-layout>
-    
-    
-   
 
+    </app-drawer-layout>
 
     <write-dialog id="writeguide"></write-dialog>
     <about-dialog id="about"></about-dialog>
@@ -370,6 +366,11 @@ Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
         ready: function() {
           addEventListener('warn', this._log.bind(this));
           addEventListener('info', this._log.bind(this));
+        },
+
+        showDrawer: function() {
+          var appDrawer = document.querySelector('#appDrawer');
+          appDrawer.open();
         },
 
         showAboutDialog: function() {
@@ -415,9 +416,9 @@ Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
               return;
           }
 
-          var drawerPanel = document.querySelector('#appDrawer');
-          if (drawerPanel.narrow) {
-            drawerPanel.closeDrawer();
+          var appDrawer = document.querySelector('#appDrawer');
+          if (!appDrawer.persistent) {
+            appDrawer.close();
           }
         },
 
