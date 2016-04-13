@@ -7,6 +7,7 @@ Copyright (c) 2015, 2016 Intel Corporation. All rights reserved.
 <link rel="import" href="../../bower_components/iron-pages/iron-pages.html">
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../../bower_components/paper-dialog-behavior/paper-dialog-behavior.html">
+<link rel="import" href="../../bower_components/paper-dialog-behavior/paper-dialog-shared-styles.html">
 <link rel="import" href="../../bower_components/paper-dialog-scrollable/paper-dialog-scrollable.html">
 <link rel="import" href="../../bower_components/paper-input/paper-input.html">
 <link rel="import" href="../../bower_components/paper-styles/paper-styles.html">
@@ -24,68 +25,67 @@ Copyright (c) 2015, 2016 Intel Corporation. All rights reserved.
 </style>
 
 <dom-module id="write-dialog">
-  <link rel="import" type="css" href="../../bower_components/paper-dialog-behavior/paper-dialog-common.css">
   <template>
-    <style>
-    :host {
-      --paper-dialog-background-color: white;
-      @apply(--layout-vertical);
-    }
+    <style include="paper-dialog-shared-styles">
+      :host {
+        --paper-dialog-background-color: white;
+        @apply(--layout-vertical);
+      }
 
-    :host > * {
-      padding: 0;
-    }
+      :host > * {
+        padding: 0;
+      }
 
-    iron-pages {
-      @apply(--layout-flex);
-      @apply(--layout-vertical);
-      margin: 0px;
-    }
+      iron-pages {
+        @apply(--layout-flex);
+        @apply(--layout-vertical);
+        margin: 0px;
+      }
 
-    section {
-      @apply(--layout-flex);
-      @apply(--layout-vertical);
-    }
+      section {
+        @apply(--layout-flex);
+        @apply(--layout-vertical);
+      }
 
-    h2 {
-      @apply(--paper-font-title);
-      font-weight: 300 !important;
-      color: #212121;
-      padding: 0px 24px 16px;
-    }
+      h2 {
+        @apply(--paper-font-title);
+        font-weight: 300 !important;
+        color: #212121;
+        padding: 0px 24px 16px;
+      }
 
-    p {
-      @apply(--paper-font-body1);
-      color: #212121;
-    }
+      p {
+        @apply(--paper-font-body1);
+        color: #212121;
+      }
 
-    paper-button {
-      color: var(--paper-indigo-500);
-    }
+      paper-button {
+        color: var(--paper-indigo-500);
+      }
 
-    paper-dialog-scrollable {
-      @apply(--layout-flex);
-    }
+      paper-dialog-scrollable {
+        @apply(--layout-flex);
+      }
 
-    .buttons {
-      border-top: 1px solid rgba(0, 0, 0, 0.12);
-    }
+      .buttons {
+        border-top: 1px solid rgba(0, 0, 0, 0.12);
+      }
 
-    img {
-      width: 100%;
-    }
+      img {
+        width: 100%;
+      }
 
-    video {
-      width: 100%    !important;
-      height: auto   !important;
-    }
+      video {
+        width: 100%    !important;
+        height: auto   !important;
+      }
 
-    .illustration {
-      background-size: cover !important;
-      height: 0px;
-      padding-top: 65%;
-      position: relative;
-    }
+      .illustration {
+        background-size: cover !important;
+        height: 0px;
+        padding-top: 65%;
+        position: relative;
+      }
     </style>
 
     <h2>Add a new item for the shopping list</h2>
