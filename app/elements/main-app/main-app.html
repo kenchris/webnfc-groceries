@@ -6,7 +6,7 @@ Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 
 <link rel="import" href="../../bower_components/app-layout/app-layout.html">
-<link rel="import" href="../../bower_components/iron-flex-layout/classes/iron-flex-layout.html">
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html">
 <link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
 <link rel="import" href="../../bower_components/iron-icons/maps-icons.html">
 <link rel="import" href="../../bower_components/iron-pages/iron-pages.html">
@@ -99,6 +99,7 @@ Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
       }
 
       paper-icon-button {
+        @apply(--layout-self-start);
         min-width: 40px;
         min-height: 40px;
       }
@@ -173,13 +174,26 @@ Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
           width: 96px;
       }
 
-      #mainToolbar .middle-container  {
+      .middle-container {
+        @apply(--layout-horizontal);
+        @apply(--layout-center);
         height: 100%;
-        margin-left: 36px;
+      }
+
+      .toolbar-title {
+        @apply(--layout-vertical);
+        @apply(--layout-flex);
+        @apply(--layout-center-justified);
       }
 
       iron-pages {
+        @apply(--layout-flex);
         padding: 16px;
+      }
+
+      iron-pages section {
+        @apply(--layout-vertical);
+        @apply(--layout-center);
       }
 
       footer {
@@ -194,11 +208,8 @@ Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
       }
 
       app-header app-toolbar {
+        @apply(--layout-horizontal);
         height: 192px;
-      }
-
-      app-drawer app-toolbar {
-        height: 150px;
       }
 
       @media (max-width: 400px) {
@@ -280,12 +291,12 @@ Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
 
       <app-header-layout>
         <app-header condenses fixed>
-          <app-toolbar class="horizontal layout">
-            <paper-icon-button class="self-start" style="margin-top: 12px" icon="menu" drawer-toggle></paper-icon-button>
-            <div class="middle middle-container center horizontal layout">
+          <app-toolbar>
+            <paper-icon-button style="margin-top: 12px" icon="menu" drawer-toggle></paper-icon-button>
+            <div class="middle middle-container">
               <img class="logo" src="/images/touch/icon_512.svg" style="margin: 0 0 10px 0;"
                   on-click="changeRoute" data-route="home"></img>
-              <div class="center-justified vertical layout flex">
+              <div class="toolbar-title">
               <!-- Application name -->
                 <div class="app-name">Shopping Cart</div>
                 <div class="bottom-title paper-font-subhead">Tap so you don't forget to buy</div>
@@ -294,32 +305,28 @@ Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
             <paper-fab app-header-overlay="" icon="add" on-click="showWriteGuide"></paper-fab>
           </app-toolbar>
         </app-header>
-        <div class="content" style="background-color: pink">
-          <iron-pages class="flex" attr-for-selected="data-route" selected="{{route.page}}">
-            <section id="home-section" data-route="home" class="vertical layout center">
-              <overview-card unresolved id="overview-card"
-                items="[[shoppingItems]]"
-                on-show-list="changeRoute" data-route="list">
-              </overview-card>
-              <get-started-card unresolved id="get-started-card"
-                on-show-more="showAboutDialog">
-              </get-started-card>
-            </section>
-
-            <section data-route="list" class="vertical layout center">
-              <shopping-list id="shopping-list" items="{{shoppingItems}}"></shopping-list>
-            </section>
-
-          </iron-pages>
-          <footer>
-            <div>
-              <div style="margin-bottom: 16px; color: #2E3AA1; font-weight: bold;">Web NFC Shopping Cart</div>
-              <ul style="color: #77909D; font-size: 14px; font-weight: 300;">
-                <li><a href="https://www.outpan.com/">Outpan</a> is licensed under <a href="http://creativecommons.org/licenses/by-sa/3.0/">CC BY-SA 3.0</a></li>
-              </ul>
-            </div>
-          </footer>
-        </div>
+        <iron-pages attr-for-selected="data-route" selected="{{route.page}}">
+          <section id="home-section" data-route="home">
+            <overview-card unresolved id="overview-card"
+              items="[[shoppingItems]]"
+              on-show-list="changeRoute" data-route="list">
+            </overview-card>
+            <get-started-card unresolved id="get-started-card"
+              on-show-more="showAboutDialog">
+            </get-started-card>
+          </section>
+          <section data-route="list">
+            <shopping-list id="shopping-list" items="{{shoppingItems}}"></shopping-list>
+          </section>
+        </iron-pages>
+        <footer>
+          <div>
+            <div style="margin-bottom: 16px; color: #2E3AA1; font-weight: bold;">Web NFC Shopping Cart</div>
+            <ul style="color: #77909D; font-size: 14px; font-weight: 300;">
+              <li><a href="https://www.outpan.com/">Outpan</a> is licensed under <a href="http://creativecommons.org/licenses/by-sa/3.0/">CC BY-SA 3.0</a></li>
+            </ul>
+          </div>
+        </footer>
       </app-header-layout>
     </app-drawer-layout>
 
