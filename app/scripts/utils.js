@@ -51,7 +51,7 @@ window.requestIdleCallback =
   }
 
   function onpopstate(event) {
-      console.log("pop " + (event.state) ? event.state.id : undefined);
+      console.log("pop " + (event.state ? event.state.id : undefined));
       let pendingOpen = event.state ? event.state.id : undefined;
       let pendingClose = _lastState ? _lastState.id : undefined;
 

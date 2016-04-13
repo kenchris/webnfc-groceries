@@ -19,6 +19,8 @@ Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
 <link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
 <link rel="import" href="../../bower_components/iron-icons/maps-icons.html">
 
+<link rel="import" href="../../bower_components/app-layout/app-layout.html">
+
 <link rel="import" href="../item-store/item-store.html">
 <link rel="import" href="../weneed-nfc/weneed-nfc.html">
 <script src="../../scripts/utils.js"></script>
@@ -246,21 +248,23 @@ Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
       border-right: 1px solid rgba(0, 0, 0, 0.14);
     }
   }
+ 
+  app-header {
+    height: 192px;
+    background-color: #FFC107; 
+  }
+  
   </style>
   <template>
     <weneed-nfc id="adapter" faking="{{isFaking}}">
       <item-store id="shop" data="{{shoppingItems}}" on-complete="changeRoute" data-route="home"></item-store>
     </weneed-nfc>
-    <paper-drawer-panel id="paperDrawerPanel" force-narrow="true">
-      <!-- Drawer Scroll Header Panel -->
-      <paper-scroll-header-panel drawer fixed>
-
-        <!-- Drawer Toolbar -->
-        <div id="drawerToolbar" style="background: url(../../images/menubg.png)">
+    
+    <app-drawer-layout drawer-width="288px" responsive-width="640px" style="background-color: yellow">
+      <app-drawer id="appDrawer" swipe-open>
+        <app-toolbar style="background: url(../../images/menubg.png)">
           <div class="title">Web NFC Shopping Cart</div>
-        </div>
-
-        <!-- Drawer Content -->
+        </app-toolbar>
         <paper-menu class="list" attr-for-selected="data-route" selected="{{route.page}}">
           <a data-route="home">
             <iron-icon icon="home"></iron-icon>
@@ -282,30 +286,25 @@ Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
             <div style="position: absolute; bottom: 16px; right: 16px;font-size: 14px; opacity: .54;">Faking mode</div>
           </paper-menu>
         </template>
-      </paper-scroll-header-panel>
-
-      <!-- Main Area -->
-      <paper-scroll-header-panel main id="headerPanelMain" fixed keep-condensed-header>
-        <!-- Main Toolbar -->
-        <paper-toolbar id="mainToolbar" class="tall">
-          <paper-icon-button id="paperToggle" icon="menu" paper-drawer-toggle></paper-icon-button>
-          <span class="flex"></span>
-
-          <div class="middle middle-container center horizontal layout">
-            <img class="logo" src="/images/touch/icon_512.svg" style="margin: 0 0 10px 0;"
-                 on-click="changeRoute" data-route="home"></img>
-            <div class="center-justified vertical layout flex">
-            <!-- Application name -->
-              <div class="app-name">Shopping Cart</div>
-              <div class="bottom-title paper-font-subhead">Tap so you don't forget to buy</div>
+      </app-drawer>
+      
+      <app-header-layout style="background-color: green">
+        <app-header effects="waterfall" condenses fixed shadow>
+          <app-toolbar>
+            <paper-icon-button icon="menu" id="paperToggle"></paper-icon-button>
+            <div class="middle middle-container center horizontal layout">
+              <img class="logo" src="/images/touch/icon_512.svg" style="margin: 0 0 10px 0;"
+                  on-click="changeRoute" data-route="home"></img>
+              <div class="center-justified vertical layout flex">
+              <!-- Application name -->
+                <div class="app-name">Shopping Cart</div>
+                <div class="bottom-title paper-font-subhead">Tap so you don't forget to buy</div>
+              </div>
             </div>
-          </div>
-          <paper-fab icon="add" on-click="showWriteGuide"></paper-fab>
-
-        </paper-toolbar>
-
-        <!-- Main Content -->
-        <div class="content fit layout vertical">
+            <paper-fab app-header-overlay="" icon="add" on-click="showWriteGuide"></paper-fab>
+          </app-toolbar>
+        </app-header>
+        <div class="content" style="background-color: pink">
           <iron-pages class="flex" attr-for-selected="data-route" selected="{{route.page}}">
             <section id="home-section" data-route="home" class="vertical layout center">
               <overview-card unresolved id="overview-card"
@@ -322,24 +321,27 @@ Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
             </section>
 
           </iron-pages>
-
           <footer>
-			<div>
-			  <div style="margin-bottom: 16px; color: #2E3AA1; font-weight: bold;">Web NFC Shopping Cart</div>
-			  <ul style="color: #77909D; font-size: 14px; font-weight: 300;">
-				<li><a href="https://www.outpan.com/">Outpan</a> is licensed under <a href="http://creativecommons.org/licenses/by-sa/3.0/">CC BY-SA 3.0</a></li>
-			  </ul>
-			</div>
-		  </footer>
+            <div>
+              <div style="margin-bottom: 16px; color: #2E3AA1; font-weight: bold;">Web NFC Shopping Cart</div>
+              <ul style="color: #77909D; font-size: 14px; font-weight: 300;">
+                <li><a href="https://www.outpan.com/">Outpan</a> is licensed under <a href="http://creativecommons.org/licenses/by-sa/3.0/">CC BY-SA 3.0</a></li>
+              </ul>
+            </div>
+          </footer>
         </div>
-      </paper-scroll-header-panel>
-    </paper-drawer-panel>
+      </app-header-layout>
+      
+    </app-drawer-layout>
+    
+    
+   
+
 
     <write-dialog id="writeguide"></write-dialog>
     <about-dialog id="about"></about-dialog>
 
-    <paper-toast id="console" duration="6000">
-    </paper-toast>
+    <paper-toast id="console" duration="6000"></paper-toast>
   </template>
   <script>
     (function() {
@@ -413,7 +415,7 @@ Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
               return;
           }
 
-          var drawerPanel = document.querySelector('#paperDrawerPanel');
+          var drawerPanel = document.querySelector('#appDrawer');
           if (drawerPanel.narrow) {
             drawerPanel.closeDrawer();
           }
