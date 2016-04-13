@@ -24,244 +24,244 @@ Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
 <script src="../../scripts/utils.js"></script>
 
 <dom-module id="main-app">
-  <style>
-  :host {
-    width: 100%;
-    height: 100%;
-    color: #212121;
-    @apply(--paper-font-body1);
-  }
-
-  [unresolved] {
-    opacity: 0;
-  }
-
-  h4 {
-    @apply(--paper-font-title);
-    color: #616161;
-  }
-
-  write-dialog {
-    max-height: 90%;
-    max-width: 90%;
-    width: 480px;
-    height: 600px;
-  }
-
-  :root {
-    --layout-vertical: {
-      @apply(--layout);
-      -ms-flex-direction: column;
-      -webkit-flex-direction: column;
-      flex-direction: column;
-      /* this fixes rendering on chrome canary/chrome dev for android */
-      min-height: 0;
-    };
-  }
-
-  .card-content {
-    padding: 0px;
-    margin: 20px;
-    position: relative;
-  }
-
-  .card-actions {
-    border-top: 1px solid #e8e8e8;
-    padding: 5px 16px;
-    position:relative;
-  }
-
-  app-drawer app-toolbar {
-    color: white;
-    background: url(../../images/menubg.png);
-    background-color: var(--default-primary-color);
-
-    height: 150px;
-    position: relative;
-  }
-
-  .title {
-    font-size: 16px;
-    line-height: 1;
-    color: white;
-    position: absolute;
-    bottom: 8px;
-    left: 16px;
-    height: 16px;
-    font-weight: 500;
-  }
-
-  .bottom-title {
-    font-size: 16px;
-    margin: 10px 0 0 0;
-    white-space: nowrap;
-    color: var(--light-primary-color);
-  }
-
-  paper-scroll-header-panel {
-    height: 100%;
-  }
-
-  paper-icon-button {
-    min-width: 40px;
-    min-height: 40px;
-  }
-
-  paper-fab {
-    color: white;
-    position: absolute;
-    right: 20px;
-    top: 140px;
-  }
-
-  paper-material {
-    border-radius: 2px;
-    height: 100%;
-    padding: 16px 0 16px 0;
-    width: calc(98.66% - 16px);
-    max-width: 600px;
-    margin: 16px auto;
-    background: white;
-  }
-
-  paper-card, overview-card, get-started-card {
-    border-radius: 2px;
-    height: 100%;
-    width: calc(100% - 10px);
-    max-width: 600px;
-    margin: 16px auto;
-    background: white;
-  }
-
-  shopping-list {
-    min-height: calc(100vh - 352px);
-    width: calc(100% - 10px);
-    max-width: 600px;
-  }
-
-  paper-icon-button  {
-    color: white;
-  }
-
-  paper-menu iron-icon {
-    margin-right: 33px;
-    opacity: 0.54;
-  }
-
-  paper-menu a {
-    text-decoration: none;
-    color: var(--menu-link-color);
-    display: -ms-flexbox;
-    display: -webkit-flex;
-    display: flex;
-    -ms-flex-direction: row;
-    -webkit-flex-direction: row;
-    flex-direction: row;
-    -ms-flex-align: center;
-    -webkit-align-items: center;
-    align-items: center;
-    font-family: 'Roboto', 'Noto', sans-serif;
-    -webkit-font-smoothing: antialiased;
-    text-rendering: optimizeLegibility;
-    font-size: 14px;
-    font-weight: 400;
-    line-height: 24px;
-    min-height: 48px;
-    padding: 0 16px;
-  }
-
-  app-toolbar {
-    background-color: var(--default-primary-color);
-  }
-
-  app-toolbar .app-name {
-    white-space: nowrap;
-    text-overflow: ellipsis;
-
-    font-size: 40px;
-    font-weight: 300;
-    color: white;
-  }
-
-  app-toolbar .logo {
-      width: 96px;
-  }
-
-  #mainToolbar .middle-container  {
-    height: 100%;
-    margin-left: 36px;
-  }
-
-  iron-pages {
-    padding: 16px;
-  }
-
-  footer {
-    background: #e7e7e7;
-    padding: 22px 42px;
-  }
-
-  footer ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-
-  app-header app-toolbar {
-    height: 192px;
-  }
-
-  app-drawer app-toolbar {
-    height: 150px;
-  }
-
-  @media (max-width: 400px) {
-    app-toolbar .app-name {
-      font-size: 32px;
-      font-weight: 300;
-      color: white;
-    }
-  }
-
-  /* Breakpoints */
-  /* Small */
-
-  @media (max-width: 600px) {
-    app-toolbar .logo {
-      width: 72px;
-    }
-
-    #drawer app-toolbar {
-      margin-left: 16px;
-    }
-
-    #overlay {
-      min-width: 360px;
-    }
-
-    app-header app-toolbar {
-      height: 168px;
-    }
-  }
-
-  /* Tablet+ */
-  @media (min-width: 601px) {
-
-    .card-content {
-      margin: 40px;
-    }
-
-    .card-title-box {
-      padding: 0px 40px 10px;
-    }
-
-    paper-fab {
-      top: 164px;
-    }
-  }
-
-  </style>
   <template>
+    <style>
+      :host {
+        width: 100%;
+        height: 100%;
+        color: #212121;
+        @apply(--paper-font-body1);
+      }
+
+      [unresolved] {
+        opacity: 0;
+      }
+
+      h4 {
+        @apply(--paper-font-title);
+        color: #616161;
+      }
+
+      write-dialog {
+        max-height: 90%;
+        max-width: 90%;
+        width: 480px;
+        height: 600px;
+      }
+
+      :root {
+        --layout-vertical: {
+          @apply(--layout);
+          -ms-flex-direction: column;
+          -webkit-flex-direction: column;
+          flex-direction: column;
+          /* this fixes rendering on chrome canary/chrome dev for android */
+          min-height: 0;
+        };
+      }
+
+      .card-content {
+        padding: 0px;
+        margin: 20px;
+        position: relative;
+      }
+
+      .card-actions {
+        border-top: 1px solid #e8e8e8;
+        padding: 5px 16px;
+        position:relative;
+      }
+
+      app-drawer app-toolbar {
+        color: white;
+        background: url(../../images/menubg.png);
+        background-color: var(--default-primary-color);
+
+        height: 150px;
+        position: relative;
+      }
+
+      .title {
+        font-size: 16px;
+        line-height: 1;
+        color: white;
+        position: absolute;
+        bottom: 8px;
+        left: 16px;
+        height: 16px;
+        font-weight: 500;
+      }
+
+      .bottom-title {
+        font-size: 16px;
+        margin: 10px 0 0 0;
+        white-space: nowrap;
+        color: var(--light-primary-color);
+      }
+
+      paper-scroll-header-panel {
+        height: 100%;
+      }
+
+      paper-icon-button {
+        min-width: 40px;
+        min-height: 40px;
+      }
+
+      paper-fab {
+        color: white;
+        position: absolute;
+        right: 20px;
+        top: 140px;
+      }
+
+      paper-material {
+        border-radius: 2px;
+        height: 100%;
+        padding: 16px 0 16px 0;
+        width: calc(98.66% - 16px);
+        max-width: 600px;
+        margin: 16px auto;
+        background: white;
+      }
+
+      paper-card, overview-card, get-started-card {
+        border-radius: 2px;
+        height: 100%;
+        width: calc(100% - 10px);
+        max-width: 600px;
+        margin: 16px auto;
+        background: white;
+      }
+
+      shopping-list {
+        min-height: calc(100vh - 352px);
+        width: calc(100% - 10px);
+        max-width: 600px;
+      }
+
+      paper-icon-button  {
+        color: white;
+      }
+
+      paper-menu iron-icon {
+        margin-right: 33px;
+        opacity: 0.54;
+      }
+
+      paper-menu a {
+        text-decoration: none;
+        color: var(--menu-link-color);
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex;
+        -ms-flex-direction: row;
+        -webkit-flex-direction: row;
+        flex-direction: row;
+        -ms-flex-align: center;
+        -webkit-align-items: center;
+        align-items: center;
+        font-family: 'Roboto', 'Noto', sans-serif;
+        -webkit-font-smoothing: antialiased;
+        text-rendering: optimizeLegibility;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 24px;
+        min-height: 48px;
+        padding: 0 16px;
+      }
+
+      app-toolbar {
+        background-color: var(--default-primary-color);
+      }
+
+      app-toolbar .app-name {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+
+        font-size: 40px;
+        font-weight: 300;
+        color: white;
+      }
+
+      app-toolbar .logo {
+          width: 96px;
+      }
+
+      #mainToolbar .middle-container  {
+        height: 100%;
+        margin-left: 36px;
+      }
+
+      iron-pages {
+        padding: 16px;
+      }
+
+      footer {
+        background: #e7e7e7;
+        padding: 22px 42px;
+      }
+
+      footer ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+
+      app-header app-toolbar {
+        height: 192px;
+      }
+
+      app-drawer app-toolbar {
+        height: 150px;
+      }
+
+      @media (max-width: 400px) {
+        app-toolbar .app-name {
+          font-size: 32px;
+          font-weight: 300;
+          color: white;
+        }
+      }
+
+      /* Breakpoints */
+      /* Small */
+
+      @media (max-width: 600px) {
+        app-toolbar .logo {
+          width: 72px;
+        }
+
+        #drawer app-toolbar {
+          margin-left: 16px;
+        }
+
+        #overlay {
+          min-width: 360px;
+        }
+
+        app-header app-toolbar {
+          height: 168px;
+        }
+      }
+
+      /* Tablet+ */
+      @media (min-width: 601px) {
+
+        .card-content {
+          margin: 40px;
+        }
+
+        .card-title-box {
+          padding: 0px 40px 10px;
+        }
+
+        paper-fab {
+          top: 164px;
+        }
+      }
+    </style>
+
     <weneed-nfc id="adapter" faking="{{isFaking}}">
       <item-store id="shop" data="{{shoppingItems}}" on-complete="changeRoute" data-route="home"></item-store>
     </weneed-nfc>
