@@ -1,44 +1,50 @@
-   
 <link rel="import" href="../../bower_components/polymer/polymer.html">
-<link rel="import" href="../../bower_components/paper-checkbox/paper-checkbox.html">
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html">
 <link rel="import" href="../../bower_components/iron-list/iron-list.html">
-   
+<link rel="import" href="../../bower_components/paper-checkbox/paper-checkbox.html">
+
 <dom-module id="shopping-list">
   <template>
     <style>
       :host {
-        display: block;
         @apply(--layout-vertical);
       }
-        
+
       paper-card {
+        @apply(--layout-vertical);
+        @apply(--layout-flex);
         background: white;
         padding: 20px;
       }
-     
+
+      .empty-message {
+        @apply(--layout-flex);
+      }
+
       iron-list {
+        @apply(--layout-flex);
         overflow: hidden;
       }
-      
+
       @media (min-width: 601px) {
         paper-card {
           padding: 40px;
         }
       }
     </style>
-   
-    <paper-card id="shopping-list-card" class="vertical layout flex">
-        <h4 style="margin-top: 0;">Shopping list</h4>
-        <template is="dom-if" if="[[!items.length]]">
-          <div class="flex">Your shopping list is currently empty</div>
+
+    <paper-card id="shopping-list-card">
+      <h4 style="margin-top: 0;">Shopping list</h4>
+      <template is="dom-if" if="[[!items.length]]">
+        <div class="empty-message">Your shopping list is currently empty</div>
+      </template>
+      <iron-list id="list" items="[[items]]" as="item">
+        <template>
+          <div style="padding: 5px;">
+            <paper-checkbox on-iron-change="onItemComplete">[[item.name]]</paper-checkbox>
+          </div>
         </template>
-        <iron-list id="list" items="[[items]]" as="item" class="flex">
-          <template>
-            <div style="padding: 5px;">
-              <paper-checkbox on-iron-change="onItemComplete">[[item.name]]</paper-checkbox>
-            </div>
-          </template>
-        </iron-list>
+      </iron-list>
     </paper-card>
   </template>
   <script>
@@ -47,11 +53,11 @@
 
       Polymer({
         is: 'shopping-list',
-        
+
         behaviors: [
           Polymer.IronResizableBehavior
         ],
-        
+
         properties: {
           items: {
             type: Array,
@@ -66,12 +72,12 @@
         observers: [
           '_itemsChanged(items.splices)'
         ],
-        
+
         _itemsChanged: function() {
           // Note, this is needed as it is fuzzy-loaded after items have size.
-          this.$.list.fire('iron-resize');   
+          this.$.list.fire('iron-resize');
         },
-        
+
         onItemComplete: function(event) {
           var index = event.model.__data__.index;
 
@@ -89,5 +95,4 @@
       });
     })();
   </script>
-
 </dom-module>

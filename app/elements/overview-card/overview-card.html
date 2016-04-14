@@ -1,25 +1,35 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html">
 <link rel="import" href="../../bower_components/iron-image/iron-image.html">
-   
+
 <dom-module id="overview-card">
   <template>
     <style>
       :host {
-        display: block;
         @apply(--layout-vertical);
         transition: opacity ease-in 0.2s;
       }
-      
+
       paper-card {
         background: white;
       }
-        
+
+      .card-header {
+        @apply(--layout-horizontal);
+      }
+
       .card-content {
+        @apply(--layout-flex);
         padding: 0px;
         margin: 20px;
         position: relative;
       }
-      
+
+      .card-actions {
+        @apply(--layout-horizontal);
+        @apply(--layout-end-justified);
+      }
+
       .badge {
         display: inline-block;
         width: 20px;
@@ -35,13 +45,13 @@
         font-size: 12px;
         vertical-align: 1px;
       }
-      
+
       #basket {
         min-width: 160px;
         min-height: 160px;
         max-height: 250px;
       }
-      
+
       @media (max-width: 600px) {
         #basket {
           display: none;
@@ -50,10 +60,10 @@
     </style>
 
     <paper-card>
-      <div class="horizontal layout">
+      <div class="card-header">
         <iron-image id="basket" sizing="contain"
           preload fade src="../../images/basket.jpg"></iron-image>
-        <div class="card-content flex">
+        <div class="card-content">
           <h4 style="margin-top: 0;">Overview</h4>
           <template is="dom-if" if="{{!items.length}}">
             <div>You have everything you need</div>
@@ -63,7 +73,7 @@
           </template>
         </div>
       </div>
-      <div class="card-actions horizontal layout end-justified">
+      <div class="card-actions">
         <paper-button on-click="showShoppingList">Shopping list</paper-button>
       </div>
     </paper-card>
@@ -74,7 +84,7 @@
 
       Polymer({
         is: 'overview-card',
-        
+
         properties: {
           items: {
             type: Array,
@@ -84,12 +94,11 @@
             notify: true,
           }
         },
-        
+
         showShoppingList: function() {
           this.fire("show-list");
         },
       });
     })();
   </script>
-
 </dom-module>
