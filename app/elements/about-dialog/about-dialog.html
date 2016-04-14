@@ -18,7 +18,6 @@ Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
     <style>
       :host {
         --paper-dialog-background-color: white;
-        margin: 0px 0px;
 
         -webkit-overflow-scrolling: touch;
 
@@ -65,17 +64,12 @@ Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
 
       @media (max-width: 600px) {
         :host {
-          position: absolute;
-          top: 0;
-          right: 0;
-          bottom: 0;
-          left: 0;
           width: 100vw;
           height: 100vh;
         }
 
         :host > * {
-          padding: 0;
+          padding: 0px 8px;
         }
 
         .dialog-only {
