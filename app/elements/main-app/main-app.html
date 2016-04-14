@@ -121,7 +121,7 @@ Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
       }
 
       shopping-list {
-        min-height: calc(100vh - 352px);
+        min-height: calc(100vh - 324px);
         width: calc(100% - 10px);
         max-width: 600px;
       }
@@ -228,14 +228,6 @@ Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
           width: 72px;
         }
 
-        #drawer app-toolbar {
-          margin-left: 16px;
-        }
-
-        #overlay {
-          min-width: 360px;
-        }
-
         app-header app-toolbar {
           height: 168px;
         }
@@ -302,7 +294,7 @@ Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
                 <div class="bottom-title paper-font-subhead">Tap so you don't forget to buy</div>
               </div>
             </div>
-            <paper-fab app-header-overlay="" icon="add" on-click="showWriteGuide"></paper-fab>
+            <paper-fab app-header-overlay icon="add" on-click="showWriteGuide"></paper-fab>
           </app-toolbar>
         </app-header>
         <iron-pages attr-for-selected="data-route" selected="{{route.page}}">
