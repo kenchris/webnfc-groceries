@@ -1,0 +1,126 @@
+<!--
+@license
+Copyright (c) 2016 Intel Corporation. All rights reserved.
+-->
+
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../bower_components/paper-card/paper-card.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
+
+<link rel="import" href="shared-styles.html">
+
+<dom-module id="scart-overview-card">
+  <template>
+    <style>
+    paper-card {
+      margin: 24px;
+      width: calc(100% - 48px);
+      display: flex;
+      flex-direction: row;
+    }
+
+    .card-content {
+      padding: 16px;
+      position: relative;
+      flex: 1;
+
+      @apply --paper-card-content;
+    }
+
+    .card-actions {
+      border-top: 1px solid #e8e8e8;
+      padding: 5px 16px;
+      position:relative;
+      display: flex;
+      justify-content: flex-end;
+
+      @apply --paper-card-actions;
+    }
+    
+    .card {
+      display: flex;
+      flex: 1;
+      flex-direction: column;
+    }
+
+    .image {
+      width: 157px;
+      min-height: 157px; 
+      height: auto;
+      background: url('../images/basket.png');
+      background-size: cover;
+    }
+
+    .badge {
+      display: inline-block;
+      margin: 5px;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: #ff4081;
+      color: #fff;
+      text-align: center;
+    }
+    .badge > span {
+      font-weight: 600;
+      font-size: 12px;
+      vertical-align: 3px;
+    }
+
+    @media (max-width: 400px) {
+      .image {
+        display: none;
+      }
+    }
+
+    a paper-button,
+    a:active paper-button,
+    a:visited paper-button {
+      color: #000;
+      text-decoration: none !important;
+    }
+
+    .header { @apply --paper-font-headline; }
+    .info { color: var(--paper-grey-600); margin: 10px 0; }
+
+  </style>
+    <paper-card class="rate">
+        <div class="image"></div>
+        <div class="card">
+            <div class="card-content">
+                <div class="header">Overview</div>
+                <template is="dom-if" if="{{!datastore.length}}">
+                  <div>You have everything you need</div>
+                </template>
+                <template is="dom-if" if="{{datastore.length}}">
+                 <div>You have<div class="badge"><span>{{datastore.length}}<span></div>item(s) to buy in your list</div>
+                </template>
+            </div>
+            <div class="card-actions">
+              <a href="/list" tabindex="-1">
+                <paper-button>SHOPPING LIST</paper-button>
+              </a>
+            </div>
+        </div>
+    </paper-card>
+  </template>
+
+  <script>
+    class SCartOverviewCard extends Polymer.Element {
+      static get is() { return 'scart-overview-card'; }
+
+      static get properties() {
+        return {
+          datastore: {
+            type: Array,
+            value: _ => [],
+            notify: true,
+            reflectToAttribute: true
+          }
+        }
+      }
+    }
+
+    window.customElements.define(SCartOverviewCard.is, SCartOverviewCard);
+  </script>
+</dom-module>

@@ -1,0 +1,192 @@
+<!--
+@license
+Copyright (c) 2016 Intel Corporation. All rights reserved.
+-->
+
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../bower_components/paper-dialog/paper-dialog.html">
+<link rel="import" href="../bower_components/paper-dialog-behavior/paper-dialog-behavior.html">
+<link rel="import" href="../bower_components/paper-dialog-behavior/paper-dialog-shared-styles.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../bower_components/iron-pages/iron-pages.html">
+
+<link rel="import" href="../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
+
+<link rel="import" href="../bower_components/paper-snackbar/paper-snackbar.html">
+
+<dom-module id="scart-config-dialog">
+  <template>
+    <style>
+      :host {
+        max-width: 480px;
+        max-height: 740px;
+        width: 100vw;
+        height: 100vh;
+      }
+
+      iron-pages {
+        width: 100%;
+        height: 100%;
+      }
+
+      .container {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        overflow: scroll;
+      }
+
+      .top {
+        flex: 1;
+        padding: 16px;
+      }
+
+      img {
+        min-width: 100%;
+        object-fit: contain;
+      }
+
+      paper-button {
+        background-color: lightgray;
+        margin: 0px;
+        border-radius: 0;
+        width: 100%;
+        min-height: 40px;
+      }
+
+      .title {
+        font-weight: bold;
+      }
+
+      #config {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+      }
+
+      #input {
+        flex: 1;
+      }
+
+    </style>
+    <style include="paper-dialog-shared-styles"></style>
+    <iron-pages id="pager" selected="[[page]]" attr-for-selected="name">
+
+      <div name="start" class="container">
+        <img src="images/write-prepare.png"></img>
+        <div class="top">
+          <div class="title">Configure a tag</div>
+          <p>
+            NFC tags are handly, as you can put one near your appliance and
+            when they run out of something you often need, just tap it to 
+            have it added to your grocery plan.
+          </p>
+        </div>
+        <paper-button on-click="next">START NOW</paper-button>
+      </div>
+
+      <div name="write" class="container">
+        <img src="images/write-tap.png"></img>
+        <div class="top">
+          <div class="title">Add content</div>
+          <p>
+            Type the name of the content you want to be added when tapping
+            the NFC tag, then tap the tag. You can configure multiple tags.
+            Press «Finished» when done.
+          </p>
+          <div id="config">
+            <paper-input id="input" always-float-label label="Write to tag"></paper-input>
+            <paper-icon-button id="btn" icon="scart-icons:send" title="Write" on-tap="write"></paper-icon-button>
+          </div>
+        </div>
+        <paper-button on-click="next">FINISH</paper-button>
+      </div>
+
+    </iron-pages>
+    <paper-snackbar></paper-snackbar>
+  </template>
+
+  <script>
+    class SCartConfigDialog extends Polymer.mixinBehaviors([Polymer.PaperDialogBehavior], Polymer.Element) {
+      static get is() { return 'scart-config-dialog'; }
+            
+      connectedCallback() {
+        super.connectedCallback();
+        this.addEventListener("opened-changed", () => { this.page = "start"; });
+
+        const onResize = _ => {
+          this.$.input.scrollIntoView();
+        };
+
+        if (ResizeObserver in window) {
+          let resizeObserver = new ResizeObserver(onResize);
+          resizeObserver.observe(this);
+        } else {
+          window.addEventListener('resize', onResize);
+        }
+      }
+
+      static get properties() {
+        return {
+          page: {
+            type: String,
+            value: "start",
+            reflectToAttribute: true,
+          }
+        }
+      }
+
+      next() {
+        switch (this.page) {
+          case "start":
+            this.page = "write";
+            break;
+          case "write":
+            this.close();
+            this.page = "start";
+            break;
+          default:
+            this.page = "start";
+        }
+      }
+
+      async write() {
+        let message = {
+          records: [
+            {
+              recordType: "json",
+              mediaType: "application/json",
+              data: { name: this.$.input.value }
+            }
+          ]
+        };
+        console.log(`Writing ${this.$.input.value}`);
+        this.$.btn.disabled = true;
+
+        const dispatch = text => {
+          document.dispatchEvent(new CustomEvent('paper-snackbar-notify', {
+            bubbles: true,
+            composed: true,
+            detail: {
+              message: text
+            }
+          }));
+        }
+
+        try {
+          await navigator.nfc.push(message);
+
+          this.$.btn.disabled = false;
+          dispatch(`Wrote «${this.$.input.value}» to NFC tag!`);
+        } catch(err) {
+          this.$.btn.disabled = false;
+          dispatch(`Failed to write «${this.$.input.value}» to NFC tag!`)
+        }
+      }
+    }
+
+    window.customElements.define(SCartConfigDialog.is, SCartConfigDialog);
+  </script>
+</dom-module>

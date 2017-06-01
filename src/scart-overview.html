@@ -1,0 +1,73 @@
+<!--
+@license
+Copyright (c) 2016 Intel Corporation. All rights reserved.
+-->
+
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="shared-styles.html">
+
+<link rel="import" href="scart-overview-card.html">
+<link rel="import" href="scart-howto-card.html">
+
+<dom-module id="scart-overview">
+  <template>
+    <style include="shared-styles">
+      :host {
+        display: flex;
+        flex-direction: column;
+        min-height: calc(100vh - 64px);
+      }
+
+      #content {
+        flex-grow: 1;
+      }
+
+      footer {
+        background: #e7e7e7;
+        padding: 22px 42px;
+      }
+
+      footer ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+
+      footer #title {
+        margin-bottom: 16px;
+        color: #2E3AA1;
+        font-weight: bold;
+      }
+    </style>
+
+    <div id="content">
+      <scart-overview-card datastore="[[datastore]]"></scart-overview-card>
+      <scart-howto-card></scart-howto-card>
+    </div>
+
+    <footer>
+      <div>
+        <div id="title">Web NFC Shopping Cart Demo</div>
+      </div>
+    </footer>
+  </template>
+
+  <script>
+    class SCartOverview extends Polymer.Element {
+      static get is() { return 'scart-overview'; }
+
+      static get properties() {
+        return {
+          datastore: {
+            type: Array,
+            value: _ => [],
+            notify: true,
+            reflectToAttribute: true
+          }
+        }
+      }
+    }
+
+    window.customElements.define(SCartOverview.is, SCartOverview);
+  </script>
+</dom-module>
