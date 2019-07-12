@@ -1,19 +1,37 @@
 {
-  "name": "webnfc-shopping-cart-demo",
-  "license": "Apache-2.0",
-  "devDependencies": {
-    "eslint": "^3.19.0",
-    "eslint-config-google": "^0.7.0",
-    "eslint-plugin-html": "^2.0.0"
-  },
+  "name": "webnfc-shoppingcard",
+  "version": "1.0.0",
+  "description": "Build config for lit-element with Babel and Rollup",
+  "main": "index.js",
+  "repository": "PolymerLabs/lit-element-build-rollup",
   "scripts": {
-    "lint": "npm run lint:javascript && polymer lint",
-    "lint:javascript": "eslint . --ext js,html --ignore-path .gitignore",
-    "test": "polymer test",
-    "test:integration": "polymer build # test that psk builds without error with the CLI",
-    "deploy": "polymer build && cp -r template/git build/.git && cp template/package.json build/ && cd build/ && git add -A && git commit && git push -f --set-upstream origin master && cd -"
+    "start": "owc-dev-server --app-index index.html --open --watch",
+    "start:build": "owc-dev-server dist/ --open",
+    "build": "rimraf dist && rollup -c rollup.config.js"
   },
-  "engines": {
-    "node": ">=5"
+  "author": "Intel Corporation",
+  "devDependencies": {
+    "@babel/core": "^7.2.2",
+    "@babel/plugin-proposal-class-properties": "^7.2.3",
+    "@babel/plugin-proposal-decorators": "^7.2.3",
+    "@open-wc/building-rollup": "^0.6.3",
+    "@open-wc/demoing-storybook": "^0.2.0",
+    "@webcomponents/webcomponentsjs": "^2.2.4",
+    "owc-dev-server": "^1.0.0",
+    "rimraf": "^2.6.3",
+    "rollup": "^1.16.7",
+    "rollup-plugin-babel": "^4.3.0",
+    "rollup-plugin-node-resolve": "^4.0.0"
+  },
+  "dependencies": {
+    "@authentic/mwc-dialog": "^0.5.22",
+    "@authentic/mwc-textfield": "^0.5.22",
+    "@material/mwc-checkbox": "^0.6.0",
+    "@material/mwc-drawer": "^0.6.0",
+    "@material/mwc-fab": "^0.6.0",
+    "@material/mwc-icon-button": "^0.6.0",
+    "@material/mwc-top-app-bar": "^0.6.0",
+    "kv-storage-polyfill": "^1.1.0",
+    "lit-element": "^2.0.0-rc.2"
   }
 }
