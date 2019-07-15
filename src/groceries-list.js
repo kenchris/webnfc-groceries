@@ -1,6 +1,7 @@
 import { LitElement, html, css, property, customElement } from 'lit-element';
 import { nothing } from 'lit-html';
 import { repeat } from 'lit-html/directives/repeat.js';
+import { classMap } from 'lit-html/directives/class-map.js'
 import "@material/mwc-checkbox";
 
 import { style as listStyle } from './mwc-list-item-css.js';
@@ -50,28 +51,46 @@ export class GroceriesList extends LitElement {
       width: 100%;
       background-color: yellow;
     }
+
+    .hidden {
+        display: none;
+      }
   `];
 
   store = new GroceryStore;
-  items = [];
+  pendingItems = [];
+  doneItems = [];
 
   constructor() {
     super();
     const onchange = async () => {
-      let notDone = [];
-      let done = [];
+      this.doneItems = [];
+      this.pendingItems = [];
       for await (let entry of this.store.entries()) {
         if (entry.done) {
-          done.push(entry);
+          this.doneItems.push(entry);
         } else {
-          notDone.push(entry);
+          this.pendingItems.push(entry);
         }
       }
-      this.items = notDone.concat(done);
       await this.requestUpdate();
     };
     this.store.addEventListener('change', onchange);
     onchange();
+
+    try {
+      const reader = new NFCReader({url: document.baseURI, recordType: "json"});
+      reader.addEventListener("reading", event => {
+        for (let record of event.message.records) {
+          if (record.data.product) {
+            this.store.set(record.data.product, record.data.description);
+          }
+        }
+      });
+      reader.start();
+    } catch(err) {
+      console.error("Reading NFC tags is not supported");
+    }
   }
 
   onchange(ev) {
@@ -82,25 +101,25 @@ export class GroceriesList extends LitElement {
   render() {
     return html`
       <div role="list" class="mdc-list mdc-list--two-line">
-        ${repeat(this.items, v => v.name, v => {
-          return !v.done ? html`
+        ${repeat(this.pendingItems, v => v.name, v => {
+          return html`
             <grocery-item
               .label=${v.name}
               .sublabel=${v.note}
               @change=${this.onchange}></grocery-item>
-          ` : nothing;
+          `;
         })}
       </div>
-      <hr>
+      <hr class=${classMap({hidden: !this.doneItems.length})}>
       <div role="list" class="mdc-list mdc-list--two-line">
-        ${repeat(this.items, v => v.name, v => {
-          return v.done ? html`
+        ${repeat(this.doneItems, v => v.name, v => {
+          return html`
             <grocery-item
               .label=${v.name}
               .sublabel=${v.note}
               checked
               @change=${this.onchange}></grocery-item>
-          ` : nothing;
+          `;
         })}
       </div>
     `;
