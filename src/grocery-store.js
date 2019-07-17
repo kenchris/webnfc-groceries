@@ -1,4 +1,4 @@
-import { storage } from "/node_modules/kv-storage-polyfill/dist/kv-storage-polyfill.mjs";
+import { storage } from "kv-storage-polyfill/dist/kv-storage-polyfill.mjs";
 
 let singleton;
 
