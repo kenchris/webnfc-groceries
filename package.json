@@ -17,15 +17,17 @@
     "@open-wc/building-rollup": "^0.6.3",
     "@open-wc/demoing-storybook": "^0.2.0",
     "@webcomponents/webcomponentsjs": "^2.2.4",
+    "es-dev-server": "^1.6.4",
     "owc-dev-server": "^1.0.0",
     "rimraf": "^2.6.3",
-    "rollup": "^1.16.7",
+    "rollup": "^1.17.0",
     "rollup-plugin-babel": "^4.3.0",
     "rollup-plugin-node-resolve": "^4.0.0"
   },
   "dependencies": {
     "@authentic/mwc-dialog": "^0.5.22",
     "@authentic/mwc-textfield": "^0.5.22",
+    "@babel/plugin-proposal-private-methods": "^7.4.4",
     "@material/mwc-checkbox": "^0.6.0",
     "@material/mwc-drawer": "^0.6.0",
     "@material/mwc-fab": "^0.6.0",

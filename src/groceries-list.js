@@ -57,33 +57,34 @@ export class GroceriesList extends LitElement {
       }
   `];
 
-  store = new GroceryStore;
-  pendingItems = [];
-  doneItems = [];
+  _store = new GroceryStore;
+  _pendingItems = [];
+  _doneItems = [];
 
   constructor() {
     super();
     const onchange = async () => {
-      this.doneItems = [];
-      this.pendingItems = [];
-      for await (let entry of this.store.entries()) {
+      this._doneItems = [];
+      this._pendingItems = [];
+      for await (let entry of this._store.entries()) {
         if (entry.done) {
-          this.doneItems.push(entry);
+          this._doneItems.push(entry);
         } else {
-          this.pendingItems.push(entry);
+          this._pendingItems.push(entry);
         }
       }
       await this.requestUpdate();
     };
-    this.store.addEventListener('change', onchange);
+    this._store.addEventListener('change', onchange);
     onchange();
 
     try {
       const reader = new NFCReader({url: document.baseURI, recordType: "json"});
       reader.addEventListener("reading", event => {
         for (let record of event.message.records) {
-          if (record.data.product) {
-            this.store.set(record.data.product, record.data.description);
+          const data = record.data();
+          if (data.product) {
+            this._store.set(data.product, data.description);
           }
         }
       });
@@ -93,32 +94,32 @@ export class GroceriesList extends LitElement {
     }
   }
 
-  onchange(ev) {
+  _onchange(ev) {
     ev.stopPropagation();
-    this.store.change(ev.target.label, ev.detail.checked);
+    this._store.change(ev.target.label, ev.detail.checked);
   }
 
   render() {
     return html`
       <div role="list" class="mdc-list mdc-list--two-line">
-        ${repeat(this.pendingItems, v => v.name, v => {
+        ${repeat(this._pendingItems, v => v.name, v => {
           return html`
             <grocery-item
               .label=${v.name}
               .sublabel=${v.note}
-              @change=${this.onchange}></grocery-item>
+              @change=${this._onchange}></grocery-item>
           `;
         })}
       </div>
-      <hr class=${classMap({hidden: !this.doneItems.length})}>
+      <hr class=${classMap({hidden: !this._doneItems.length})}>
       <div role="list" class="mdc-list mdc-list--two-line">
-        ${repeat(this.doneItems, v => v.name, v => {
+        ${repeat(this._doneItems, v => v.name, v => {
           return html`
             <grocery-item
               .label=${v.name}
               .sublabel=${v.note}
               checked
-              @change=${this.onchange}></grocery-item>
+              @change=${this._onchange}></grocery-item>
           `;
         })}
       </div>

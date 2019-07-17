@@ -17,30 +17,30 @@ import { GroceryStore } from './grocery-store.js';
 
 @customElement('add-dialog')
 export class AddDialog extends LitElement {
-  store = new GroceryStore;
+  _store = new GroceryStore;
 
-  @query('mwc-dialog') dialog;
+  @query('mwc-dialog') _dialog;
   // TODO: use classMap to hide checkbox when !NFCWriter in window
-  @query('mwc-checkbox') checkbox;
-  @query('mwc-snackbar') snackbar;
-  @query('#actionButton') actionBtn;
-  @query('#product') product;
-  @query('#description') description;
+  @query('mwc-checkbox') _checkbox;
+  @query('mwc-snackbar') _snackbar;
+  @query('#actionButton') _actionBtn;
+  @query('#product') _product;
+  @query('#description') _description;
 
   firstUpdated() {
-    this.dialog.addEventListener('MDCDialog:closed', async (e) => {
-      if (e.detail.action !== "accept") return;
+    this._dialog.addEventListener('MDCDialog:closed', async ev => {
+      if (ev.detail.action !== "accept") return;
 
-      const writeToNFC = this.checkbox.checked;
+      const writeToNFC = this._checkbox.checked;
       if (writeToNFC) {
-        this.writeToNFC(this.product.value, this.description.value);
+        this._writeToNFC(this._product.value, this._description.value);
       } else {
-        this.store.set(this.product.value, this.description.value);
+        this._store.set(this._product.value, this._description.value);
       }
     });
   }
 
-  async writeToNFC(product, description) {
+  async _writeToNFC(product, description) {
     const ndef = {
       records: [{
         recordType: "json",
@@ -51,15 +51,15 @@ export class AddDialog extends LitElement {
 
     try {
       const controller = new AbortController;
-      this.snackbar.addEventListener('MDCSnackbar:closed', (ev) => {
+      this._snackbar.addEventListener('MDCSnackbar:closed', ev => {
         if (ev.detail.reason === "action") {
           controller.abort();
         }
       }, { once: true });
 
-      this.snackbar.labelText = "Touch your NFC tag now";
-      this.actionBtn.textContent = "CANCEL";
-      this.snackbar.open();
+      this._snackbar.labelText = "Touch your NFC tag now";
+      this._actionBtn.textContent = "CANCEL";
+      this._snackbar.open();
       const writer = new NFCWriter();
       await writer.push(ndef, {
         target: "tag",
@@ -67,28 +67,28 @@ export class AddDialog extends LitElement {
         compatibility: "any",
         signal: controller.signal
       });
-      this.snackbar.close();
+      this._snackbar.close();
     } catch (err) {
-      this.snackbar.close();
+      this._snackbar.close();
 
-      this.snackbar.addEventListener('MDCSnackbar:closed', (ev) => {
+      this._snackbar.addEventListener('MDCSnackbar:closed', ev => {
         if (ev.detail.reason === "action") {
-          Promise.resolve().then(() => this.writeToNFC(product, description));
+          Promise.resolve().then(() => this._writeToNFC(product, description));
         }
       }, { once: true });
-      this.snackbar.labelText = `Writing failed: ${err}`;
-      this.actionBtn.textContent = "RETRY";
-      this.snackbar.open();
+      this._snackbar.labelText = `Writing failed: ${err}`;
+      this._actionBtn.textContent = "RETRY";
+      this._snackbar.open();
     }
   }
 
   open() {
     let options = ["Milk", "Cheese", "Beer", "Cocoa", "Candy"];
     let entry = options[Math.floor(Math.random() * options.length)];
-    this.description.value = "";
-    this.checkbox.checked = false;
-    this.product.value = entry;
-    this.dialog.open();
+    this._description.value = "";
+    this._checkbox.checked = false;
+    this._product.value = entry;
+    this._dialog.open();
   }
 
   render() {
@@ -136,10 +136,11 @@ export class MainApplication extends LitElement {
     }
   `;
 
-  @query('add-dialog') dialog;
-
+  @query('add-dialog') _dialog;
+  @query('mwc-drawer') _drawer;
+ 
   firstUpdated() {
-    const drawer = this.shadowRoot.querySelector('mwc-drawer');
+    const drawer = this._drawer;
     const container = drawer.parentNode;
     container.addEventListener('MDCTopAppBar:nav', _ => {
       drawer.open = !drawer.open;
@@ -164,7 +165,7 @@ export class MainApplication extends LitElement {
           </div>
         </div>
       </mwc-drawer>
-      <mwc-fab icon="playlist_add" @click=${() => this.dialog.open()}></mwc-fab>
+      <mwc-fab icon="playlist_add" @click=${() => this._dialog.open()}></mwc-fab>
       <add-dialog></add-dialog>
     `;
   }
