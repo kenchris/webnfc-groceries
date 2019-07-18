@@ -1,7 +1,7 @@
 {
-  "name": "Web NFC Shopping Cart Demo",
-  "short_name": "Shopping Cart",
-  "start_url": "/?homescreen=1",
+  "name": "Web NFC Groceries Demo",
+  "short_name": "Groceries",
+  "start_url": "/",
   "display": "standalone",
   "theme_color": "#3f51b5",
   "background_color": "#3f51b5",

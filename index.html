@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <meta name="Description" content="Put your description here.">
+  <meta name="Description" content="Your grocery list, just a tap away.">
 
   <style>
     html, body {
@@ -25,9 +25,20 @@
       height: 100vh;
     }
   </style>
-  <title>main-app</title>
+  <title>Groceries</title>
 </head>
 <body>
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js').then(registration => {
+          console.log('SW registered: ', registration);
+        }).catch(registrationError => {
+          console.log('SW registration failed: ', registrationError);
+        });
+      });
+    }
+  </script>
   <main-app></main-app>
 
   <script type="module" src="./src/main-app.js"></script>

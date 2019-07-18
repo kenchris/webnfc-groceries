@@ -36,6 +36,7 @@
     "@material/mwc-snackbar": "^0.6.0",
     "@material/mwc-top-app-bar": "^0.6.0",
     "kv-storage-polyfill": "^1.1.0",
-    "lit-element": "^2.0.0-rc.2"
+    "lit-element": "^2.0.0-rc.2",
+    "rollup-plugin-workbox": "^2.0.0"
   }
 }
