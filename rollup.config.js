@@ -1,3 +1,4 @@
+import copy from 'rollup-plugin-copy-glob';
 import createDefaultConfig from '@open-wc/building-rollup/modern-config';
 
 // if you need to support IE11 use "modern-and-legacy-config" instead.
@@ -19,16 +20,20 @@ function workbox(config) {
 	};
 }
 
-const plugins = [
-  workbox({
-    "globDirectory": "dist",
-    "globPatterns": [
-      '**/*.{js,css,html}'
-    ],
-    "swDest": "dist/sw.js"
-  }),
-];
-
-config.plugins = config.plugins.concat(plugins);
-
-export default config;
+export default {
+  ...config,
+  plugins: [
+    copy([
+      { files: 'images/manifest/*.{png,svg}', dest: 'dist/images/manifest' },
+      { files: 'manifest.json', dest: 'dist' }
+    ], { verbose: false, watch: false }),
+    ...config.plugins,
+    workbox({
+      "globDirectory": "dist",
+      "globPatterns": [
+        '**/*.{js,css,html,png,svg,json}'
+      ],
+      "swDest": "dist/sw.js"
+    }),
+  ],
+};
