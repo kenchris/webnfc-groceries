@@ -26,6 +26,11 @@ export class GroceryStore extends EventTarget {
     return !!entry;
   }
 
+  async remove(name) {
+    await storage.delete(name);
+    this.dispatchEvent(new Event("change"));
+  }
+
   async change(name, done) {
     const entry = await storage.get(name);
     let json = JSON.parse(entry);

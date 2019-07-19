@@ -83,7 +83,10 @@ export class AddDialog extends LitElement {
   }
 
   open() {
-    let options = ["Milk", "Cheese", "Beer", "Cocoa", "Candy"];
+    let options = [
+      "Milk", "Cheese", "Beer", "Cocoa", "Candy",
+      "Pizza", "Basil", "Salt", "Olive Oil"
+    ];
     let entry = options[Math.floor(Math.random() * options.length)];
     this._description.value = "";
     this._checkbox.checked = false;
