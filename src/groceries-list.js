@@ -3,6 +3,7 @@ import { nothing } from 'lit-html';
 import { repeat } from 'lit-html/directives/repeat.js';
 import { classMap } from 'lit-html/directives/class-map.js'
 import "@material/mwc-checkbox";
+import "@material/mwc-icon-button";
 
 import './dismissable-item.js';
 import { style as listStyle } from './mwc-list-item-css.js';
@@ -13,6 +14,16 @@ export class GroceryItem extends LitElement {
   static styles = [
     listStyle,
     css`
+      mwc-icon-button {
+        display: none;
+      }
+
+      @media(hover: hover) {
+        dismissable-item:hover mwc-icon-button {
+          display: block;
+        }
+      }
+
       .mdc-list-item {
         height: 64px;
       }
@@ -23,7 +34,7 @@ export class GroceryItem extends LitElement {
 
       dismissable-item {
         width: 100%;
-        --item-bg-color: #ededed;
+        --item-bg-color: white;
         padding: 0px ! important;
         user-select: none;
       }
@@ -55,6 +66,10 @@ export class GroceryItem extends LitElement {
             ${this.label}
             <span class="mdc-list-item__secondary-text">${this.sublabel}</span>
           </span>
+          <mwc-icon-button class="mdc-list-item__meta"
+            aria-label="Delete item" title="Delete" icon="delete"
+            @click=${this.onremove} tabindex="-1">
+          </mwc-icon-button>
         </dismissable-item>
       </div>
     `
@@ -151,7 +166,8 @@ export class GroceriesList extends LitElement {
         </svg>
         You're all done! Please,<br>enjoy your day.
         <div id="filler"></div>
-        </div>
+      </div>
+      <div role="list" class="mdc-list mdc-list--two-line">
         ${repeat(this._pendingItems, v => v.name, v => {
           return html`
             <grocery-item
