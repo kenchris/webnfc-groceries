@@ -38,6 +38,7 @@
     "lit-element": "^2.0.0-rc.2",
     "rollup-plugin-copy-glob": "^0.3.1",
     "rollup-plugin-cpy": "^2.0.1",
-    "workbox-build": "^4.3.1"
+    "workbox-build": "^4.3.1",
+    "workbox-window": "^4.3.1"
   }
 }

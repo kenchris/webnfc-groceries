@@ -29,11 +29,12 @@ export default {
     ], { verbose: false, watch: false }),
     ...config.plugins,
     workbox({
-      "globDirectory": "dist",
-      "globPatterns": [
+      globDirectory: "dist",
+      globPatterns: [
         '**/*.{js,css,html,png,svg,json}'
       ],
-      "swDest": "dist/sw.js"
+      globIgnores: ['**/manifest.json'],
+      swDest: "dist/sw.js",
     }),
   ],
 };

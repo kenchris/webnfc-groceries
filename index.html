@@ -29,19 +29,7 @@
   <link rel="manifest" href="manifest.json">
 </head>
 <body>
-  <script>
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('sw.js').then(registration => {
-          console.log('SW registered: ', registration);
-        }).catch(registrationError => {
-          console.log('SW registration failed: ', registrationError);
-        });
-      });
-    }
-  </script>
   <main-app></main-app>
-
   <script type="module" src="./src/main-app.js"></script>
 </body>
 

@@ -15,6 +15,8 @@ import { query } from '@material/mwc-base/base-element.js';
 import "./groceries-list.js";
 import { GroceryStore } from './grocery-store.js';
 
+import { Workbox } from 'workbox-window';
+
 @customElement('add-dialog')
 export class AddDialog extends LitElement {
   _store = new GroceryStore;
@@ -141,13 +143,34 @@ export class MainApplication extends LitElement {
 
   @query('add-dialog') _dialog;
   @query('mwc-drawer') _drawer;
- 
+  @query('mwc-snackbar') _snackbar;
+
   firstUpdated() {
     const drawer = this._drawer;
     const container = drawer.parentNode;
     container.addEventListener('MDCTopAppBar:nav', _ => {
       drawer.open = !drawer.open;
     });
+
+    this._snackbar.addEventListener('MDCSnackbar:closed', ev => {
+      if (ev.detail.reason === "action") {
+        window.location.reload();
+      }
+    });
+
+    if ('serviceWorker' in navigator) {
+      const wb = new Workbox('sw.js');
+      wb.addEventListener('installed', ev => {
+        if (!ev.isUpdate) {
+          console.log('Service worker activated for the first time!');
+        } else {
+          console.log('Service worker was updated');
+          this._snackbar.open();
+        }
+      });
+
+      wb.register();
+    }
   }
 
   render() {
@@ -170,6 +193,10 @@ export class MainApplication extends LitElement {
       </mwc-drawer>
       <mwc-fab icon="playlist_add" @click=${() => this._dialog.open()}></mwc-fab>
       <add-dialog></add-dialog>
+      <mwc-snackbar stacked labelText="A newer version of the app is available!">
+        <mwc-button id="actionButton" slot="action">RELOAD</mwc-button>
+        <mwc-icon-button id="iconButton" icon="close" slot="dismiss"></mwc-icon-button>
+      </mwc-snackbar>
     `;
   }
 }
