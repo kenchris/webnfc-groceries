@@ -111,15 +111,19 @@ export class GroceriesList extends LitElement {
   `];
 
   _store = new GroceryStore;
-  _pendingItems = [];
-  _doneItems = [];
+  _pendingItems = null;
+  _doneItems = null;
 
   constructor() {
     super();
     const onchange = async () => {
-      this._doneItems = [];
-      this._pendingItems = [];
+      let first = true;
       for await (let entry of this._store.entries()) {
+        if (first) {
+          this._doneItems = [];
+          this._pendingItems = [];
+          first = false;
+        }
         if (entry.done) {
           this._doneItems.push(entry);
         } else {
@@ -156,19 +160,31 @@ export class GroceriesList extends LitElement {
     this._store.remove(ev.target.label);
   }
 
+  _isAllDone() {
+    return this._pendingItems !== null && !this._pendingItems.length;
+  }
+
+  _hasDoneItems() {
+    return this._doneItems && this._doneItems.length;
+  }
+
   render() {
     return html`
       <div role="list" class="mdc-list mdc-list--two-line">
-        <div class="alldone ${classMap({hidden: this._pendingItems.length})}">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-          <path fill="none" d="M0 0h24v24H0V0z"/>
-          <path d="M18 7l-1.41-1.41-6.34 6.34 1.41 1.41L18 7zm4.24-1.41L11.66 16.17 7.48 12l-1.41 1.41L11.66 19l12-12-1.42-1.41zM.41 13.41L6 19l1.41-1.41L1.83 12 .41 13.41z"/>
-        </svg>
-        You're all done! Please,<br>enjoy your day.
-        <div id="filler"></div>
+        <div class="alldone ${classMap({hidden: !this._isAllDone()})}">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path fill="none" d="M0 0h24v24H0V0z"/>
+            <path d="M18 7l-1.41-1.41-6.34 6.34 1.41 1.41L18
+              7zm4.24-1.41L11.66 16.17 7.48 12l-1.41 1.41L11.66
+              19l12-12-1.42-1.41zM.41 13.41L6 19l1.41-1.41L1.83
+              12 .41 13.41z"/>
+          </svg>
+          You're all done! Please,<br>enjoy your day.
+          <div id="filler"></div>
+        </div>
       </div>
       <div role="list" class="mdc-list mdc-list--two-line">
-        ${repeat(this._pendingItems, v => v.name, v => {
+        ${this._pendingItems && repeat(this._pendingItems, v => v.name, v => {
           return html`
             <grocery-item
               .label=${v.name}
@@ -179,9 +195,9 @@ export class GroceriesList extends LitElement {
           `;
         })}
       </div>
-      <hr class=${classMap({hidden: !this._doneItems.length})}>
+      <hr class=${classMap({hidden: !this._hasDoneItems()})}>
       <div role="list" class="mdc-list mdc-list--two-line">
-        ${repeat(this._doneItems, v => v.name, v => {
+        ${this._doneItems && repeat(this._doneItems, v => v.name, v => {
           return html`
             <grocery-item
               .label=${v.name}
