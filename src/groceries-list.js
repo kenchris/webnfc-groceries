@@ -136,10 +136,10 @@ export class GroceriesList extends LitElement {
     onchange();
 
     try {
-      const reader = new NFCReader({url: document.baseURI, recordType: "json"});
-      reader.addEventListener("reading", event => {
-        for (let record of event.message.records) {
-          const data = record.data();
+      const reader = new NFCReader({ recordType: "json" });
+      reader.addEventListener("reading", ({message}) => {
+        for (let record of message.records) {
+          const data = record.toJSON();
           if (data.product) {
             this._store.set(data.product, data.description);
           }
