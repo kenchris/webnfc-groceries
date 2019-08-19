@@ -71,7 +71,7 @@ self.__precacheManifest = [
   },
   {
     "url": "main-app.js",
-    "revision": "5ea89f09d618e0af6ed273972fff8ef1"
+    "revision": "491d4ee1e9de8e117b9d4bf9bca3563a"
   },
   {
     "url": "polyfills/custom-elements-es5-adapter.551c76d38426de62c33d8c61995c1d0f.js",
