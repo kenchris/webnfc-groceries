@@ -1,5 +1,4 @@
-Web NFC Groceries Demo
-====
+# Web NFC Groceries Demo
 
 A small demo show-casing how you can enhance your app with the new
 Web NFC API.
@@ -9,8 +8,7 @@ kv-storage, Workbox CLI and Rollup.js
 
 It is a Progressive Web App that works on desktop and mobile.
 
-What can you do?
----
+## What can you do?
 
 - You can add new grocery items that you are missing (to buy). The app
 contains two lists (potentially empty), "to buy" (unchecked items) and
@@ -28,3 +26,17 @@ write the item to, or cancel.
 - When you tap a NFC tag that was written to, the item will be added
 to "to buy" or moved to "to buy" if in the "bought" list.
 - You can open the drawer and learn about the Web NFC specification
+
+## Getting Started
+
+Make sure you have [Node.js](https://nodejs.org) installed.
+
+### Build
+
+```
+npm install
+npm run build
+```
+
+This will create a `dist/` folder, you need to move it into docs/
+for updating the live site(https://kenchris.github.io/webnfc-groceries/).
