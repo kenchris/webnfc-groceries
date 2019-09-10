@@ -66,7 +66,6 @@ export class AddDialog extends LitElement {
       await writer.push(ndef, {
         target: "tag",
         ignoreRead: true,
-        compatibility: "any",
         signal: controller.signal
       });
       this._snackbar.close();
