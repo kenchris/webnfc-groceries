@@ -22,7 +22,7 @@ export class AddDialog extends LitElement {
   _store = new GroceryStore;
 
   @query('mwc-dialog') _dialog;
-  // TODO: use classMap to hide checkbox when !NFCWriter in window
+  // TODO: use classMap to hide checkbox when !NDEFWriter in window
   @query('mwc-checkbox') _checkbox;
   @query('mwc-snackbar') _snackbar;
   @query('#actionButton') _actionBtn;
@@ -43,11 +43,12 @@ export class AddDialog extends LitElement {
   }
 
   async _writeToNFC(product, description) {
+    const encoder = new TextEncoder();
     const ndef = {
       records: [{
-        recordType: "json",
+        recordType: "mime",
         mediaType: "application/json",
-        data: { product, description }
+        data: encoder.encode(JSON.stringify({ product, description }))
       }]
     };
 
@@ -62,10 +63,11 @@ export class AddDialog extends LitElement {
       this._snackbar.labelText = "Touch your NFC tag now";
       this._actionBtn.textContent = "CANCEL";
       this._snackbar.open();
-      const writer = new NFCWriter();
+      const writer = new NDEFWriter();
       await writer.push(ndef, {
         target: "tag",
         ignoreRead: true,
+        overwrite: true,
         signal: controller.signal
       });
       this._snackbar.close();
