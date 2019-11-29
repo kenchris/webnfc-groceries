@@ -134,23 +134,6 @@ export class GroceriesList extends LitElement {
     };
     this._store.addEventListener('change', onchange);
     onchange();
-
-    try {
-      const reader = new NDEFReader();
-      const scanOption = { recordType: "mime" };
-      reader.addEventListener("reading", ev => {
-        const decoder = new TextDecoder();
-        for (let record of ev.message.records) {
-          const data = JSON.parse(decoder.decode(record.data));
-          if (data.product) {
-            this._store.set(data.product, data.description);
-          }
-        }
-      });
-      reader.scan(scanOption);
-    } catch(err) {
-      console.error("Reading NFC tags is not supported");
-    }
   }
 
   _onchange(ev) {
