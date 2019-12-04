@@ -3,7 +3,6 @@ import { LitElement, html, css, property, customElement } from 'lit-element';
 import "@material/mwc-checkbox";
 import "@material/mwc-drawer";
 import "@material/mwc-fab";
-import "@material/mwc-switch";
 import "@material/mwc-formfield";
 import "@material/mwc-top-app-bar";
 import "@material/mwc-icon-button";
@@ -215,6 +214,7 @@ export class MainApplication extends LitElement {
         window.location.reload();
       }
       this._snackbar.labelText = "";
+      this._actionBtn.textContent = "";
     });
 
     this._store.addEventListener('change', ev => {
