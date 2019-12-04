@@ -67,7 +67,7 @@ export class AddDialog extends LitElement {
         }
       }, { once: true });
 
-      this._snackbar.labelText = "Touch your NFC tag now";
+      this._snackbar.labelText = "Touch your NFC tag now!";
       this._actionBtn.textContent = "CANCEL";
       this._snackbar.open();
       const writer = new NDEFWriter();
@@ -161,8 +161,6 @@ export class MainApplication extends LitElement {
     }
 
     .btn-scan {
-      width: 56px;
-      height: 56px;
       fill: #018786;
     }
 
@@ -200,6 +198,7 @@ export class MainApplication extends LitElement {
   @query('mwc-snackbar') _snackbar;
   @query('#actionButton') _actionBtn;
   @query('#btnScan') _btnScan;
+  @query('#btnScanSvg') _btnScanSvg;
   @query('#bgScan') _bgScan;
 
   firstUpdated() {
@@ -264,10 +263,10 @@ export class MainApplication extends LitElement {
   async _startScan() {
     const scanOption = { recordType: "mime" };
     try {
-      if (this._btnScan.classList.contains("disabled-scan")) {
+      if (this._btnScanSvg.classList.contains("disabled-scan")) {
         await this._reader.scan(scanOption);
-        this._btnScan.classList.remove("disabled-scan");
-        this._snackbar.labelText = "Start scanning your NFC tags!";
+        this._btnScanSvg.classList.remove("disabled-scan");
+        this._snackbar.labelText = "Add item or touch an NFC tag!";
         this._actionBtn.textContent = "";
         this._snackbar.open();
         if (this._firstScan) {
@@ -281,8 +280,8 @@ export class MainApplication extends LitElement {
         // New invocation of scan() will cancel previous scan().
         await this._reader.scan(scanOption);
         controller.abort();
-        this._btnScan.classList.add("disabled-scan");
-        this._snackbar.labelText = "NFC tags scanning is disabled!";
+        this._btnScanSvg.classList.add("disabled-scan");
+        this._snackbar.labelText = "NFC tags scan operation is disabled!";
         this._actionBtn.textContent = "";
         this._snackbar.open();
       }
@@ -309,10 +308,12 @@ export class MainApplication extends LitElement {
           <mwc-top-app-bar>
             <mwc-icon-button slot="navigationIcon" icon="menu"></mwc-icon-button>
             <div slot="title">Groceries list</div>
-            <svg id="btnScan" slot="actionItems" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="btn-scan disabled-scan">
-              <path fill="none" d="M0 0h24v24H0V0z"/>
-              <path d="M20,2L4,2c-1.1,0 -2,0.9 -2,2v16c0,1.1 0.9,2 2,2h16c1.1,0 2,-0.9 2,-2L22,4c0,-1.1 -0.9,-2 -2,-2zM20,20L4,20L4,4h16v16zM18,6h-5c-1.1,0 -2,0.9 -2,2v2.28c-0.6,0.35 -1,0.98 -1,1.72 0,1.1 0.9,2 2,2s2,-0.9 2,-2c0,-0.74 -0.4,-1.38 -1,-1.72L13,8h3v8L8,16L8,8h2L10,6L6,6v12h12L18,6z"/>
-            </svg>
+            <mwc-icon-button slot="actionItems" id="btnScan">
+              <svg id="btnScanSvg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="btn-scan disabled-scan">
+                <path fill="none" d="M0 0h24v24H0V0z"/>
+                <path d="M20,2L4,2c-1.1,0 -2,0.9 -2,2v16c0,1.1 0.9,2 2,2h16c1.1,0 2,-0.9 2,-2L22,4c0,-1.1 -0.9,-2 -2,-2zM20,20L4,20L4,4h16v16zM18,6h-5c-1.1,0 -2,0.9 -2,2v2.28c-0.6,0.35 -1,0.98 -1,1.72 0,1.1 0.9,2 2,2s2,-0.9 2,-2c0,-0.74 -0.4,-1.38 -1,-1.72L13,8h3v8L8,16L8,8h2L10,6L6,6v12h12L18,6z"/>
+              </svg>
+            </mwc-icon-button>
           </mwc-top-app-bar>
           <div class="main-content">
               <div class="div-bg-scan ${classMap({hidden: this._hideScanBg})}">
@@ -320,7 +321,7 @@ export class MainApplication extends LitElement {
                   <path fill="none" d="M0 0h24v24H0V0z"/>
                   <path d="M20,2L4,2c-1.1,0 -2,0.9 -2,2v16c0,1.1 0.9,2 2,2h16c1.1,0 2,-0.9 2,-2L22,4c0,-1.1 -0.9,-2 -2,-2zM20,20L4,20L4,4h16v16zM18,6h-5c-1.1,0 -2,0.9 -2,2v2.28c-0.6,0.35 -1,0.98 -1,1.72 0,1.1 0.9,2 2,2s2,-0.9 2,-2c0,-0.74 -0.4,-1.38 -1,-1.72L13,8h3v8L8,16L8,8h2L10,6L6,6v12h12L18,6z"/>
                 </svg>
-                Tap to start scanning<br>your NFC tags.
+                Tap here to start scanning<br>your NFC tags.
                 <div id="filler"></div>
               </div>
             <groceries-list></groceries-list>
