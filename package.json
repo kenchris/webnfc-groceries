@@ -30,7 +30,6 @@
     "@material/mwc-checkbox": "^0.6.0",
     "@material/mwc-drawer": "^0.6.0",
     "@material/mwc-fab": "^0.6.0",
-    "@material/mwc-switch": "^0.6.0",
     "@material/mwc-formfield": "^0.6.0",
     "@material/mwc-icon-button": "^0.6.0",
     "@material/mwc-snackbar": "^0.6.0",
