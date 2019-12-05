@@ -6,6 +6,7 @@ import "@material/mwc-fab";
 import "@material/mwc-formfield";
 import "@material/mwc-top-app-bar";
 import "@material/mwc-icon-button";
+import "@material/mwc-icon-button-toggle";
 import "@material/mwc-snackbar";
 import "@authentic/mwc-dialog/mwc-dialog";
 import "@authentic/mwc-textfield/mwc-textfield";
@@ -67,7 +68,7 @@ export class AddDialog extends LitElement {
         }
       }, { once: true });
 
-      this._snackbar.labelText = "Touch your NFC tag now!";
+      this._snackbar.labelText = "Touch your NFC tag now.";
       this._actionBtn.textContent = "CANCEL";
       this._snackbar.open();
       const writer = new NDEFWriter();
@@ -83,7 +84,7 @@ export class AddDialog extends LitElement {
 
       const permission = await navigator.permissions.query({ name: 'nfc' });
       if (permission.state == 'denied' && err.name == "NotAllowedError") {
-        this._snackbar.labelText = "NFC permission is denied, please grant it in browser settings!";
+        this._snackbar.labelText = "NFC permission is denied, please grant it in browser settings.";
         this._actionBtn.textContent = "";
         this._snackbar.open();
         return;
@@ -140,8 +141,6 @@ export class AddDialog extends LitElement {
 @customElement('main-app')
 export class MainApplication extends LitElement {
   _store = new GroceryStore;
-  _hideScanBg = false;
-  _firstScan = true;
 
   static styles = css`
     .drawer-content {
@@ -161,11 +160,7 @@ export class MainApplication extends LitElement {
     }
 
     .btn-scan {
-      fill: #018786;
-    }
-
-    .disabled-scan {
-      fill: lightgray;
+      fill: black;
     }
 
     .div-bg-scan {
@@ -198,8 +193,8 @@ export class MainApplication extends LitElement {
   @query('mwc-snackbar') _snackbar;
   @query('#actionButton') _actionBtn;
   @query('#btnScan') _btnScan;
-  @query('#btnScanSvg') _btnScanSvg;
   @query('#bgScan') _bgScan;
+  @property({type: Boolean}) _hideScanInfo;
 
   firstUpdated() {
     const drawer = this._drawer;
@@ -217,8 +212,7 @@ export class MainApplication extends LitElement {
     });
 
     this._store.addEventListener('change', ev => {
-      this._hideScanBg = true;
-      this.requestUpdate();
+      this._hideScanInfo = true;
     }, { once: true });
 
     try {
@@ -232,26 +226,28 @@ export class MainApplication extends LitElement {
           }
         }
       });
+      navigator.permissions.query({ name: 'nfc' }).then(async permission => {
+        if (permission.state == "granted") {
+          this._enableScan();
+        }
+        permission.addEventListener('change', () => {
+          if (permission.state == "granted") {
+            this._enableScan();
+          }
+        });
+      });
     } catch(err) {
       console.error("Reading NFC tags is not supported");
     }
-
-    this._btnScan.addEventListener('click', async ev => {
-      this._startScan();
-    });
-
-    this._bgScan.addEventListener('click', async ev => {
-      this._startScan();
-    });
 
     if ('serviceWorker' in navigator) {
       const wb = new Workbox('sw.js');
       wb.addEventListener('installed', ev => {
         if (!ev.isUpdate) {
-          console.log('Service worker activated for the first time!');
+          console.log('Service worker activated for the first time.');
         } else {
           console.log('Service worker was updated');
-          this._snackbar.labelText = "A newer version of the app is available!";
+          this._snackbar.labelText = "A newer version of the app is available.";
           this._snackbar.open();
         }
       });
@@ -260,36 +256,41 @@ export class MainApplication extends LitElement {
     }
   }
 
-  async _startScan() {
+  async _enableScan() {
+    const scanOption = { recordType: "mime" };
+    await this._reader.scan(scanOption);
+    this._btnScan.on = true;
+    this._hideScanInfo = true;
+  }
+
+  async _scanOperation(clickFromBgScan) {
     const scanOption = { recordType: "mime" };
     try {
-      if (this._btnScanSvg.classList.contains("disabled-scan")) {
+      if(clickFromBgScan) {
+        this._btnScan.on = true;
+      }
+      if (this._btnScan.on) {
         await this._reader.scan(scanOption);
-        this._btnScanSvg.classList.remove("disabled-scan");
-        this._snackbar.labelText = "Add item or touch an NFC tag!";
+        this._hideScanInfo = true;
+        this._snackbar.labelText = "Add item or touch an NFC tag.";
         this._actionBtn.textContent = "";
         this._snackbar.open();
-        if (this._firstScan) {
-          this._hideScanBg = true;
-          this._firstScan = false;
-          this.requestUpdate();
-        }
       } else {
         const controller = new AbortController();
         scanOption.signal = controller.signal;
         // New invocation of scan() will cancel previous scan().
         await this._reader.scan(scanOption);
         controller.abort();
-        this._btnScanSvg.classList.add("disabled-scan");
-        this._snackbar.labelText = "NFC tags scan operation is disabled!";
+        this._snackbar.labelText = "NFC tags scan operation is disabled.";
         this._actionBtn.textContent = "";
         this._snackbar.open();
       }
     } catch(err) {
       console.error(err);
+      this._btnScan.on = false;
       const permission = await navigator.permissions.query({ name: 'nfc' });
       if (permission.state == 'denied' && err.name == "NotAllowedError") {
-        this._snackbar.labelText = "NFC permission is denied, please grant it in browser settings!";
+        this._snackbar.labelText = "NFC permission is denied, please grant it in browser settings.";
         this._actionBtn.textContent = "";
         this._snackbar.open();
       }
@@ -308,16 +309,20 @@ export class MainApplication extends LitElement {
           <mwc-top-app-bar>
             <mwc-icon-button slot="navigationIcon" icon="menu"></mwc-icon-button>
             <div slot="title">Groceries list</div>
-            <mwc-icon-button slot="actionItems" id="btnScan">
-              <svg id="btnScanSvg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="btn-scan disabled-scan">
+            <mwc-icon-button-toggle slot="actionItems" id="btnScan" @click=${() => this._scanOperation()}>
+              <svg slot="onIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="btn-scan">
                 <path fill="none" d="M0 0h24v24H0V0z"/>
                 <path d="M20,2L4,2c-1.1,0 -2,0.9 -2,2v16c0,1.1 0.9,2 2,2h16c1.1,0 2,-0.9 2,-2L22,4c0,-1.1 -0.9,-2 -2,-2zM20,20L4,20L4,4h16v16zM18,6h-5c-1.1,0 -2,0.9 -2,2v2.28c-0.6,0.35 -1,0.98 -1,1.72 0,1.1 0.9,2 2,2s2,-0.9 2,-2c0,-0.74 -0.4,-1.38 -1,-1.72L13,8h3v8L8,16L8,8h2L10,6L6,6v12h12L18,6z"/>
               </svg>
-            </mwc-icon-button>
+              <svg slot="offIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <path fill="none" d="M0 0h24v24H0V0z"/>
+                <path d="M20,2L4,2c-1.1,0 -2,0.9 -2,2v16c0,1.1 0.9,2 2,2h16c1.1,0 2,-0.9 2,-2L22,4c0,-1.1 -0.9,-2 -2,-2zM20,20L4,20L4,4h16v16zM18,6h-5c-1.1,0 -2,0.9 -2,2v2.28c-0.6,0.35 -1,0.98 -1,1.72 0,1.1 0.9,2 2,2s2,-0.9 2,-2c0,-0.74 -0.4,-1.38 -1,-1.72L13,8h3v8L8,16L8,8h2L10,6L6,6v12h12L18,6z"/>
+            </svg>
+            </mwc-icon-button-toggle>
           </mwc-top-app-bar>
           <div class="main-content">
-              <div class="div-bg-scan ${classMap({hidden: this._hideScanBg})}">
-                <svg id="bgScan" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="bg-scan">
+              <div class="div-bg-scan ${classMap({hidden: this._hideScanInfo})}">
+                <svg id="bgScan" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="bg-scan" @click=${() => this._scanOperation(true)}>
                   <path fill="none" d="M0 0h24v24H0V0z"/>
                   <path d="M20,2L4,2c-1.1,0 -2,0.9 -2,2v16c0,1.1 0.9,2 2,2h16c1.1,0 2,-0.9 2,-2L22,4c0,-1.1 -0.9,-2 -2,-2zM20,20L4,20L4,4h16v16zM18,6h-5c-1.1,0 -2,0.9 -2,2v2.28c-0.6,0.35 -1,0.98 -1,1.72 0,1.1 0.9,2 2,2s2,-0.9 2,-2c0,-0.74 -0.4,-1.38 -1,-1.72L13,8h3v8L8,16L8,8h2L10,6L6,6v12h12L18,6z"/>
                 </svg>
