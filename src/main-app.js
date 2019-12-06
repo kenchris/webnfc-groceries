@@ -1,5 +1,5 @@
-
 import { LitElement, html, css, property, customElement } from 'lit-element';
+import "@material/mwc-button";
 import "@material/mwc-checkbox";
 import "@material/mwc-drawer";
 import "@material/mwc-fab";
@@ -8,7 +8,7 @@ import "@material/mwc-top-app-bar";
 import "@material/mwc-icon-button";
 import "@material/mwc-icon-button-toggle";
 import "@material/mwc-snackbar";
-import "@authentic/mwc-dialog/mwc-dialog";
+import "@material/mwc-dialog";
 import "@authentic/mwc-textfield/mwc-textfield";
 
 import { query } from '@material/mwc-base/base-element.js';
@@ -18,14 +18,76 @@ import { GroceryStore } from './grocery-store.js';
 
 import { Workbox } from 'workbox-window';
 
-import { classMap } from 'lit-html/directives/class-map.js'
+@customElement('onboarding-wizard')
+export class OnboardingWizard extends LitElement {
+
+  @query('mwc-dialog') _dialog;
+
+  static styles = css`
+    #dialog {
+      --mdc-dialog-max-width: 350px;
+    }
+
+    #container {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      height: 150px;
+    }
+
+    #bg-scan {
+      width: 100px;
+      height: 100px;
+      fill: lightgray;
+    }
+  `;
+
+  firstUpdated() {
+    this._dialog.addEventListener('closed', async ev => {
+      if (ev.detail.action !== "next") return;
+      this.dispatchEvent(new Event('prompt'));
+    });
+  }
+
+  async open() {
+    await this.updateComplete;
+    this._dialog.open = true;
+  }
+
+  render() {
+    return html`
+      <mwc-dialog id="dialog">
+        <div id="container">
+          <svg id="bg-scan" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path fill="none" d="M0 0h24v24H0V0z"/>
+            <path d="M20,2L4,2c-1.1,0 -2,0.9 -2,2v16c0,1.1 0.9,2 2,2h16c1.1,0
+            2,-0.9 2,-2L22,4c0,-1.1 -0.9,-2 -2,-2zM20,20L4,20L4,4h16v16zM18,6h-5c-1.1,0
+            -2,0.9 -2,2v2.28c-0.6,0.35 -1,0.98 -1,1.72 0,1.1 0.9,2 2,2s2,-0.9 2,-2c0,-0.74
+            -0.4,-1.38 -1,-1.72L13,8h3v8L8,16L8,8h2L10,6L6,6v12h12L18,6z"/>
+          </svg>
+        </div>
+        Add groceries items by tapping on NFC stickers and the like.
+        <mwc-button
+        dialogAction="next"
+        slot="primaryAction">
+          next
+        </mwc-button>
+        <mwc-button
+          dialogAction="skip"
+          slot="secondaryAction">
+          skip
+        </mwc-button>
+      </mwc-dialog>
+    `;
+  }
+}
+
 
 @customElement('add-dialog')
 export class AddDialog extends LitElement {
   _store = new GroceryStore;
 
   @query('mwc-dialog') _dialog;
-  // TODO: use classMap to hide checkbox when !NDEFWriter in window
   @query('mwc-checkbox') _checkbox;
   @query('mwc-snackbar') _snackbar;
   @query('#actionButton') _actionBtn;
@@ -38,8 +100,8 @@ export class AddDialog extends LitElement {
       this._actionBtn.textContent = "";
     });
 
-    this._dialog.addEventListener('MDCDialog:closed', async ev => {
-      if (ev.detail.action !== "accept") return;
+    this._dialog.addEventListener('closed', async ev => {
+      if (ev.detail.action !== "add") return;
 
       const writeToNFC = this._checkbox.checked;
       if (writeToNFC) {
@@ -62,7 +124,7 @@ export class AddDialog extends LitElement {
 
     try {
       const controller = new AbortController;
-      this._snackbar.addEventListener('MDCSnackbar:closed', ev => {
+      this._snackbar.addEventListener('closed', ev => {
         if (ev.detail.reason === "action") {
           controller.abort();
         }
@@ -110,12 +172,12 @@ export class AddDialog extends LitElement {
     this._description.value = "";
     this._checkbox.checked = false;
     this._product.value = entry;
-    this._dialog.open();
+    this._dialog.open = true;
   }
 
   render() {
     return html`
-      <mwc-dialog id="dialog" headerLabel="Add new item" acceptLabel="Add" declineLabel="Cancel">
+      <mwc-dialog id="dialog" heading="Add new item">
         <mwc-textfield outlined required id="product"
           type="text"
           label="Enter product..."
@@ -129,6 +191,16 @@ export class AddDialog extends LitElement {
         <mwc-formfield label="Write to NFC tag instead">
           <mwc-checkbox></mwc-checkbox>
         </mwc-formfield>
+        <mwc-button
+        dialogAction="add"
+        slot="primaryAction">
+          add
+        </mwc-button>
+        <mwc-button
+          dialogAction="cancel"
+          slot="secondaryAction">
+          cancel
+        </mwc-button>
       </mwc-dialog>
       <mwc-snackbar stacked>
         <mwc-button id="actionButton" slot="action">CANCEL</mwc-button>
@@ -159,28 +231,12 @@ export class MainApplication extends LitElement {
       right: 16px;
     }
 
-    .btn-scan {
-      fill: black;
+    .permission-on {
+      fill: white;
     }
 
-    .div-bg-scan {
-      height: 70vh;
-      color: gray;
-      display: flex;
-      align-items: center;
-      justify-content: flex-end;
-      flex-direction: column;
-      text-align: center;
-    }
-
-    .bg-scan {
-      width: 100px;
-      height: 100px;
+    .permission-off {
       fill: lightgray;
-    }
-
-    .div-bg-scan > #filler {
-      height: 20vh;
     }
 
     .hidden {
@@ -188,13 +244,12 @@ export class MainApplication extends LitElement {
     }
   `;
 
+  @query('onboarding-wizard') _wizard;
   @query('add-dialog') _dialog;
   @query('mwc-drawer') _drawer;
   @query('mwc-snackbar') _snackbar;
   @query('#actionButton') _actionBtn;
-  @query('#btnScan') _btnScan;
-  @query('#bgScan') _bgScan;
-  @property({type: Boolean}) _hideScanInfo;
+  @query('#permissionToggle') _permissionToggle;
 
   firstUpdated() {
     const drawer = this._drawer;
@@ -211,16 +266,6 @@ export class MainApplication extends LitElement {
       this._actionBtn.textContent = "";
     });
 
-    const onchange = async () => {
-      for await (let entry of this._store.entries()) {
-        this._hideScanInfo = true;
-        this._store.removeEventListener('change', onchange);
-        return;
-      }
-    };
-    this._store.addEventListener('change', onchange);
-    onchange();
-
     try {
       this._reader = new NDEFReader();
       this._reader.addEventListener("reading", ev => {
@@ -234,16 +279,22 @@ export class MainApplication extends LitElement {
       });
       navigator.permissions.query({ name: 'nfc' }).then(async permission => {
         if (permission.state == "granted") {
-          this._enableScan();
+          this._reader.scan({ recordType: "mime" });
+          this._permissionToggle.on = true;
         }
         permission.addEventListener('change', () => {
           if (permission.state == "granted") {
-            this._enableScan();
+            this._reader.scan({ recordType: "mime" });
+            this._permissionToggle.on = true;
+          }
+          if (permission.state == 'denied') {
+            this._permissionToggle.on = false;
           }
         });
       });
     } catch(err) {
       console.error("Reading NFC tags is not supported");
+      this._wizard.open();
     }
 
     if ('serviceWorker' in navigator) {
@@ -262,22 +313,17 @@ export class MainApplication extends LitElement {
     }
   }
 
-  async _enableScan() {
-    const scanOption = { recordType: "mime" };
-    await this._reader.scan(scanOption);
-    this._btnScan.on = true;
-    this._hideScanInfo = true;
-  }
+  async _scanOperation() {
+    if (!this._reader) {
+      this._snackbar.labelText = "NFC is not supported; try enabling in about:flags";
+      this._actionBtn.textContent = "";
+      this._snackbar.open();
+      return;
+    }
 
-  async _scanOperation(clickFromBgScan) {
-    const scanOption = { recordType: "mime" };
     try {
-      if(clickFromBgScan) {
-        this._btnScan.on = true;
-      }
-      if (this._btnScan.on) {
-        await this._reader.scan(scanOption);
-        this._hideScanInfo = true;
+      if (this._permissionToggle.on) {
+        await this._reader.scan({ recordType: "mime" });
         this._snackbar.labelText = "Add item or touch an NFC tag.";
         this._actionBtn.textContent = "";
         this._snackbar.open();
@@ -293,7 +339,7 @@ export class MainApplication extends LitElement {
       }
     } catch(err) {
       console.error(err);
-      this._btnScan.on = false;
+      this._permissionToggle.on = false;
       const permission = await navigator.permissions.query({ name: 'nfc' });
       if (permission.state == 'denied' && err.name == "NotAllowedError") {
         this._snackbar.labelText = "NFC permission is denied, please grant it in browser settings.";
@@ -305,6 +351,7 @@ export class MainApplication extends LitElement {
 
   render() {
     return html`
+      <onboarding-wizard @prompt=${() => this._scanOperation()}></onboarding-wizard>
       <mwc-drawer hasHeader type=modal>
         <span slot="title">Web NFC Grocery Demo</span>
         <span slot="subtitle">A demonstration of Web NFC</span>
@@ -315,26 +362,18 @@ export class MainApplication extends LitElement {
           <mwc-top-app-bar>
             <mwc-icon-button slot="navigationIcon" icon="menu"></mwc-icon-button>
             <div slot="title">Groceries list</div>
-            <mwc-icon-button-toggle slot="actionItems" id="btnScan" @click=${() => this._scanOperation()}>
-              <svg slot="onIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="btn-scan">
+            <mwc-icon-button-toggle slot="actionItems" id="permissionToggle" @click=${() => this._scanOperation()}>
+              <svg slot="onIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="permission-on">
                 <path fill="none" d="M0 0h24v24H0V0z"/>
                 <path d="M20,2L4,2c-1.1,0 -2,0.9 -2,2v16c0,1.1 0.9,2 2,2h16c1.1,0 2,-0.9 2,-2L22,4c0,-1.1 -0.9,-2 -2,-2zM20,20L4,20L4,4h16v16zM18,6h-5c-1.1,0 -2,0.9 -2,2v2.28c-0.6,0.35 -1,0.98 -1,1.72 0,1.1 0.9,2 2,2s2,-0.9 2,-2c0,-0.74 -0.4,-1.38 -1,-1.72L13,8h3v8L8,16L8,8h2L10,6L6,6v12h12L18,6z"/>
               </svg>
-              <svg slot="offIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <svg slot="offIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="permission-off">
                 <path fill="none" d="M0 0h24v24H0V0z"/>
                 <path d="M20,2L4,2c-1.1,0 -2,0.9 -2,2v16c0,1.1 0.9,2 2,2h16c1.1,0 2,-0.9 2,-2L22,4c0,-1.1 -0.9,-2 -2,-2zM20,20L4,20L4,4h16v16zM18,6h-5c-1.1,0 -2,0.9 -2,2v2.28c-0.6,0.35 -1,0.98 -1,1.72 0,1.1 0.9,2 2,2s2,-0.9 2,-2c0,-0.74 -0.4,-1.38 -1,-1.72L13,8h3v8L8,16L8,8h2L10,6L6,6v12h12L18,6z"/>
             </svg>
             </mwc-icon-button-toggle>
           </mwc-top-app-bar>
           <div class="main-content">
-              <div class="div-bg-scan ${classMap({hidden: this._hideScanInfo})}">
-                <svg id="bgScan" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="bg-scan" @click=${() => this._scanOperation(true)}>
-                  <path fill="none" d="M0 0h24v24H0V0z"/>
-                  <path d="M20,2L4,2c-1.1,0 -2,0.9 -2,2v16c0,1.1 0.9,2 2,2h16c1.1,0 2,-0.9 2,-2L22,4c0,-1.1 -0.9,-2 -2,-2zM20,20L4,20L4,4h16v16zM18,6h-5c-1.1,0 -2,0.9 -2,2v2.28c-0.6,0.35 -1,0.98 -1,1.72 0,1.1 0.9,2 2,2s2,-0.9 2,-2c0,-0.74 -0.4,-1.38 -1,-1.72L13,8h3v8L8,16L8,8h2L10,6L6,6v12h12L18,6z"/>
-                </svg>
-                Tap here to start scanning<br>your NFC tags.
-                <div id="filler"></div>
-              </div>
             <groceries-list></groceries-list>
           </div>
         </div>
