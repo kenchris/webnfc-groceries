@@ -211,9 +211,15 @@ export class MainApplication extends LitElement {
       this._actionBtn.textContent = "";
     });
 
-    this._store.addEventListener('change', ev => {
-      this._hideScanInfo = true;
-    }, { once: true });
+    const onchange = async () => {
+      for await (let entry of this._store.entries()) {
+        this._hideScanInfo = true;
+        this._store.removeEventListener('change', onchange);
+        return;
+      }
+    };
+    this._store.addEventListener('change', onchange);
+    onchange();
 
     try {
       this._reader = new NDEFReader();
