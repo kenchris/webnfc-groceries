@@ -282,6 +282,9 @@ export class MainApplication extends LitElement {
           this._reader.scan({ recordType: "mime" });
           this._permissionToggle.on = true;
         }
+        if (permission.state == "prompt") {
+          this._wizard.open();
+        }
         permission.addEventListener('change', () => {
           if (permission.state == "granted") {
             this._reader.scan({ recordType: "mime" });
@@ -329,6 +332,7 @@ export class MainApplication extends LitElement {
         this._snackbar.open();
       } else {
         const controller = new AbortController();
+        const scanOption = { recordType: "mime" };
         scanOption.signal = controller.signal;
         // New invocation of scan() will cancel previous scan().
         await this._reader.scan(scanOption);
