@@ -6,7 +6,7 @@
   "repository": "PolymerLabs/lit-element-build-rollup",
   "scripts": {
     "start": "owc-dev-server --app-index index.html --open --port 8000 --watch",
-    "start:build": "owc-dev-server dist/ --open",
+    "start:build": "owc-dev-server dist/ --open --port 8000",
     "build": "rimraf dist && rollup -c rollup.config.js"
   },
   "author": "Intel Corporation",
