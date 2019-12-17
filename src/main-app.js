@@ -9,7 +9,7 @@ import "@material/mwc-icon-button";
 import "@material/mwc-icon-button-toggle";
 import "@material/mwc-snackbar";
 import "@material/mwc-dialog";
-import "@authentic/mwc-textfield/mwc-textfield";
+import "@material/mwc-textfield";
 
 import { query } from '@material/mwc-base/base-element.js';
 
@@ -103,11 +103,31 @@ export class AddDialog extends LitElement {
     this._dialog.addEventListener('closed', async ev => {
       if (ev.detail.action !== "add") return;
 
+      let product = this._product.value;
+      let desc = this._description.value;
+      this._product.value = "";
+      this._description.value = "";
+
+      console.log(product, !product, product === "");
+
+      if (product === "") {
+        let options = [
+          "Milk", "Cheese", "Beer", "Cocoa", "Candy",
+          "Pizza", "Basil", "Salt", "Olive Oil",
+          "Toilet paper", "Orange", "Pancakes",
+          "Coffee", "Toothpaste", "Salat", "Salami",
+          "Popcorns", "Cake", "Nuts", "Bread"
+        ];
+        product = options[Math.floor(Math.random() * options.length)];
+        desc = "";
+      }
+
+
       const writeToNFC = this._checkbox.checked;
       if (writeToNFC) {
-        this._writeToNFC(this._product.value, this._description.value);
+        this._writeToNFC(product, desc);
       } else {
-        this._store.set(this._product.value, this._description.value);
+        this._store.set(product, desc);
       }
     });
   }
@@ -164,33 +184,40 @@ export class AddDialog extends LitElement {
   }
 
   open() {
-    let options = [
-      "Milk", "Cheese", "Beer", "Cocoa", "Candy",
-      "Pizza", "Basil", "Salt", "Olive Oil"
-    ];
-    let entry = options[Math.floor(Math.random() * options.length)];
     this._description.value = "";
     this._checkbox.checked = false;
-    this._product.value = entry;
     this._dialog.open = true;
   }
+
+  static styles = [
+    css`
+      div {
+        display: flex;
+        flex-direction: column;
+      }
+
+      div > mwc-textfield {
+        padding: 10px 0px 10px 0px;
+      }
+    `
+  ];
 
   render() {
     return html`
       <mwc-dialog id="dialog" heading="Add new item">
-        <mwc-textfield outlined required id="product"
-          type="text"
-          label="Enter product..."
-          value="Milk"
-          helperText="Add a product like milk, bananas, etc">
-        </mwc-textfield>
-        <mwc-textfield outlined id="description"
-          type="text"
-          label="Enter description...">
-        </mwc-textfield>
-        <mwc-formfield label="Write to NFC tag instead">
-          <mwc-checkbox></mwc-checkbox>
-        </mwc-formfield>
+        <div>
+          <mwc-textfield outlined required
+            id="product"
+            label="Enter product...">
+          </mwc-textfield>
+          <mwc-textfield outlined
+            id="description"
+            label="Enter description...">
+          </mwc-textfield>
+          <mwc-formfield label="Write to NFC tag instead">
+            <mwc-checkbox></mwc-checkbox>
+          </mwc-formfield>
+        </div>
         <mwc-button
         dialogAction="add"
         slot="primaryAction">
