@@ -154,8 +154,7 @@ export class AddDialog extends LitElement {
       this._actionBtn.textContent = "CANCEL";
       this._snackbar.open();
       const writer = new NDEFWriter();
-      await writer.push(ndef, {
-        target: "tag",
+      await writer.write(ndef, {
         ignoreRead: true,
         overwrite: true,
         signal: controller.signal
