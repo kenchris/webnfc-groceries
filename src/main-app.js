@@ -154,8 +154,7 @@ export class AddDialog extends LitElement {
       this._actionBtn.textContent = "CANCEL";
       this._snackbar.open();
       const writer = new NDEFWriter();
-      await writer.push(ndef, {
-        target: "tag",
+      await writer.write(ndef, {
         ignoreRead: true,
         overwrite: true,
         signal: controller.signal
@@ -356,9 +355,8 @@ export class MainApplication extends LitElement {
         this._snackbar.open();
       } else {
         const controller = new AbortController();
-        scanOption.signal = controller.signal;
         // New invocation of scan() will cancel previous scan().
-        await this._reader.scan(scanOption);
+        await this._reader.scan({ recordType: "mime", signal: controller.signal });
         controller.abort();
         this._snackbar.labelText = "NFC tags scan operation is disabled.";
         this._actionBtn.textContent = "";
