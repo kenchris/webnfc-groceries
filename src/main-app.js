@@ -355,9 +355,8 @@ export class MainApplication extends LitElement {
         this._snackbar.open();
       } else {
         const controller = new AbortController();
-        scanOption.signal = controller.signal;
         // New invocation of scan() will cancel previous scan().
-        await this._reader.scan(scanOption);
+        await this._reader.scan({ recordType: "mime", signal: controller.signal });
         controller.abort();
         this._snackbar.labelText = "NFC tags scan operation is disabled.";
         this._actionBtn.textContent = "";
