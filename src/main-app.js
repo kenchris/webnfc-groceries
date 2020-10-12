@@ -297,39 +297,37 @@ export class MainApplication extends LitElement {
       this._actionBtn.textContent = "";
     });
 
-    try {
-      ndefReader.addEventListener("reading", ev => {
-        if (ndefReader.__ignoreRead__) {
-          return;
-        }
+    ndefReader.addEventListener("reading", ev => {
+      if (ndefReader.__ignoreRead__) {
+        return;
+      }
 
-        const decoder = new TextDecoder();
-        for (let record of ev.message.records) {
-          const data = JSON.parse(decoder.decode(record.data));
-          if (data.product) {
-            this._store.set(data.product, data.description);
-          }
+      const decoder = new TextDecoder();
+      for (let record of ev.message.records) {
+        const data = JSON.parse(decoder.decode(record.data));
+        if (data.product) {
+          this._store.set(data.product, data.description);
         }
-      });
-      navigator.permissions.query({ name: 'nfc' }).then(async permission => {
+      }
+    });
+    navigator.permissions.query({ name: 'nfc' }).then(async permission => {
+      if (permission.state == "granted") {
+        this._reader.scan({ recordType: "mime" });
+        this._permissionToggle.on = true;
+      }
+      permission.addEventListener('change', () => {
         if (permission.state == "granted") {
           this._reader.scan({ recordType: "mime" });
           this._permissionToggle.on = true;
         }
-        permission.addEventListener('change', () => {
-          if (permission.state == "granted") {
-            this._reader.scan({ recordType: "mime" });
-            this._permissionToggle.on = true;
-          }
-          if (permission.state == 'denied') {
-            this._permissionToggle.on = false;
-          }
-        });
+        if (permission.state == 'denied') {
+          this._permissionToggle.on = false;
+        }
       });
-    } catch(err) {
+    }).catch(err => {
       console.error("Reading NFC tags is not supported");
       this._wizard.open();
-    }
+    });
 
     if ('serviceWorker' in navigator) {
       const wb = new Workbox('sw.js');
