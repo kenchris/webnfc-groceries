@@ -1,4 +1,6 @@
 import { LitElement, html, css, property, customElement } from 'lit-element';
+import { query } from 'lit-element/lib/decorators';
+
 import "@material/mwc-button";
 import "@material/mwc-checkbox";
 import "@material/mwc-drawer";
@@ -10,8 +12,6 @@ import "@material/mwc-icon-button-toggle";
 import "@material/mwc-snackbar";
 import "@material/mwc-dialog";
 import "@material/mwc-textfield";
-
-import { query } from '@material/mwc-base/base-element.js';
 
 import "./groceries-list.js";
 import { GroceryStore } from './grocery-store.js';
@@ -238,7 +238,7 @@ export class AddDialog extends LitElement {
   }
 }
 
-const ndefReader = new NDEFReader();
+const ndefReader = window.NDEFReader ? new NDEFReader() : new EventTarget();
 ndefReader.__ignoreRead__ = false;
 
 @customElement('main-app')
