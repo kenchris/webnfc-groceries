@@ -153,12 +153,14 @@ export class AddDialog extends LitElement {
       this._snackbar.labelText = "Touch your NFC tag now.";
       this._actionBtn.textContent = "CANCEL";
       this._snackbar.open();
-      const writer = new NDEFWriter();
-      await writer.write(ndef, {
-        ignoreRead: true,
+
+      ndefReader.__ignoreRead__ = true;
+      await ndefReader.write(ndef, {
         overwrite: true,
         signal: controller.signal
       });
+      ndefReader.__ignoreRead__ = false;
+
       this._snackbar.close();
     } catch (err) {
       this._snackbar.close();
@@ -236,6 +238,9 @@ export class AddDialog extends LitElement {
   }
 }
 
+const ndefReader = new NDEFReader();
+ndefReader.__ignoreRead__ = false;
+
 @customElement('main-app')
 export class MainApplication extends LitElement {
   _store = new GroceryStore;
@@ -293,8 +298,11 @@ export class MainApplication extends LitElement {
     });
 
     try {
-      this._reader = new NDEFReader();
-      this._reader.addEventListener("reading", ev => {
+      ndefReader.addEventListener("reading", ev => {
+        if (ndefReader.__ignoreRead__) {
+          return;
+        }
+
         const decoder = new TextDecoder();
         for (let record of ev.message.records) {
           const data = JSON.parse(decoder.decode(record.data));
