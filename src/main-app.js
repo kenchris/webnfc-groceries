@@ -312,12 +312,12 @@ export class MainApplication extends LitElement {
     });
     navigator.permissions.query({ name: 'nfc' }).then(async permission => {
       if (permission.state == "granted") {
-        this._reader.scan({ recordType: "mime" });
+        ndefReader.scan({ recordType: "mime" });
         this._permissionToggle.on = true;
       }
       permission.addEventListener('change', () => {
         if (permission.state == "granted") {
-          this._reader.scan({ recordType: "mime" });
+          ndefReader.scan({ recordType: "mime" });
           this._permissionToggle.on = true;
         }
         if (permission.state == 'denied') {
@@ -346,7 +346,7 @@ export class MainApplication extends LitElement {
   }
 
   async _scanOperation() {
-    if (!this._reader) {
+    if (!window.NDEFReader) {
       this._snackbar.labelText = "NFC is not supported; try enabling in about:flags";
       this._actionBtn.textContent = "";
       this._snackbar.open();
@@ -355,14 +355,14 @@ export class MainApplication extends LitElement {
 
     try {
       if (this._permissionToggle.on) {
-        await this._reader.scan({ recordType: "mime" });
+        await ndefReader.scan({ recordType: "mime" });
         this._snackbar.labelText = "Add item or touch an NFC tag.";
         this._actionBtn.textContent = "";
         this._snackbar.open();
       } else {
         const controller = new AbortController();
         // New invocation of scan() will cancel previous scan().
-        await this._reader.scan({ recordType: "mime", signal: controller.signal });
+        await ndefReader.scan({ recordType: "mime", signal: controller.signal });
         controller.abort();
         this._snackbar.labelText = "NFC tags scan operation is disabled.";
         this._actionBtn.textContent = "";
