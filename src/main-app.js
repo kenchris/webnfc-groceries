@@ -155,7 +155,8 @@ export class AddDialog extends LitElement {
       this._snackbar.open();
 
       ndefReader.__ignoreRead__ = true;
-      await ndefReader.write(ndef, {
+      const writer = new NDEFWriter();
+      await writer.write(ndef, {
         overwrite: true,
         signal: controller.signal
       });
