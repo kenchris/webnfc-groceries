@@ -4,8 +4,8 @@ module.exports = {
   globPatterns: [
     "**/*.{html,css}",
     "images/manifest/*",
-    "images/*",
     "web_modules/import-map.json",
+    "web_modules/**/*",
     "dist/*.js"
   ],
   globIgnores: ['**/manifest.json'],
