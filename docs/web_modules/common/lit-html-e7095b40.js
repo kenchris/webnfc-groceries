@@ -580,6 +580,26 @@ class TemplateResult {
         return template;
     }
 }
+/**
+ * A TemplateResult for SVG fragments.
+ *
+ * This class wraps HTML in an `<svg>` tag in order to parse its contents in the
+ * SVG namespace, then modifies the template to remove the `<svg>` tag so that
+ * clones only container the original fragment.
+ */
+class SVGTemplateResult extends TemplateResult {
+    getHTML() {
+        return `<svg>${super.getHTML()}</svg>`;
+    }
+    getTemplateElement() {
+        const template = super.getTemplateElement();
+        const content = template.content;
+        const svgElement = content.firstChild;
+        content.removeChild(svgElement);
+        reparentNodes(content, svgElement.firstChild);
+        return template;
+    }
+}
 
 /**
  * @license
@@ -1126,5 +1146,10 @@ if (typeof window !== 'undefined') {
  * render to and update a container.
  */
 const html = (strings, ...values) => new TemplateResult(strings, values, 'html', defaultTemplateProcessor);
+/**
+ * Interprets a template literal as an SVG template that can efficiently
+ * render to and update a container.
+ */
+const svg = (strings, ...values) => new SVGTemplateResult(strings, values, 'svg', defaultTemplateProcessor);
 
-export { AttributePart as A, BooleanAttributePart as B, EventPart as E, NodePart as N, PropertyPart as P, Template as T, TemplateInstance as a, nothing as b, createMarker as c, directive as d, reparentNodes as e, html as h, isTemplatePartActive as i, marker as m, noChange as n, removeNodes as r };
+export { AttributePart as A, BooleanAttributePart as B, EventPart as E, NodePart as N, PropertyPart as P, SVGTemplateResult as S, Template as T, TemplateInstance as a, TemplateResult as b, nothing as c, directive as d, createMarker as e, reparentNodes as f, html as h, isTemplatePartActive as i, marker as m, noChange as n, removeNodes as r, svg as s };

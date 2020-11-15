@@ -1,9 +1,9 @@
 import { a as __extends, b as __assign, M as MDCFoundation, _ as __decorate } from '../common/foundation-dde8a859.js';
-import { h as html } from '../common/lit-html-f788ef9b.js';
-import { L as LitElement, c as css } from '../common/lit-element-b5517bb7.js';
-import { p as property, q as query, c as customElement } from '../common/decorators-2882b9ac.js';
+import { h as html } from '../common/lit-html-e7095b40.js';
+import { L as LitElement, c as css } from '../common/lit-element-f25bd23a.js';
+import { property, query, customElement } from '../lit-element/lib/decorators.js';
 import { m as matches } from '../common/ponyfill-4ccc5f83.js';
-import { c as classMap } from '../common/class-map-fb7cc7c5.js';
+import { classMap } from '../lit-html/directives/class-map.js';
 
 /**
  * @license

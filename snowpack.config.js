@@ -12,6 +12,7 @@ module.exports = {
   },
   plugins: ['@snowpack/plugin-babel', '@snowpack/plugin-dotenv'],
   installOptions: {
+    treeshake: false,
     rollup: {
       dedupe: [
         "@material/mwc-notched-outline",

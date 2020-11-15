@@ -1,10 +1,10 @@
 import { _ as __decorate } from '../common/foundation-dde8a859.js';
-import { h as html } from '../common/lit-html-f788ef9b.js';
-import { L as LitElement, c as css } from '../common/lit-element-b5517bb7.js';
-import { a as queryAsync, p as property, i as internalProperty, e as eventOptions, c as customElement } from '../common/decorators-2882b9ac.js';
-import { R as RippleHandlers } from '../common/ripple-handlers-24bcb321.js';
+import { h as html } from '../common/lit-html-e7095b40.js';
+import { L as LitElement, c as css } from '../common/lit-element-f25bd23a.js';
+import { queryAsync, property, internalProperty, eventOptions, customElement } from '../lit-element/lib/decorators.js';
+import { R as RippleHandlers } from '../common/ripple-handlers-02428190.js';
 import '../common/foundation-c4780e20.js';
-import { c as classMap } from '../common/class-map-fb7cc7c5.js';
+import { classMap } from '../lit-html/directives/class-map.js';
 
 /**
  * Fab Base class logic and template definition

@@ -1,7 +1,7 @@
 import { a as __extends, b as __assign, _ as __decorate } from '../common/foundation-dde8a859.js';
-import { d as directive, n as noChange, N as NodePart, h as html } from '../common/lit-html-f788ef9b.js';
-import { c as css, L as LitElement, t as templateFactory } from '../common/lit-element-b5517bb7.js';
-import { q as query, p as property, c as customElement } from '../common/decorators-2882b9ac.js';
+import { d as directive, n as noChange, N as NodePart, h as html } from '../common/lit-html-e7095b40.js';
+import { c as css, L as LitElement, t as templateFactory } from '../common/lit-element-f25bd23a.js';
+import { query, property, customElement } from '../lit-element/lib/decorators.js';
 import { m as matches } from '../common/ponyfill-4ccc5f83.js';
 import { s as supportsCssVariables, M as MDCRippleFoundation } from '../common/foundation-c4780e20.js';
 import { a as applyPassive } from '../common/events-a64aa528.js';
