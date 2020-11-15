@@ -1,4 +1,4 @@
-import { LitElement, html, css, property, customElement } from 'lit-element';
+import { LitElement, html, css, customElement } from 'lit-element';
 import { query } from 'lit-element/lib/decorators';
 
 import "@material/mwc-button";

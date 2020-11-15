@@ -30,7 +30,7 @@ function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.it
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
-import { LitElement, html, css, property, customElement } from '../web_modules/lit-element.js';
+import { LitElement, html, css, customElement } from '../web_modules/lit-element.js';
 import { query } from '../web_modules/lit-element/lib/decorators.js';
 import "../web_modules/@material/mwc-button.js";
 import "../web_modules/@material/mwc-checkbox.js";

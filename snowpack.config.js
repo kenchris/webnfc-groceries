@@ -7,10 +7,18 @@ module.exports = {
     public: "/",
     src: "/dist"
   },
+  buildOptions: {
+    out: "docs"
+  },
   plugins: ['@snowpack/plugin-babel', '@snowpack/plugin-dotenv'],
   installOptions: {
     rollup: {
-      dedupe: [ "@material/mwc-notched-outline", "@material/mwc-ripple", "lit-html" ]
+      dedupe: [
+        "@material/mwc-notched-outline",
+        "@material/mwc-ripple",
+        "lit-html",
+        "lit-element"
+      ]
     }
   },
   install: [
