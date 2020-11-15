@@ -6,7 +6,7 @@
   "repository": "kenchris/webnfc-groceries",
   "scripts": {
     "serve": "snowpack dev",
-    "build": "rimraf web_modules && snowpack build && workbox generateSW workbox.config.js"
+    "build": "rimraf web_modules && snowpack build &&  workbox copyLibraries docs/workbox/ && workbox injectManifest workbox.config.js"
   },
   "author": "Intel Corporation",
   "devDependencies": {
