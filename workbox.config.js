@@ -6,7 +6,7 @@ module.exports = {
     "images/manifest/*",
     "images/*",
     "web_modules/import-map.json",
-    "_dist_/*.js"
+    "dist/*.js"
   ],
   globIgnores: ['**/manifest.json'],
   swDest: "build/sw.js",
