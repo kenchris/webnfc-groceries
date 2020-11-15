@@ -152,7 +152,7 @@ export class AddDialog extends LitElement {
 
       this._snackbar.labelText = "Touch your NFC tag now.";
       this._actionBtn.textContent = "CANCEL";
-      this._snackbar.open();
+      this._snackbar.show();
 
       ndefReader.__ignoreRead__ = true;
       const writer = new NDEFWriter();
@@ -170,7 +170,7 @@ export class AddDialog extends LitElement {
       if (permission.state == 'denied' && err.name == "NotAllowedError") {
         this._snackbar.labelText = "NFC permission is denied, please grant it in browser settings.";
         this._actionBtn.textContent = "";
-        this._snackbar.open();
+        this._snackbar.show();
         return;
       }
 
@@ -181,7 +181,7 @@ export class AddDialog extends LitElement {
       }, { once: true });
       this._snackbar.labelText = `Writing failed: ${err}`;
       this._actionBtn.textContent = "RETRY";
-      this._snackbar.open();
+      this._snackbar.show();
     }
   }
 
@@ -338,7 +338,7 @@ export class MainApplication extends LitElement {
         } else {
           console.log('Service worker was updated');
           this._snackbar.labelText = "A newer version of the app is available.";
-          this._snackbar.open();
+          this._snackbar.show();
         }
       });
 
@@ -350,7 +350,7 @@ export class MainApplication extends LitElement {
     if (!window.NDEFReader) {
       this._snackbar.labelText = "NFC is not supported; try enabling in about:flags";
       this._actionBtn.textContent = "";
-      this._snackbar.open();
+      this._snackbar.show();
       return;
     }
 
@@ -359,7 +359,7 @@ export class MainApplication extends LitElement {
         await ndefReader.scan({ recordType: "mime" });
         this._snackbar.labelText = "Add item or touch an NFC tag.";
         this._actionBtn.textContent = "";
-        this._snackbar.open();
+        this._snackbar.show();
       } else {
         const controller = new AbortController();
         // New invocation of scan() will cancel previous scan().
@@ -367,7 +367,7 @@ export class MainApplication extends LitElement {
         controller.abort();
         this._snackbar.labelText = "NFC tags scan operation is disabled.";
         this._actionBtn.textContent = "";
-        this._snackbar.open();
+        this._snackbar.show();
       }
     } catch(err) {
       console.error(err);
@@ -376,7 +376,7 @@ export class MainApplication extends LitElement {
       if (permission.state == 'denied' && err.name == "NotAllowedError") {
         this._snackbar.labelText = "NFC permission is denied, please grant it in browser settings.";
         this._actionBtn.textContent = "";
-        this._snackbar.open();
+        this._snackbar.show();
       }
     }
   }
