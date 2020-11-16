@@ -19,39 +19,4 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
- */
-/**
- * Determine whether the current browser supports passive event listeners, and
- * if so, use them.
- */
-function applyPassive(globalObj) {
-    if (globalObj === void 0) { globalObj = window; }
-    return supportsPassiveOption(globalObj) ?
-        { passive: true } :
-        false;
-}
-function supportsPassiveOption(globalObj) {
-    if (globalObj === void 0) { globalObj = window; }
-    // See
-    // https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener
-    var passiveSupported = false;
-    try {
-        var options = {
-            // This function will be called when the browser
-            // attempts to access the passive property.
-            get passive() {
-                passiveSupported = true;
-                return false;
-            }
-        };
-        var handler = function () { };
-        globalObj.document.addEventListener('test', handler, options);
-        globalObj.document.removeEventListener('test', handler, options);
-    }
-    catch (err) {
-        passiveSupported = false;
-    }
-    return passiveSupported;
-}
-
-export { applyPassive as a };
+ */function o(e){return e===void 0&&(e=window),r(e)?{passive:!0}:!1}function r(e){e===void 0&&(e=window);var t=!1;try{var s={get passive(){return t=!0,!1}},i=function(){};e.document.addEventListener("test",i,s),e.document.removeEventListener("test",i,s)}catch(n){t=!1}return t}export{o as a};

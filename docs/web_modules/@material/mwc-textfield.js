@@ -1,11 +1,4 @@
-import { a as __extends, b as __assign, M as MDCFoundation, _ as __decorate } from '../common/foundation-dde8a859.js';
-import { h as html, d as directive, E as EventPart, N as NodePart, B as BooleanAttributePart, P as PropertyPart, A as AttributePart, c as nothing } from '../common/lit-html-e7095b40.js';
-import { L as LitElement, c as css } from '../common/lit-element-f25bd23a.js';
-import { query, property, customElement, eventOptions } from '../lit-element/lib/decorators.js';
-import { classMap } from '../lit-html/directives/class-map.js';
-import { i as ifDefined } from '../common/if-defined-bafae783.js';
-
-/**
+import{a as b,b as m,M as _,_ as l}from"../common/foundation-dde8a859.js";import{h as s,d as y,E as V,N as W,B as M,P as Y,A as B,c}from"../common/lit-html-e7095b40.js";import{L as T,c as O}from"../common/lit-element-f25bd23a.js";import{query as h,property as a,customElement as A,eventOptions as z}from"../lit-element/lib/decorators.js";import{classMap as u}from"../lit-html/directives/class-map.js";import{i as f}from"../common/if-defined-bafae783.js";/**
 @license
 Copyright 2018 Google Inc. All Rights Reserved.
 
@@ -20,17 +13,7 @@ distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
-*/
-const fn = () => { };
-const optionsBlock = {
-    get passive() {
-        return false;
-    }
-};
-document.addEventListener('x', fn, optionsBlock);
-document.removeEventListener('x', fn);
-
-/**
+*/const R=()=>{},G={get passive(){return!1}};document.addEventListener("x",R,G),document.removeEventListener("x",R);/**
 @license
 Copyright 2018 Google Inc. All Rights Reserved.
 
@@ -45,35 +28,7 @@ distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
-*/
-/** @soyCompatible */
-class BaseElement extends LitElement {
-    click() {
-        if (this.mdcRoot) {
-            this.mdcRoot.focus();
-            this.mdcRoot.click();
-            return;
-        }
-        super.click();
-    }
-    /**
-     * Create and attach the MDC Foundation to the instance
-     */
-    createFoundation() {
-        if (this.mdcFoundation !== undefined) {
-            this.mdcFoundation.destroy();
-        }
-        if (this.mdcFoundationClass) {
-            this.mdcFoundation = new this.mdcFoundationClass(this.createAdapter());
-            this.mdcFoundation.init();
-        }
-    }
-    firstUpdated() {
-        this.createFoundation();
-    }
-}
-
-/**
+*/class $ extends T{click(){if(this.mdcRoot){this.mdcRoot.focus(),this.mdcRoot.click();return}super.click()}createFoundation(){this.mdcFoundation!==void 0&&this.mdcFoundation.destroy(),this.mdcFoundationClass&&(this.mdcFoundation=new this.mdcFoundationClass(this.createAdapter()),this.mdcFoundation.init())}firstUpdated(){this.createFoundation()}}/**
  * @license
  * Copyright 2018 Google Inc.
  *
@@ -94,21 +49,7 @@ class BaseElement extends LitElement {
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
- */
-var strings = {
-    NOTCH_ELEMENT_SELECTOR: '.mdc-notched-outline__notch',
-};
-var numbers = {
-    // This should stay in sync with $mdc-notched-outline-padding * 2.
-    NOTCH_ELEMENT_PADDING: 8,
-};
-var cssClasses = {
-    NO_LABEL: 'mdc-notched-outline--no-label',
-    OUTLINE_NOTCHED: 'mdc-notched-outline--notched',
-    OUTLINE_UPGRADED: 'mdc-notched-outline--upgraded',
-};
-
-/**
+ */var j={NOTCH_ELEMENT_SELECTOR:".mdc-notched-outline__notch"},w={NOTCH_ELEMENT_PADDING:8},X={NO_LABEL:"mdc-notched-outline--no-label",OUTLINE_NOTCHED:"mdc-notched-outline--notched",OUTLINE_UPGRADED:"mdc-notched-outline--upgraded"};/**
  * @license
  * Copyright 2017 Google Inc.
  *
@@ -129,128 +70,14 @@ var cssClasses = {
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
- */
-var MDCNotchedOutlineFoundation = /** @class */ (function (_super) {
-    __extends(MDCNotchedOutlineFoundation, _super);
-    function MDCNotchedOutlineFoundation(adapter) {
-        return _super.call(this, __assign(__assign({}, MDCNotchedOutlineFoundation.defaultAdapter), adapter)) || this;
-    }
-    Object.defineProperty(MDCNotchedOutlineFoundation, "strings", {
-        get: function () {
-            return strings;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MDCNotchedOutlineFoundation, "cssClasses", {
-        get: function () {
-            return cssClasses;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MDCNotchedOutlineFoundation, "numbers", {
-        get: function () {
-            return numbers;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MDCNotchedOutlineFoundation, "defaultAdapter", {
-        /**
-         * See {@link MDCNotchedOutlineAdapter} for typing information on parameters and return types.
-         */
-        get: function () {
-            // tslint:disable:object-literal-sort-keys Methods should be in the same order as the adapter interface.
-            return {
-                addClass: function () { return undefined; },
-                removeClass: function () { return undefined; },
-                setNotchWidthProperty: function () { return undefined; },
-                removeNotchWidthProperty: function () { return undefined; },
-            };
-            // tslint:enable:object-literal-sort-keys
-        },
-        enumerable: true,
-        configurable: true
-    });
-    /**
-     * Adds the outline notched selector and updates the notch width calculated based off of notchWidth.
-     */
-    MDCNotchedOutlineFoundation.prototype.notch = function (notchWidth) {
-        var OUTLINE_NOTCHED = MDCNotchedOutlineFoundation.cssClasses.OUTLINE_NOTCHED;
-        if (notchWidth > 0) {
-            notchWidth += numbers.NOTCH_ELEMENT_PADDING; // Add padding from left/right.
-        }
-        this.adapter.setNotchWidthProperty(notchWidth);
-        this.adapter.addClass(OUTLINE_NOTCHED);
-    };
-    /**
-     * Removes notched outline selector to close the notch in the outline.
-     */
-    MDCNotchedOutlineFoundation.prototype.closeNotch = function () {
-        var OUTLINE_NOTCHED = MDCNotchedOutlineFoundation.cssClasses.OUTLINE_NOTCHED;
-        this.adapter.removeClass(OUTLINE_NOTCHED);
-        this.adapter.removeNotchWidthProperty();
-    };
-    return MDCNotchedOutlineFoundation;
-}(MDCFoundation));
-
-class NotchedOutlineBase extends BaseElement {
-    constructor() {
-        super(...arguments);
-        this.mdcFoundationClass = MDCNotchedOutlineFoundation;
-        this.width = 0;
-        this.open = false;
-        this.lastOpen = this.open;
-    }
-    createAdapter() {
-        return {
-            addClass: (className) => this.mdcRoot.classList.add(className),
-            removeClass: (className) => this.mdcRoot.classList.remove(className),
-            setNotchWidthProperty: (width) => this.notchElement.style.setProperty('width', `${width}px`),
-            removeNotchWidthProperty: () => this.notchElement.style.removeProperty('width'),
-        };
-    }
-    openOrClose(shouldOpen, width) {
-        if (!this.mdcFoundation) {
-            return;
-        }
-        if (shouldOpen && width !== undefined) {
-            this.mdcFoundation.notch(width);
-        }
-        else {
-            this.mdcFoundation.closeNotch();
-        }
-    }
-    render() {
-        this.openOrClose(this.open, this.width);
-        const classes = classMap({
-            'mdc-notched-outline--notched': this.open,
-        });
-        return html `
-      <span class="mdc-notched-outline ${classes}">
+ */var q=function(i){b(e,i);function e(t){return i.call(this,m(m({},e.defaultAdapter),t))||this}return Object.defineProperty(e,"strings",{get:function(){return j},enumerable:!0,configurable:!0}),Object.defineProperty(e,"cssClasses",{get:function(){return X},enumerable:!0,configurable:!0}),Object.defineProperty(e,"numbers",{get:function(){return w},enumerable:!0,configurable:!0}),Object.defineProperty(e,"defaultAdapter",{get:function(){return{addClass:function(){return},removeClass:function(){return},setNotchWidthProperty:function(){return},removeNotchWidthProperty:function(){return}}},enumerable:!0,configurable:!0}),e.prototype.notch=function(t){var d=e.cssClasses.OUTLINE_NOTCHED;t>0&&(t+=w.NOTCH_ELEMENT_PADDING),this.adapter.setNotchWidthProperty(t),this.adapter.addClass(d)},e.prototype.closeNotch=function(){var t=e.cssClasses.OUTLINE_NOTCHED;this.adapter.removeClass(t),this.adapter.removeNotchWidthProperty()},e}(_);class x extends ${constructor(){super(...arguments);this.mdcFoundationClass=q,this.width=0,this.open=!1,this.lastOpen=this.open}createAdapter(){return{addClass:i=>this.mdcRoot.classList.add(i),removeClass:i=>this.mdcRoot.classList.remove(i),setNotchWidthProperty:i=>this.notchElement.style.setProperty("width",`${i}px`),removeNotchWidthProperty:()=>this.notchElement.style.removeProperty("width")}}openOrClose(i,e){if(!this.mdcFoundation)return;i&&e!==void 0?this.mdcFoundation.notch(e):this.mdcFoundation.closeNotch()}render(){this.openOrClose(this.open,this.width);const i=u({"mdc-notched-outline--notched":this.open});return s`
+      <span class="mdc-notched-outline ${i}">
         <span class="mdc-notched-outline__leading"></span>
         <span class="mdc-notched-outline__notch">
           <slot></slot>
         </span>
         <span class="mdc-notched-outline__trailing"></span>
-      </span>`;
-    }
-}
-__decorate([
-    query('.mdc-notched-outline')
-], NotchedOutlineBase.prototype, "mdcRoot", void 0);
-__decorate([
-    property({ type: Number })
-], NotchedOutlineBase.prototype, "width", void 0);
-__decorate([
-    property({ type: Boolean, reflect: true })
-], NotchedOutlineBase.prototype, "open", void 0);
-__decorate([
-    query('.mdc-notched-outline__notch')
-], NotchedOutlineBase.prototype, "notchElement", void 0);
-
-/**
+      </span>`}}l([h(".mdc-notched-outline")],x.prototype,"mdcRoot",void 0),l([a({type:Number})],x.prototype,"width",void 0),l([a({type:Boolean,reflect:!0})],x.prototype,"open",void 0),l([h(".mdc-notched-outline__notch")],x.prototype,"notchElement",void 0);/**
 @license
 Copyright 2018 Google Inc. All Rights Reserved.
 
@@ -265,17 +92,7 @@ distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
-*/
-const style = css `.mdc-notched-outline{display:flex;position:absolute;top:0;right:0;left:0;box-sizing:border-box;width:100%;max-width:100%;height:100%;text-align:left;pointer-events:none}[dir=rtl] .mdc-notched-outline,.mdc-notched-outline[dir=rtl]{text-align:right}.mdc-notched-outline__leading,.mdc-notched-outline__notch,.mdc-notched-outline__trailing{box-sizing:border-box;height:100%;border-top:1px solid;border-bottom:1px solid;pointer-events:none}.mdc-notched-outline__leading{border-left:1px solid;border-right:none;width:12px}[dir=rtl] .mdc-notched-outline__leading,.mdc-notched-outline__leading[dir=rtl]{border-left:none;border-right:1px solid}.mdc-notched-outline__trailing{border-left:none;border-right:1px solid;flex-grow:1}[dir=rtl] .mdc-notched-outline__trailing,.mdc-notched-outline__trailing[dir=rtl]{border-left:1px solid;border-right:none}.mdc-notched-outline__notch{flex:0 0 auto;width:auto;max-width:calc(100% - 12px * 2)}.mdc-notched-outline .mdc-floating-label{display:inline-block;position:relative;max-width:100%}.mdc-notched-outline .mdc-floating-label--float-above{text-overflow:clip}.mdc-notched-outline--upgraded .mdc-floating-label--float-above{max-width:calc(100% / 0.75)}.mdc-notched-outline--notched .mdc-notched-outline__notch{padding-left:0;padding-right:8px;border-top:none}[dir=rtl] .mdc-notched-outline--notched .mdc-notched-outline__notch,.mdc-notched-outline--notched .mdc-notched-outline__notch[dir=rtl]{padding-left:8px;padding-right:0}.mdc-notched-outline--no-label .mdc-notched-outline__notch{padding:0}:host{display:block;position:absolute;right:0;left:0;box-sizing:border-box;width:100%;max-width:100%;height:100%;text-align:left;pointer-events:none}[dir=rtl] :host,:host[dir=rtl]{text-align:right}::slotted(.mdc-floating-label){display:inline-block;position:relative;top:17px;bottom:auto;max-width:100%}::slotted(.mdc-floating-label--float-above){text-overflow:clip}.mdc-notched-outline--upgraded ::slotted(.mdc-floating-label--float-above){max-width:calc(100% / .75)}.mdc-notched-outline .mdc-notched-outline__leading{border-top-left-radius:4px;border-top-left-radius:var(--mdc-shape-small, 4px);border-top-right-radius:0;border-bottom-right-radius:0;border-bottom-left-radius:4px;border-bottom-left-radius:var(--mdc-shape-small, 4px)}[dir=rtl] .mdc-notched-outline .mdc-notched-outline__leading,.mdc-notched-outline .mdc-notched-outline__leading[dir=rtl]{border-top-left-radius:0;border-top-right-radius:4px;border-top-right-radius:var(--mdc-shape-small, 4px);border-bottom-right-radius:4px;border-bottom-right-radius:var(--mdc-shape-small, 4px);border-bottom-left-radius:0}@supports(top: max(0%)){.mdc-notched-outline .mdc-notched-outline__leading{width:max(12px, var(--mdc-shape-small, 4px))}}@supports(top: max(0%)){.mdc-notched-outline .mdc-notched-outline__notch{max-width:calc(100% - max(12px, var(--mdc-shape-small, 4px)) * 2)}}.mdc-notched-outline .mdc-notched-outline__trailing{border-top-left-radius:0;border-top-right-radius:4px;border-top-right-radius:var(--mdc-shape-small, 4px);border-bottom-right-radius:4px;border-bottom-right-radius:var(--mdc-shape-small, 4px);border-bottom-left-radius:0}[dir=rtl] .mdc-notched-outline .mdc-notched-outline__trailing,.mdc-notched-outline .mdc-notched-outline__trailing[dir=rtl]{border-top-left-radius:4px;border-top-left-radius:var(--mdc-shape-small, 4px);border-top-right-radius:0;border-bottom-right-radius:0;border-bottom-left-radius:4px;border-bottom-left-radius:var(--mdc-shape-small, 4px)}.mdc-notched-outline__leading,.mdc-notched-outline__notch,.mdc-notched-outline__trailing{border-color:var(--mdc-notched-outline-border-color, var(--mdc-theme-primary, #6200ee));border-width:1px;border-width:var(--mdc-notched-outline-stroke-width, 1px)}.mdc-notched-outline--notched .mdc-notched-outline__notch{padding-top:0;padding-top:var(--mdc-notched-outline-notch-offset, 0)}`;
-
-let NotchedOutline = class NotchedOutline extends NotchedOutlineBase {
-};
-NotchedOutline.styles = style;
-NotchedOutline = __decorate([
-    customElement('mwc-notched-outline')
-], NotchedOutline);
-
-/**
+*/const K=O`.mdc-notched-outline{display:flex;position:absolute;top:0;right:0;left:0;box-sizing:border-box;width:100%;max-width:100%;height:100%;text-align:left;pointer-events:none}[dir=rtl] .mdc-notched-outline,.mdc-notched-outline[dir=rtl]{text-align:right}.mdc-notched-outline__leading,.mdc-notched-outline__notch,.mdc-notched-outline__trailing{box-sizing:border-box;height:100%;border-top:1px solid;border-bottom:1px solid;pointer-events:none}.mdc-notched-outline__leading{border-left:1px solid;border-right:none;width:12px}[dir=rtl] .mdc-notched-outline__leading,.mdc-notched-outline__leading[dir=rtl]{border-left:none;border-right:1px solid}.mdc-notched-outline__trailing{border-left:none;border-right:1px solid;flex-grow:1}[dir=rtl] .mdc-notched-outline__trailing,.mdc-notched-outline__trailing[dir=rtl]{border-left:1px solid;border-right:none}.mdc-notched-outline__notch{flex:0 0 auto;width:auto;max-width:calc(100% - 12px * 2)}.mdc-notched-outline .mdc-floating-label{display:inline-block;position:relative;max-width:100%}.mdc-notched-outline .mdc-floating-label--float-above{text-overflow:clip}.mdc-notched-outline--upgraded .mdc-floating-label--float-above{max-width:calc(100% / 0.75)}.mdc-notched-outline--notched .mdc-notched-outline__notch{padding-left:0;padding-right:8px;border-top:none}[dir=rtl] .mdc-notched-outline--notched .mdc-notched-outline__notch,.mdc-notched-outline--notched .mdc-notched-outline__notch[dir=rtl]{padding-left:8px;padding-right:0}.mdc-notched-outline--no-label .mdc-notched-outline__notch{padding:0}:host{display:block;position:absolute;right:0;left:0;box-sizing:border-box;width:100%;max-width:100%;height:100%;text-align:left;pointer-events:none}[dir=rtl] :host,:host[dir=rtl]{text-align:right}::slotted(.mdc-floating-label){display:inline-block;position:relative;top:17px;bottom:auto;max-width:100%}::slotted(.mdc-floating-label--float-above){text-overflow:clip}.mdc-notched-outline--upgraded ::slotted(.mdc-floating-label--float-above){max-width:calc(100% / .75)}.mdc-notched-outline .mdc-notched-outline__leading{border-top-left-radius:4px;border-top-left-radius:var(--mdc-shape-small, 4px);border-top-right-radius:0;border-bottom-right-radius:0;border-bottom-left-radius:4px;border-bottom-left-radius:var(--mdc-shape-small, 4px)}[dir=rtl] .mdc-notched-outline .mdc-notched-outline__leading,.mdc-notched-outline .mdc-notched-outline__leading[dir=rtl]{border-top-left-radius:0;border-top-right-radius:4px;border-top-right-radius:var(--mdc-shape-small, 4px);border-bottom-right-radius:4px;border-bottom-right-radius:var(--mdc-shape-small, 4px);border-bottom-left-radius:0}@supports(top: max(0%)){.mdc-notched-outline .mdc-notched-outline__leading{width:max(12px, var(--mdc-shape-small, 4px))}}@supports(top: max(0%)){.mdc-notched-outline .mdc-notched-outline__notch{max-width:calc(100% - max(12px, var(--mdc-shape-small, 4px)) * 2)}}.mdc-notched-outline .mdc-notched-outline__trailing{border-top-left-radius:0;border-top-right-radius:4px;border-top-right-radius:var(--mdc-shape-small, 4px);border-bottom-right-radius:4px;border-bottom-right-radius:var(--mdc-shape-small, 4px);border-bottom-left-radius:0}[dir=rtl] .mdc-notched-outline .mdc-notched-outline__trailing,.mdc-notched-outline .mdc-notched-outline__trailing[dir=rtl]{border-top-left-radius:4px;border-top-left-radius:var(--mdc-shape-small, 4px);border-top-right-radius:0;border-bottom-right-radius:0;border-bottom-left-radius:4px;border-bottom-left-radius:var(--mdc-shape-small, 4px)}.mdc-notched-outline__leading,.mdc-notched-outline__notch,.mdc-notched-outline__trailing{border-color:var(--mdc-notched-outline-border-color, var(--mdc-theme-primary, #6200ee));border-width:1px;border-width:var(--mdc-notched-outline-stroke-width, 1px)}.mdc-notched-outline--notched .mdc-notched-outline__notch{padding-top:0;padding-top:var(--mdc-notched-outline-notch-offset, 0)}`;let I=class extends x{};I.styles=K,I=l([A("mwc-notched-outline")],I);/**
 @license
 Copyright 2018 Google Inc. All Rights Reserved.
 
@@ -290,28 +107,7 @@ distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
-*/
-function addHasRemoveClass(element) {
-    return {
-        addClass: (className) => {
-            element.classList.add(className);
-        },
-        removeClass: (className) => {
-            element.classList.remove(className);
-        },
-        hasClass: (className) => element.classList.contains(className),
-    };
-}
-const fn$1 = () => { };
-const optionsBlock$1 = {
-    get passive() {
-        return false;
-    }
-};
-document.addEventListener('x', fn$1, optionsBlock$1);
-document.removeEventListener('x', fn$1);
-
-/**
+*/function Q(i){return{addClass:e=>{i.classList.add(e)},removeClass:e=>{i.classList.remove(e)},hasClass:e=>i.classList.contains(e)}}const L=()=>{},J={get passive(){return!1}};document.addEventListener("x",L,J),document.removeEventListener("x",L);/**
 @license
 Copyright 2018 Google Inc. All Rights Reserved.
 
@@ -326,35 +122,7 @@ distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
-*/
-/** @soyCompatible */
-class BaseElement$1 extends LitElement {
-    click() {
-        if (this.mdcRoot) {
-            this.mdcRoot.focus();
-            this.mdcRoot.click();
-            return;
-        }
-        super.click();
-    }
-    /**
-     * Create and attach the MDC Foundation to the instance
-     */
-    createFoundation() {
-        if (this.mdcFoundation !== undefined) {
-            this.mdcFoundation.destroy();
-        }
-        if (this.mdcFoundationClass) {
-            this.mdcFoundation = new this.mdcFoundationClass(this.createAdapter());
-            this.mdcFoundation.init();
-        }
-    }
-    firstUpdated() {
-        this.createFoundation();
-    }
-}
-
-/**
+*/class Z extends T{click(){if(this.mdcRoot){this.mdcRoot.focus(),this.mdcRoot.click();return}super.click()}createFoundation(){this.mdcFoundation!==void 0&&this.mdcFoundation.destroy(),this.mdcFoundationClass&&(this.mdcFoundation=new this.mdcFoundationClass(this.createAdapter()),this.mdcFoundation.init())}firstUpdated(){this.createFoundation()}}/**
 @license
 Copyright 2018 Google Inc. All Rights Reserved.
 
@@ -369,32 +137,7 @@ distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
-*/
-/** @soyCompatible */
-class FormElement extends BaseElement$1 {
-    createRenderRoot() {
-        return this.attachShadow({ mode: 'open', delegatesFocus: true });
-    }
-    click() {
-        if (this.formElement) {
-            this.formElement.focus();
-            this.formElement.click();
-        }
-    }
-    setAriaLabel(label) {
-        if (this.formElement) {
-            this.formElement.setAttribute('aria-label', label);
-        }
-    }
-    firstUpdated() {
-        super.firstUpdated();
-        this.mdcRoot.addEventListener('change', (e) => {
-            this.dispatchEvent(new Event('change', e));
-        });
-    }
-}
-
-/**
+*/class ee extends Z{createRenderRoot(){return this.attachShadow({mode:"open",delegatesFocus:!0})}click(){this.formElement&&(this.formElement.focus(),this.formElement.click())}setAriaLabel(i){this.formElement&&this.formElement.setAttribute("aria-label",i)}firstUpdated(){super.firstUpdated(),this.mdcRoot.addEventListener("change",i=>{this.dispatchEvent(new Event("change",i))})}}/**
 @license
 Copyright 2018 Google Inc. All Rights Reserved.
 
@@ -409,45 +152,7 @@ distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
-*/ // tslint:disable:no-any
-/**
- * Specifies an observer callback that is run when the decorated property
- * changes. The observer receives the current and old value as arguments.
- */
-const observer = (observer) => 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-(proto, propName) => {
-    // if we haven't wrapped `updated` in this class, do so
-    if (!proto.constructor
-        ._observers) {
-        proto.constructor._observers = new Map();
-        const userUpdated = proto.updated;
-        proto.updated = function (changedProperties) {
-            userUpdated.call(this, changedProperties);
-            changedProperties.forEach((v, k) => {
-                const observers = this.constructor
-                    ._observers;
-                const observer = observers.get(k);
-                if (observer !== undefined) {
-                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                    observer.call(this, this[k], v);
-                }
-            });
-        };
-        // clone any existing observers (superclasses)
-    }
-    else if (!proto.constructor.hasOwnProperty('_observers')) {
-        const observers = proto.constructor._observers;
-        proto.constructor._observers = new Map();
-        observers.forEach(
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        (v, k) => proto.constructor._observers.set(k, v));
-    }
-    // set this method
-    proto.constructor._observers.set(propName, observer);
-};
-
-/**
+*/const N=i=>(e,t)=>{if(e.constructor._observers){if(!e.constructor.hasOwnProperty("_observers")){const d=e.constructor._observers;e.constructor._observers=new Map,d.forEach((n,r)=>e.constructor._observers.set(r,n))}}else{e.constructor._observers=new Map;const d=e.updated;e.updated=function(n){d.call(this,n),n.forEach((r,g)=>{const U=this.constructor._observers,E=U.get(g);E!==void 0&&E.call(this,this[g],r)})}}e.constructor._observers.set(t,i)};/**
  * @license
  * Copyright 2016 Google Inc.
  *
@@ -468,15 +173,7 @@ const observer = (observer) =>
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
- */
-var cssClasses$1 = {
-    LABEL_FLOAT_ABOVE: 'mdc-floating-label--float-above',
-    LABEL_REQUIRED: 'mdc-floating-label--required',
-    LABEL_SHAKE: 'mdc-floating-label--shake',
-    ROOT: 'mdc-floating-label',
-};
-
-/**
+ */var te={LABEL_FLOAT_ABOVE:"mdc-floating-label--float-above",LABEL_REQUIRED:"mdc-floating-label--required",LABEL_SHAKE:"mdc-floating-label--shake",ROOT:"mdc-floating-label"};/**
  * @license
  * Copyright 2016 Google Inc.
  *
@@ -497,126 +194,7 @@ var cssClasses$1 = {
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
- */
-var MDCFloatingLabelFoundation = /** @class */ (function (_super) {
-    __extends(MDCFloatingLabelFoundation, _super);
-    function MDCFloatingLabelFoundation(adapter) {
-        var _this = _super.call(this, __assign(__assign({}, MDCFloatingLabelFoundation.defaultAdapter), adapter)) || this;
-        _this.shakeAnimationEndHandler_ = function () { return _this.handleShakeAnimationEnd_(); };
-        return _this;
-    }
-    Object.defineProperty(MDCFloatingLabelFoundation, "cssClasses", {
-        get: function () {
-            return cssClasses$1;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MDCFloatingLabelFoundation, "defaultAdapter", {
-        /**
-         * See {@link MDCFloatingLabelAdapter} for typing information on parameters and return types.
-         */
-        get: function () {
-            // tslint:disable:object-literal-sort-keys Methods should be in the same order as the adapter interface.
-            return {
-                addClass: function () { return undefined; },
-                removeClass: function () { return undefined; },
-                getWidth: function () { return 0; },
-                registerInteractionHandler: function () { return undefined; },
-                deregisterInteractionHandler: function () { return undefined; },
-            };
-            // tslint:enable:object-literal-sort-keys
-        },
-        enumerable: true,
-        configurable: true
-    });
-    MDCFloatingLabelFoundation.prototype.init = function () {
-        this.adapter.registerInteractionHandler('animationend', this.shakeAnimationEndHandler_);
-    };
-    MDCFloatingLabelFoundation.prototype.destroy = function () {
-        this.adapter.deregisterInteractionHandler('animationend', this.shakeAnimationEndHandler_);
-    };
-    /**
-     * Returns the width of the label element.
-     */
-    MDCFloatingLabelFoundation.prototype.getWidth = function () {
-        return this.adapter.getWidth();
-    };
-    /**
-     * Styles the label to produce a shake animation to indicate an error.
-     * @param shouldShake If true, adds the shake CSS class; otherwise, removes shake class.
-     */
-    MDCFloatingLabelFoundation.prototype.shake = function (shouldShake) {
-        var LABEL_SHAKE = MDCFloatingLabelFoundation.cssClasses.LABEL_SHAKE;
-        if (shouldShake) {
-            this.adapter.addClass(LABEL_SHAKE);
-        }
-        else {
-            this.adapter.removeClass(LABEL_SHAKE);
-        }
-    };
-    /**
-     * Styles the label to float or dock.
-     * @param shouldFloat If true, adds the float CSS class; otherwise, removes float and shake classes to dock the label.
-     */
-    MDCFloatingLabelFoundation.prototype.float = function (shouldFloat) {
-        var _a = MDCFloatingLabelFoundation.cssClasses, LABEL_FLOAT_ABOVE = _a.LABEL_FLOAT_ABOVE, LABEL_SHAKE = _a.LABEL_SHAKE;
-        if (shouldFloat) {
-            this.adapter.addClass(LABEL_FLOAT_ABOVE);
-        }
-        else {
-            this.adapter.removeClass(LABEL_FLOAT_ABOVE);
-            this.adapter.removeClass(LABEL_SHAKE);
-        }
-    };
-    /**
-     * Styles the label as required.
-     * @param isRequired If true, adds an asterisk to the label, indicating that it is required.
-     */
-    MDCFloatingLabelFoundation.prototype.setRequired = function (isRequired) {
-        var LABEL_REQUIRED = MDCFloatingLabelFoundation.cssClasses.LABEL_REQUIRED;
-        if (isRequired) {
-            this.adapter.addClass(LABEL_REQUIRED);
-        }
-        else {
-            this.adapter.removeClass(LABEL_REQUIRED);
-        }
-    };
-    MDCFloatingLabelFoundation.prototype.handleShakeAnimationEnd_ = function () {
-        var LABEL_SHAKE = MDCFloatingLabelFoundation.cssClasses.LABEL_SHAKE;
-        this.adapter.removeClass(LABEL_SHAKE);
-    };
-    return MDCFloatingLabelFoundation;
-}(MDCFoundation));
-
-const createAdapter = (labelElement) => {
-    return {
-        addClass: (className) => labelElement.classList.add(className),
-        removeClass: (className) => labelElement.classList.remove(className),
-        getWidth: () => labelElement.scrollWidth,
-        registerInteractionHandler: (evtType, handler) => {
-            labelElement.addEventListener(evtType, handler);
-        },
-        deregisterInteractionHandler: (evtType, handler) => {
-            labelElement.removeEventListener(evtType, handler);
-        },
-    };
-};
-const partToFoundationMap = new WeakMap();
-const floatingLabel = directive((label) => (part) => {
-    const lastFoundation = partToFoundationMap.get(part);
-    if (!lastFoundation) {
-        const labelElement = part.committer.element;
-        labelElement.classList.add('mdc-floating-label');
-        const adapter = createAdapter(labelElement);
-        const foundation = new MDCFloatingLabelFoundation(adapter);
-        foundation.init();
-        part.setValue(foundation);
-        partToFoundationMap.set(part, { label, foundation });
-    }
-});
-
-/**
+ */var ie=function(i){b(e,i);function e(t){var d=i.call(this,m(m({},e.defaultAdapter),t))||this;return d.shakeAnimationEndHandler_=function(){return d.handleShakeAnimationEnd_()},d}return Object.defineProperty(e,"cssClasses",{get:function(){return te},enumerable:!0,configurable:!0}),Object.defineProperty(e,"defaultAdapter",{get:function(){return{addClass:function(){return},removeClass:function(){return},getWidth:function(){return 0},registerInteractionHandler:function(){return},deregisterInteractionHandler:function(){return}}},enumerable:!0,configurable:!0}),e.prototype.init=function(){this.adapter.registerInteractionHandler("animationend",this.shakeAnimationEndHandler_)},e.prototype.destroy=function(){this.adapter.deregisterInteractionHandler("animationend",this.shakeAnimationEndHandler_)},e.prototype.getWidth=function(){return this.adapter.getWidth()},e.prototype.shake=function(t){var d=e.cssClasses.LABEL_SHAKE;t?this.adapter.addClass(d):this.adapter.removeClass(d)},e.prototype.float=function(t){var d=e.cssClasses,n=d.LABEL_FLOAT_ABOVE,r=d.LABEL_SHAKE;t?this.adapter.addClass(n):(this.adapter.removeClass(n),this.adapter.removeClass(r))},e.prototype.setRequired=function(t){var d=e.cssClasses.LABEL_REQUIRED;t?this.adapter.addClass(d):this.adapter.removeClass(d)},e.prototype.handleShakeAnimationEnd_=function(){var t=e.cssClasses.LABEL_SHAKE;this.adapter.removeClass(t)},e}(_);const de=i=>({addClass:e=>i.classList.add(e),removeClass:e=>i.classList.remove(e),getWidth:()=>i.scrollWidth,registerInteractionHandler:(e,t)=>{i.addEventListener(e,t)},deregisterInteractionHandler:(e,t)=>{i.removeEventListener(e,t)}}),S=new WeakMap,ne=y(i=>e=>{const t=S.get(e);if(!t){const d=e.committer.element;d.classList.add("mdc-floating-label");const n=de(d),r=new ie(n);r.init(),e.setValue(r),S.set(e,{label:i,foundation:r})}});/**
  * @license
  * Copyright 2018 Google Inc.
  *
@@ -637,13 +215,7 @@ const floatingLabel = directive((label) => (part) => {
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
- */
-var cssClasses$2 = {
-    LINE_RIPPLE_ACTIVE: 'mdc-line-ripple--active',
-    LINE_RIPPLE_DEACTIVATING: 'mdc-line-ripple--deactivating',
-};
-
-/**
+ */var p={LINE_RIPPLE_ACTIVE:"mdc-line-ripple--active",LINE_RIPPLE_DEACTIVATING:"mdc-line-ripple--deactivating"};/**
  * @license
  * Copyright 2018 Google Inc.
  *
@@ -664,99 +236,7 @@ var cssClasses$2 = {
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
- */
-var MDCLineRippleFoundation = /** @class */ (function (_super) {
-    __extends(MDCLineRippleFoundation, _super);
-    function MDCLineRippleFoundation(adapter) {
-        var _this = _super.call(this, __assign(__assign({}, MDCLineRippleFoundation.defaultAdapter), adapter)) || this;
-        _this.transitionEndHandler_ = function (evt) { return _this.handleTransitionEnd(evt); };
-        return _this;
-    }
-    Object.defineProperty(MDCLineRippleFoundation, "cssClasses", {
-        get: function () {
-            return cssClasses$2;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MDCLineRippleFoundation, "defaultAdapter", {
-        /**
-         * See {@link MDCLineRippleAdapter} for typing information on parameters and return types.
-         */
-        get: function () {
-            // tslint:disable:object-literal-sort-keys Methods should be in the same order as the adapter interface.
-            return {
-                addClass: function () { return undefined; },
-                removeClass: function () { return undefined; },
-                hasClass: function () { return false; },
-                setStyle: function () { return undefined; },
-                registerEventHandler: function () { return undefined; },
-                deregisterEventHandler: function () { return undefined; },
-            };
-            // tslint:enable:object-literal-sort-keys
-        },
-        enumerable: true,
-        configurable: true
-    });
-    MDCLineRippleFoundation.prototype.init = function () {
-        this.adapter.registerEventHandler('transitionend', this.transitionEndHandler_);
-    };
-    MDCLineRippleFoundation.prototype.destroy = function () {
-        this.adapter.deregisterEventHandler('transitionend', this.transitionEndHandler_);
-    };
-    MDCLineRippleFoundation.prototype.activate = function () {
-        this.adapter.removeClass(cssClasses$2.LINE_RIPPLE_DEACTIVATING);
-        this.adapter.addClass(cssClasses$2.LINE_RIPPLE_ACTIVE);
-    };
-    MDCLineRippleFoundation.prototype.setRippleCenter = function (xCoordinate) {
-        this.adapter.setStyle('transform-origin', xCoordinate + "px center");
-    };
-    MDCLineRippleFoundation.prototype.deactivate = function () {
-        this.adapter.addClass(cssClasses$2.LINE_RIPPLE_DEACTIVATING);
-    };
-    MDCLineRippleFoundation.prototype.handleTransitionEnd = function (evt) {
-        // Wait for the line ripple to be either transparent or opaque
-        // before emitting the animation end event
-        var isDeactivating = this.adapter.hasClass(cssClasses$2.LINE_RIPPLE_DEACTIVATING);
-        if (evt.propertyName === 'opacity') {
-            if (isDeactivating) {
-                this.adapter.removeClass(cssClasses$2.LINE_RIPPLE_ACTIVE);
-                this.adapter.removeClass(cssClasses$2.LINE_RIPPLE_DEACTIVATING);
-            }
-        }
-    };
-    return MDCLineRippleFoundation;
-}(MDCFoundation));
-
-const createAdapter$1 = (lineElement) => {
-    return {
-        addClass: (className) => lineElement.classList.add(className),
-        removeClass: (className) => lineElement.classList.remove(className),
-        hasClass: (className) => lineElement.classList.contains(className),
-        setStyle: (propertyName, value) => lineElement.style.setProperty(propertyName, value),
-        registerEventHandler: (evtType, handler) => {
-            lineElement.addEventListener(evtType, handler);
-        },
-        deregisterEventHandler: (evtType, handler) => {
-            lineElement.removeEventListener(evtType, handler);
-        },
-    };
-};
-const partToFoundationMap$1 = new WeakMap();
-const lineRipple = directive(() => (part) => {
-    const lastFoundation = partToFoundationMap$1.get(part);
-    if (!lastFoundation) {
-        const lineElement = part.committer.element;
-        lineElement.classList.add('mdc-line-ripple');
-        const adapter = createAdapter$1(lineElement);
-        const foundation = new MDCLineRippleFoundation(adapter);
-        foundation.init();
-        part.setValue(foundation);
-        partToFoundationMap$1.set(part, foundation);
-    }
-});
-
-/**
+ */var le=function(i){b(e,i);function e(t){var d=i.call(this,m(m({},e.defaultAdapter),t))||this;return d.transitionEndHandler_=function(n){return d.handleTransitionEnd(n)},d}return Object.defineProperty(e,"cssClasses",{get:function(){return p},enumerable:!0,configurable:!0}),Object.defineProperty(e,"defaultAdapter",{get:function(){return{addClass:function(){return},removeClass:function(){return},hasClass:function(){return!1},setStyle:function(){return},registerEventHandler:function(){return},deregisterEventHandler:function(){return}}},enumerable:!0,configurable:!0}),e.prototype.init=function(){this.adapter.registerEventHandler("transitionend",this.transitionEndHandler_)},e.prototype.destroy=function(){this.adapter.deregisterEventHandler("transitionend",this.transitionEndHandler_)},e.prototype.activate=function(){this.adapter.removeClass(p.LINE_RIPPLE_DEACTIVATING),this.adapter.addClass(p.LINE_RIPPLE_ACTIVE)},e.prototype.setRippleCenter=function(t){this.adapter.setStyle("transform-origin",t+"px center")},e.prototype.deactivate=function(){this.adapter.addClass(p.LINE_RIPPLE_DEACTIVATING)},e.prototype.handleTransitionEnd=function(t){var d=this.adapter.hasClass(p.LINE_RIPPLE_DEACTIVATING);t.propertyName==="opacity"&&(d&&(this.adapter.removeClass(p.LINE_RIPPLE_ACTIVE),this.adapter.removeClass(p.LINE_RIPPLE_DEACTIVATING)))},e}(_);const oe=i=>({addClass:e=>i.classList.add(e),removeClass:e=>i.classList.remove(e),hasClass:e=>i.classList.contains(e),setStyle:(e,t)=>i.style.setProperty(e,t),registerEventHandler:(e,t)=>{i.addEventListener(e,t)},deregisterEventHandler:(e,t)=>{i.removeEventListener(e,t)}}),C=new WeakMap,ae=y(()=>i=>{const e=C.get(i);if(!e){const t=i.committer.element;t.classList.add("mdc-line-ripple");const d=oe(t),n=new le(d);n.init(),i.setValue(n),C.set(i,n)}});/**
  * @license
  * Copyright 2016 Google Inc.
  *
@@ -777,49 +257,7 @@ const lineRipple = directive(() => (part) => {
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
- */
-var strings$1 = {
-    ARIA_CONTROLS: 'aria-controls',
-    INPUT_SELECTOR: '.mdc-text-field__input',
-    LABEL_SELECTOR: '.mdc-floating-label',
-    LEADING_ICON_SELECTOR: '.mdc-text-field__icon--leading',
-    LINE_RIPPLE_SELECTOR: '.mdc-line-ripple',
-    OUTLINE_SELECTOR: '.mdc-notched-outline',
-    PREFIX_SELECTOR: '.mdc-text-field__affix--prefix',
-    SUFFIX_SELECTOR: '.mdc-text-field__affix--suffix',
-    TRAILING_ICON_SELECTOR: '.mdc-text-field__icon--trailing'
-};
-var cssClasses$3 = {
-    DISABLED: 'mdc-text-field--disabled',
-    FOCUSED: 'mdc-text-field--focused',
-    HELPER_LINE: 'mdc-text-field-helper-line',
-    INVALID: 'mdc-text-field--invalid',
-    LABEL_FLOATING: 'mdc-text-field--label-floating',
-    NO_LABEL: 'mdc-text-field--no-label',
-    OUTLINED: 'mdc-text-field--outlined',
-    ROOT: 'mdc-text-field',
-    TEXTAREA: 'mdc-text-field--textarea',
-    WITH_LEADING_ICON: 'mdc-text-field--with-leading-icon',
-    WITH_TRAILING_ICON: 'mdc-text-field--with-trailing-icon',
-};
-var numbers$1 = {
-    LABEL_SCALE: 0.75,
-};
-/**
- * Whitelist based off of https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5/Constraint_validation
- * under the "Validation-related attributes" section.
- */
-var VALIDATION_ATTR_WHITELIST = [
-    'pattern', 'min', 'max', 'required', 'step', 'minlength', 'maxlength',
-];
-/**
- * Label should always float for these types as they show some UI even if value is empty.
- */
-var ALWAYS_FLOAT_TYPES = [
-    'color', 'date', 'datetime-local', 'month', 'range', 'time', 'week',
-];
-
-/**
+ */var re={ARIA_CONTROLS:"aria-controls",INPUT_SELECTOR:".mdc-text-field__input",LABEL_SELECTOR:".mdc-floating-label",LEADING_ICON_SELECTOR:".mdc-text-field__icon--leading",LINE_RIPPLE_SELECTOR:".mdc-line-ripple",OUTLINE_SELECTOR:".mdc-notched-outline",PREFIX_SELECTOR:".mdc-text-field__affix--prefix",SUFFIX_SELECTOR:".mdc-text-field__affix--suffix",TRAILING_ICON_SELECTOR:".mdc-text-field__icon--trailing"},se={DISABLED:"mdc-text-field--disabled",FOCUSED:"mdc-text-field--focused",HELPER_LINE:"mdc-text-field-helper-line",INVALID:"mdc-text-field--invalid",LABEL_FLOATING:"mdc-text-field--label-floating",NO_LABEL:"mdc-text-field--no-label",OUTLINED:"mdc-text-field--outlined",ROOT:"mdc-text-field",TEXTAREA:"mdc-text-field--textarea",WITH_LEADING_ICON:"mdc-text-field--with-leading-icon",WITH_TRAILING_ICON:"mdc-text-field--with-trailing-icon"},F={LABEL_SCALE:.75},ce=["pattern","min","max","required","step","minlength","maxlength"],fe=["color","date","datetime-local","month","range","time","week"];/**
  * @license
  * Copyright 2016 Google Inc.
  *
@@ -840,463 +278,7 @@ var ALWAYS_FLOAT_TYPES = [
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
- */
-var POINTERDOWN_EVENTS = ['mousedown', 'touchstart'];
-var INTERACTION_EVENTS = ['click', 'keydown'];
-var MDCTextFieldFoundation = /** @class */ (function (_super) {
-    __extends(MDCTextFieldFoundation, _super);
-    /**
-     * @param adapter
-     * @param foundationMap Map from subcomponent names to their subfoundations.
-     */
-    function MDCTextFieldFoundation(adapter, foundationMap) {
-        if (foundationMap === void 0) { foundationMap = {}; }
-        var _this = _super.call(this, __assign(__assign({}, MDCTextFieldFoundation.defaultAdapter), adapter)) || this;
-        _this.isFocused_ = false;
-        _this.receivedUserInput_ = false;
-        _this.isValid_ = true;
-        _this.useNativeValidation_ = true;
-        _this.helperText_ = foundationMap.helperText;
-        _this.characterCounter_ = foundationMap.characterCounter;
-        _this.leadingIcon_ = foundationMap.leadingIcon;
-        _this.trailingIcon_ = foundationMap.trailingIcon;
-        _this.inputFocusHandler_ = function () { return _this.activateFocus(); };
-        _this.inputBlurHandler_ = function () { return _this.deactivateFocus(); };
-        _this.inputInputHandler_ = function () { return _this.handleInput(); };
-        _this.setPointerXOffset_ = function (evt) { return _this.setTransformOrigin(evt); };
-        _this.textFieldInteractionHandler_ = function () { return _this.handleTextFieldInteraction(); };
-        _this.validationAttributeChangeHandler_ = function (attributesList) { return _this.handleValidationAttributeChange(attributesList); };
-        return _this;
-    }
-    Object.defineProperty(MDCTextFieldFoundation, "cssClasses", {
-        get: function () {
-            return cssClasses$3;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MDCTextFieldFoundation, "strings", {
-        get: function () {
-            return strings$1;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MDCTextFieldFoundation, "numbers", {
-        get: function () {
-            return numbers$1;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MDCTextFieldFoundation.prototype, "shouldAlwaysFloat_", {
-        get: function () {
-            var type = this.getNativeInput_().type;
-            return ALWAYS_FLOAT_TYPES.indexOf(type) >= 0;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MDCTextFieldFoundation.prototype, "shouldFloat", {
-        get: function () {
-            return this.shouldAlwaysFloat_ || this.isFocused_ || !!this.getValue() || this.isBadInput_();
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MDCTextFieldFoundation.prototype, "shouldShake", {
-        get: function () {
-            return !this.isFocused_ && !this.isValid() && !!this.getValue();
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MDCTextFieldFoundation, "defaultAdapter", {
-        /**
-         * See {@link MDCTextFieldAdapter} for typing information on parameters and return types.
-         */
-        get: function () {
-            // tslint:disable:object-literal-sort-keys Methods should be in the same order as the adapter interface.
-            return {
-                addClass: function () { return undefined; },
-                removeClass: function () { return undefined; },
-                hasClass: function () { return true; },
-                registerTextFieldInteractionHandler: function () { return undefined; },
-                deregisterTextFieldInteractionHandler: function () { return undefined; },
-                registerInputInteractionHandler: function () { return undefined; },
-                deregisterInputInteractionHandler: function () { return undefined; },
-                registerValidationAttributeChangeHandler: function () { return new MutationObserver(function () { return undefined; }); },
-                deregisterValidationAttributeChangeHandler: function () { return undefined; },
-                getNativeInput: function () { return null; },
-                isFocused: function () { return false; },
-                activateLineRipple: function () { return undefined; },
-                deactivateLineRipple: function () { return undefined; },
-                setLineRippleTransformOrigin: function () { return undefined; },
-                shakeLabel: function () { return undefined; },
-                floatLabel: function () { return undefined; },
-                setLabelRequired: function () { return undefined; },
-                hasLabel: function () { return false; },
-                getLabelWidth: function () { return 0; },
-                hasOutline: function () { return false; },
-                notchOutline: function () { return undefined; },
-                closeOutline: function () { return undefined; },
-            };
-            // tslint:enable:object-literal-sort-keys
-        },
-        enumerable: true,
-        configurable: true
-    });
-    MDCTextFieldFoundation.prototype.init = function () {
-        var _this = this;
-        if (this.adapter.hasLabel() && this.getNativeInput_().required) {
-            this.adapter.setLabelRequired(true);
-        }
-        if (this.adapter.isFocused()) {
-            this.inputFocusHandler_();
-        }
-        else if (this.adapter.hasLabel() && this.shouldFloat) {
-            this.notchOutline(true);
-            this.adapter.floatLabel(true);
-            this.styleFloating_(true);
-        }
-        this.adapter.registerInputInteractionHandler('focus', this.inputFocusHandler_);
-        this.adapter.registerInputInteractionHandler('blur', this.inputBlurHandler_);
-        this.adapter.registerInputInteractionHandler('input', this.inputInputHandler_);
-        POINTERDOWN_EVENTS.forEach(function (evtType) {
-            _this.adapter.registerInputInteractionHandler(evtType, _this.setPointerXOffset_);
-        });
-        INTERACTION_EVENTS.forEach(function (evtType) {
-            _this.adapter.registerTextFieldInteractionHandler(evtType, _this.textFieldInteractionHandler_);
-        });
-        this.validationObserver_ =
-            this.adapter.registerValidationAttributeChangeHandler(this.validationAttributeChangeHandler_);
-        this.setCharacterCounter_(this.getValue().length);
-    };
-    MDCTextFieldFoundation.prototype.destroy = function () {
-        var _this = this;
-        this.adapter.deregisterInputInteractionHandler('focus', this.inputFocusHandler_);
-        this.adapter.deregisterInputInteractionHandler('blur', this.inputBlurHandler_);
-        this.adapter.deregisterInputInteractionHandler('input', this.inputInputHandler_);
-        POINTERDOWN_EVENTS.forEach(function (evtType) {
-            _this.adapter.deregisterInputInteractionHandler(evtType, _this.setPointerXOffset_);
-        });
-        INTERACTION_EVENTS.forEach(function (evtType) {
-            _this.adapter.deregisterTextFieldInteractionHandler(evtType, _this.textFieldInteractionHandler_);
-        });
-        this.adapter.deregisterValidationAttributeChangeHandler(this.validationObserver_);
-    };
-    /**
-     * Handles user interactions with the Text Field.
-     */
-    MDCTextFieldFoundation.prototype.handleTextFieldInteraction = function () {
-        var nativeInput = this.adapter.getNativeInput();
-        if (nativeInput && nativeInput.disabled) {
-            return;
-        }
-        this.receivedUserInput_ = true;
-    };
-    /**
-     * Handles validation attribute changes
-     */
-    MDCTextFieldFoundation.prototype.handleValidationAttributeChange = function (attributesList) {
-        var _this = this;
-        attributesList.some(function (attributeName) {
-            if (VALIDATION_ATTR_WHITELIST.indexOf(attributeName) > -1) {
-                _this.styleValidity_(true);
-                _this.adapter.setLabelRequired(_this.getNativeInput_().required);
-                return true;
-            }
-            return false;
-        });
-        if (attributesList.indexOf('maxlength') > -1) {
-            this.setCharacterCounter_(this.getValue().length);
-        }
-    };
-    /**
-     * Opens/closes the notched outline.
-     */
-    MDCTextFieldFoundation.prototype.notchOutline = function (openNotch) {
-        if (!this.adapter.hasOutline() || !this.adapter.hasLabel()) {
-            return;
-        }
-        if (openNotch) {
-            var labelWidth = this.adapter.getLabelWidth() * numbers$1.LABEL_SCALE;
-            this.adapter.notchOutline(labelWidth);
-        }
-        else {
-            this.adapter.closeOutline();
-        }
-    };
-    /**
-     * Activates the text field focus state.
-     */
-    MDCTextFieldFoundation.prototype.activateFocus = function () {
-        this.isFocused_ = true;
-        this.styleFocused_(this.isFocused_);
-        this.adapter.activateLineRipple();
-        if (this.adapter.hasLabel()) {
-            this.notchOutline(this.shouldFloat);
-            this.adapter.floatLabel(this.shouldFloat);
-            this.styleFloating_(this.shouldFloat);
-            this.adapter.shakeLabel(this.shouldShake);
-        }
-        if (this.helperText_) {
-            this.helperText_.showToScreenReader();
-        }
-    };
-    /**
-     * Sets the line ripple's transform origin, so that the line ripple activate
-     * animation will animate out from the user's click location.
-     */
-    MDCTextFieldFoundation.prototype.setTransformOrigin = function (evt) {
-        if (this.isDisabled() || this.adapter.hasOutline()) {
-            return;
-        }
-        var touches = evt.touches;
-        var targetEvent = touches ? touches[0] : evt;
-        var targetClientRect = targetEvent.target.getBoundingClientRect();
-        var normalizedX = targetEvent.clientX - targetClientRect.left;
-        this.adapter.setLineRippleTransformOrigin(normalizedX);
-    };
-    /**
-     * Handles input change of text input and text area.
-     */
-    MDCTextFieldFoundation.prototype.handleInput = function () {
-        this.autoCompleteFocus();
-        this.setCharacterCounter_(this.getValue().length);
-    };
-    /**
-     * Activates the Text Field's focus state in cases when the input value
-     * changes without user input (e.g. programmatically).
-     */
-    MDCTextFieldFoundation.prototype.autoCompleteFocus = function () {
-        if (!this.receivedUserInput_) {
-            this.activateFocus();
-        }
-    };
-    /**
-     * Deactivates the Text Field's focus state.
-     */
-    MDCTextFieldFoundation.prototype.deactivateFocus = function () {
-        this.isFocused_ = false;
-        this.adapter.deactivateLineRipple();
-        var isValid = this.isValid();
-        this.styleValidity_(isValid);
-        this.styleFocused_(this.isFocused_);
-        if (this.adapter.hasLabel()) {
-            this.notchOutline(this.shouldFloat);
-            this.adapter.floatLabel(this.shouldFloat);
-            this.styleFloating_(this.shouldFloat);
-            this.adapter.shakeLabel(this.shouldShake);
-        }
-        if (!this.shouldFloat) {
-            this.receivedUserInput_ = false;
-        }
-    };
-    MDCTextFieldFoundation.prototype.getValue = function () {
-        return this.getNativeInput_().value;
-    };
-    /**
-     * @param value The value to set on the input Element.
-     */
-    MDCTextFieldFoundation.prototype.setValue = function (value) {
-        // Prevent Safari from moving the caret to the end of the input when the value has not changed.
-        if (this.getValue() !== value) {
-            this.getNativeInput_().value = value;
-        }
-        this.setCharacterCounter_(value.length);
-        var isValid = this.isValid();
-        this.styleValidity_(isValid);
-        if (this.adapter.hasLabel()) {
-            this.notchOutline(this.shouldFloat);
-            this.adapter.floatLabel(this.shouldFloat);
-            this.styleFloating_(this.shouldFloat);
-            this.adapter.shakeLabel(this.shouldShake);
-        }
-    };
-    /**
-     * @return The custom validity state, if set; otherwise, the result of a native validity check.
-     */
-    MDCTextFieldFoundation.prototype.isValid = function () {
-        return this.useNativeValidation_
-            ? this.isNativeInputValid_() : this.isValid_;
-    };
-    /**
-     * @param isValid Sets the custom validity state of the Text Field.
-     */
-    MDCTextFieldFoundation.prototype.setValid = function (isValid) {
-        this.isValid_ = isValid;
-        this.styleValidity_(isValid);
-        var shouldShake = !isValid && !this.isFocused_ && !!this.getValue();
-        if (this.adapter.hasLabel()) {
-            this.adapter.shakeLabel(shouldShake);
-        }
-    };
-    /**
-     * Enables or disables the use of native validation. Use this for custom validation.
-     * @param useNativeValidation Set this to false to ignore native input validation.
-     */
-    MDCTextFieldFoundation.prototype.setUseNativeValidation = function (useNativeValidation) {
-        this.useNativeValidation_ = useNativeValidation;
-    };
-    MDCTextFieldFoundation.prototype.isDisabled = function () {
-        return this.getNativeInput_().disabled;
-    };
-    /**
-     * @param disabled Sets the text-field disabled or enabled.
-     */
-    MDCTextFieldFoundation.prototype.setDisabled = function (disabled) {
-        this.getNativeInput_().disabled = disabled;
-        this.styleDisabled_(disabled);
-    };
-    /**
-     * @param content Sets the content of the helper text.
-     */
-    MDCTextFieldFoundation.prototype.setHelperTextContent = function (content) {
-        if (this.helperText_) {
-            this.helperText_.setContent(content);
-        }
-    };
-    /**
-     * Sets the aria label of the leading icon.
-     */
-    MDCTextFieldFoundation.prototype.setLeadingIconAriaLabel = function (label) {
-        if (this.leadingIcon_) {
-            this.leadingIcon_.setAriaLabel(label);
-        }
-    };
-    /**
-     * Sets the text content of the leading icon.
-     */
-    MDCTextFieldFoundation.prototype.setLeadingIconContent = function (content) {
-        if (this.leadingIcon_) {
-            this.leadingIcon_.setContent(content);
-        }
-    };
-    /**
-     * Sets the aria label of the trailing icon.
-     */
-    MDCTextFieldFoundation.prototype.setTrailingIconAriaLabel = function (label) {
-        if (this.trailingIcon_) {
-            this.trailingIcon_.setAriaLabel(label);
-        }
-    };
-    /**
-     * Sets the text content of the trailing icon.
-     */
-    MDCTextFieldFoundation.prototype.setTrailingIconContent = function (content) {
-        if (this.trailingIcon_) {
-            this.trailingIcon_.setContent(content);
-        }
-    };
-    /**
-     * Sets character counter values that shows characters used and the total character limit.
-     */
-    MDCTextFieldFoundation.prototype.setCharacterCounter_ = function (currentLength) {
-        if (!this.characterCounter_) {
-            return;
-        }
-        var maxLength = this.getNativeInput_().maxLength;
-        if (maxLength === -1) {
-            throw new Error('MDCTextFieldFoundation: Expected maxlength html property on text input or textarea.');
-        }
-        this.characterCounter_.setCounterValue(currentLength, maxLength);
-    };
-    /**
-     * @return True if the Text Field input fails in converting the user-supplied value.
-     */
-    MDCTextFieldFoundation.prototype.isBadInput_ = function () {
-        // The badInput property is not supported in IE 11 💩.
-        return this.getNativeInput_().validity.badInput || false;
-    };
-    /**
-     * @return The result of native validity checking (ValidityState.valid).
-     */
-    MDCTextFieldFoundation.prototype.isNativeInputValid_ = function () {
-        return this.getNativeInput_().validity.valid;
-    };
-    /**
-     * Styles the component based on the validity state.
-     */
-    MDCTextFieldFoundation.prototype.styleValidity_ = function (isValid) {
-        var INVALID = MDCTextFieldFoundation.cssClasses.INVALID;
-        if (isValid) {
-            this.adapter.removeClass(INVALID);
-        }
-        else {
-            this.adapter.addClass(INVALID);
-        }
-        if (this.helperText_) {
-            this.helperText_.setValidity(isValid);
-        }
-    };
-    /**
-     * Styles the component based on the focused state.
-     */
-    MDCTextFieldFoundation.prototype.styleFocused_ = function (isFocused) {
-        var FOCUSED = MDCTextFieldFoundation.cssClasses.FOCUSED;
-        if (isFocused) {
-            this.adapter.addClass(FOCUSED);
-        }
-        else {
-            this.adapter.removeClass(FOCUSED);
-        }
-    };
-    /**
-     * Styles the component based on the disabled state.
-     */
-    MDCTextFieldFoundation.prototype.styleDisabled_ = function (isDisabled) {
-        var _a = MDCTextFieldFoundation.cssClasses, DISABLED = _a.DISABLED, INVALID = _a.INVALID;
-        if (isDisabled) {
-            this.adapter.addClass(DISABLED);
-            this.adapter.removeClass(INVALID);
-        }
-        else {
-            this.adapter.removeClass(DISABLED);
-        }
-        if (this.leadingIcon_) {
-            this.leadingIcon_.setDisabled(isDisabled);
-        }
-        if (this.trailingIcon_) {
-            this.trailingIcon_.setDisabled(isDisabled);
-        }
-    };
-    /**
-     * Styles the component based on the label floating state.
-     */
-    MDCTextFieldFoundation.prototype.styleFloating_ = function (isFloating) {
-        var LABEL_FLOATING = MDCTextFieldFoundation.cssClasses.LABEL_FLOATING;
-        if (isFloating) {
-            this.adapter.addClass(LABEL_FLOATING);
-        }
-        else {
-            this.adapter.removeClass(LABEL_FLOATING);
-        }
-    };
-    /**
-     * @return The native text input element from the host environment, or an object with the same shape for unit tests.
-     */
-    MDCTextFieldFoundation.prototype.getNativeInput_ = function () {
-        // this.adapter may be undefined in foundation unit tests. This happens when testdouble is creating a mock object
-        // and invokes the shouldShake/shouldFloat getters (which in turn call getValue(), which calls this method) before
-        // init() has been called from the MDCTextField constructor. To work around that issue, we return a dummy object.
-        var nativeInput = this.adapter ? this.adapter.getNativeInput() : null;
-        return nativeInput || {
-            disabled: false,
-            maxLength: -1,
-            required: false,
-            type: 'input',
-            validity: {
-                badInput: false,
-                valid: true,
-            },
-            value: '',
-        };
-    };
-    return MDCTextFieldFoundation;
-}(MDCFoundation));
-
-/**
+ */var H=["mousedown","touchstart"],D=["click","keydown"],me=function(i){b(e,i);function e(t,d){d===void 0&&(d={});var n=i.call(this,m(m({},e.defaultAdapter),t))||this;return n.isFocused_=!1,n.receivedUserInput_=!1,n.isValid_=!0,n.useNativeValidation_=!0,n.helperText_=d.helperText,n.characterCounter_=d.characterCounter,n.leadingIcon_=d.leadingIcon,n.trailingIcon_=d.trailingIcon,n.inputFocusHandler_=function(){return n.activateFocus()},n.inputBlurHandler_=function(){return n.deactivateFocus()},n.inputInputHandler_=function(){return n.handleInput()},n.setPointerXOffset_=function(r){return n.setTransformOrigin(r)},n.textFieldInteractionHandler_=function(){return n.handleTextFieldInteraction()},n.validationAttributeChangeHandler_=function(r){return n.handleValidationAttributeChange(r)},n}return Object.defineProperty(e,"cssClasses",{get:function(){return se},enumerable:!0,configurable:!0}),Object.defineProperty(e,"strings",{get:function(){return re},enumerable:!0,configurable:!0}),Object.defineProperty(e,"numbers",{get:function(){return F},enumerable:!0,configurable:!0}),Object.defineProperty(e.prototype,"shouldAlwaysFloat_",{get:function(){var t=this.getNativeInput_().type;return fe.indexOf(t)>=0},enumerable:!0,configurable:!0}),Object.defineProperty(e.prototype,"shouldFloat",{get:function(){return this.shouldAlwaysFloat_||this.isFocused_||!!this.getValue()||this.isBadInput_()},enumerable:!0,configurable:!0}),Object.defineProperty(e.prototype,"shouldShake",{get:function(){return!this.isFocused_&&!this.isValid()&&!!this.getValue()},enumerable:!0,configurable:!0}),Object.defineProperty(e,"defaultAdapter",{get:function(){return{addClass:function(){return},removeClass:function(){return},hasClass:function(){return!0},registerTextFieldInteractionHandler:function(){return},deregisterTextFieldInteractionHandler:function(){return},registerInputInteractionHandler:function(){return},deregisterInputInteractionHandler:function(){return},registerValidationAttributeChangeHandler:function(){return new MutationObserver(function(){return})},deregisterValidationAttributeChangeHandler:function(){return},getNativeInput:function(){return null},isFocused:function(){return!1},activateLineRipple:function(){return},deactivateLineRipple:function(){return},setLineRippleTransformOrigin:function(){return},shakeLabel:function(){return},floatLabel:function(){return},setLabelRequired:function(){return},hasLabel:function(){return!1},getLabelWidth:function(){return 0},hasOutline:function(){return!1},notchOutline:function(){return},closeOutline:function(){return}}},enumerable:!0,configurable:!0}),e.prototype.init=function(){var t=this;this.adapter.hasLabel()&&this.getNativeInput_().required&&this.adapter.setLabelRequired(!0),this.adapter.isFocused()?this.inputFocusHandler_():this.adapter.hasLabel()&&this.shouldFloat&&(this.notchOutline(!0),this.adapter.floatLabel(!0),this.styleFloating_(!0)),this.adapter.registerInputInteractionHandler("focus",this.inputFocusHandler_),this.adapter.registerInputInteractionHandler("blur",this.inputBlurHandler_),this.adapter.registerInputInteractionHandler("input",this.inputInputHandler_),H.forEach(function(d){t.adapter.registerInputInteractionHandler(d,t.setPointerXOffset_)}),D.forEach(function(d){t.adapter.registerTextFieldInteractionHandler(d,t.textFieldInteractionHandler_)}),this.validationObserver_=this.adapter.registerValidationAttributeChangeHandler(this.validationAttributeChangeHandler_),this.setCharacterCounter_(this.getValue().length)},e.prototype.destroy=function(){var t=this;this.adapter.deregisterInputInteractionHandler("focus",this.inputFocusHandler_),this.adapter.deregisterInputInteractionHandler("blur",this.inputBlurHandler_),this.adapter.deregisterInputInteractionHandler("input",this.inputInputHandler_),H.forEach(function(d){t.adapter.deregisterInputInteractionHandler(d,t.setPointerXOffset_)}),D.forEach(function(d){t.adapter.deregisterTextFieldInteractionHandler(d,t.textFieldInteractionHandler_)}),this.adapter.deregisterValidationAttributeChangeHandler(this.validationObserver_)},e.prototype.handleTextFieldInteraction=function(){var t=this.adapter.getNativeInput();if(t&&t.disabled)return;this.receivedUserInput_=!0},e.prototype.handleValidationAttributeChange=function(t){var d=this;t.some(function(n){return ce.indexOf(n)>-1?(d.styleValidity_(!0),d.adapter.setLabelRequired(d.getNativeInput_().required),!0):!1}),t.indexOf("maxlength")>-1&&this.setCharacterCounter_(this.getValue().length)},e.prototype.notchOutline=function(t){if(!this.adapter.hasOutline()||!this.adapter.hasLabel())return;if(t){var d=this.adapter.getLabelWidth()*F.LABEL_SCALE;this.adapter.notchOutline(d)}else this.adapter.closeOutline()},e.prototype.activateFocus=function(){this.isFocused_=!0,this.styleFocused_(this.isFocused_),this.adapter.activateLineRipple(),this.adapter.hasLabel()&&(this.notchOutline(this.shouldFloat),this.adapter.floatLabel(this.shouldFloat),this.styleFloating_(this.shouldFloat),this.adapter.shakeLabel(this.shouldShake)),this.helperText_&&this.helperText_.showToScreenReader()},e.prototype.setTransformOrigin=function(t){if(this.isDisabled()||this.adapter.hasOutline())return;var d=t.touches,n=d?d[0]:t,r=n.target.getBoundingClientRect(),g=n.clientX-r.left;this.adapter.setLineRippleTransformOrigin(g)},e.prototype.handleInput=function(){this.autoCompleteFocus(),this.setCharacterCounter_(this.getValue().length)},e.prototype.autoCompleteFocus=function(){this.receivedUserInput_||this.activateFocus()},e.prototype.deactivateFocus=function(){this.isFocused_=!1,this.adapter.deactivateLineRipple();var t=this.isValid();this.styleValidity_(t),this.styleFocused_(this.isFocused_),this.adapter.hasLabel()&&(this.notchOutline(this.shouldFloat),this.adapter.floatLabel(this.shouldFloat),this.styleFloating_(this.shouldFloat),this.adapter.shakeLabel(this.shouldShake)),this.shouldFloat||(this.receivedUserInput_=!1)},e.prototype.getValue=function(){return this.getNativeInput_().value},e.prototype.setValue=function(t){this.getValue()!==t&&(this.getNativeInput_().value=t),this.setCharacterCounter_(t.length);var d=this.isValid();this.styleValidity_(d),this.adapter.hasLabel()&&(this.notchOutline(this.shouldFloat),this.adapter.floatLabel(this.shouldFloat),this.styleFloating_(this.shouldFloat),this.adapter.shakeLabel(this.shouldShake))},e.prototype.isValid=function(){return this.useNativeValidation_?this.isNativeInputValid_():this.isValid_},e.prototype.setValid=function(t){this.isValid_=t,this.styleValidity_(t);var d=!t&&!this.isFocused_&&!!this.getValue();this.adapter.hasLabel()&&this.adapter.shakeLabel(d)},e.prototype.setUseNativeValidation=function(t){this.useNativeValidation_=t},e.prototype.isDisabled=function(){return this.getNativeInput_().disabled},e.prototype.setDisabled=function(t){this.getNativeInput_().disabled=t,this.styleDisabled_(t)},e.prototype.setHelperTextContent=function(t){this.helperText_&&this.helperText_.setContent(t)},e.prototype.setLeadingIconAriaLabel=function(t){this.leadingIcon_&&this.leadingIcon_.setAriaLabel(t)},e.prototype.setLeadingIconContent=function(t){this.leadingIcon_&&this.leadingIcon_.setContent(t)},e.prototype.setTrailingIconAriaLabel=function(t){this.trailingIcon_&&this.trailingIcon_.setAriaLabel(t)},e.prototype.setTrailingIconContent=function(t){this.trailingIcon_&&this.trailingIcon_.setContent(t)},e.prototype.setCharacterCounter_=function(t){if(!this.characterCounter_)return;var d=this.getNativeInput_().maxLength;if(d===-1)throw new Error("MDCTextFieldFoundation: Expected maxlength html property on text input or textarea.");this.characterCounter_.setCounterValue(t,d)},e.prototype.isBadInput_=function(){return this.getNativeInput_().validity.badInput||!1},e.prototype.isNativeInputValid_=function(){return this.getNativeInput_().validity.valid},e.prototype.styleValidity_=function(t){var d=e.cssClasses.INVALID;t?this.adapter.removeClass(d):this.adapter.addClass(d),this.helperText_&&this.helperText_.setValidity(t)},e.prototype.styleFocused_=function(t){var d=e.cssClasses.FOCUSED;t?this.adapter.addClass(d):this.adapter.removeClass(d)},e.prototype.styleDisabled_=function(t){var d=e.cssClasses,n=d.DISABLED,r=d.INVALID;t?(this.adapter.addClass(n),this.adapter.removeClass(r)):this.adapter.removeClass(n),this.leadingIcon_&&this.leadingIcon_.setDisabled(t),this.trailingIcon_&&this.trailingIcon_.setDisabled(t)},e.prototype.styleFloating_=function(t){var d=e.cssClasses.LABEL_FLOATING;t?this.adapter.addClass(d):this.adapter.removeClass(d)},e.prototype.getNativeInput_=function(){var t=this.adapter?this.adapter.getNativeInput():null;return t||{disabled:!1,maxLength:-1,required:!1,type:"input",validity:{badInput:!1,valid:!0},value:""}},e}(_);/**
  * @license
  * Copyright (c) 2020 The Polymer Project Authors. All rights reserved.
  * This code may only be used under the BSD style license found at
@@ -1308,184 +290,10 @@ var MDCTextFieldFoundation = /** @class */ (function (_super) {
  * Code distributed by Google as part of the polymer project is also
  * subject to an additional IP rights grant found at
  * http://polymer.github.io/PATENTS.txt
- */
-/**
- * Checks binding values against live DOM values, instead of previously bound
- * values, when determining whether to update the value.
- *
- * This is useful for cases where the DOM value may change from outside of
- * lit-html, such as with a binding to an `<input>` element's `value` property,
- * a content editable elements text, or to a custom element that changes it's
- * own properties or attributes.
- *
- * In these cases if the DOM value changes, but the value set through lit-html
- * bindings hasn't, lit-html won't know to update the DOM value and will leave
- * it alone. If this is not what you want—if you want to overwrite the DOM
- * value with the bound value no matter what—use the `live()` directive:
- *
- *     html`<input .value=${live(x)}>`
- *
- * `live()` performs a strict equality check agains the live DOM value, and if
- * the new value is equal to the live value, does nothing. This means that
- * `live()` should not be used when the binding will cause a type conversion. If
- * you use `live()` with an attribute binding, make sure that only strings are
- * passed in, or the binding will update every render.
- */
-const live = directive((value) => (part) => {
-    let previousValue;
-    if (part instanceof EventPart || part instanceof NodePart) {
-        throw new Error('The `live` directive is not allowed on text or event bindings');
-    }
-    if (part instanceof BooleanAttributePart) {
-        checkStrings(part.strings);
-        previousValue = part.element.hasAttribute(part.name);
-        // This is a hack needed because BooleanAttributePart doesn't have a
-        // committer and does its own dirty checking after directives
-        part.value = previousValue;
-    }
-    else {
-        const { element, name, strings } = part.committer;
-        checkStrings(strings);
-        if (part instanceof PropertyPart) {
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            previousValue = element[name];
-            if (previousValue === value) {
-                return;
-            }
-        }
-        else if (part instanceof AttributePart) {
-            previousValue = element.getAttribute(name);
-        }
-        if (previousValue === String(value)) {
-            return;
-        }
-    }
-    part.setValue(value);
-});
-const checkStrings = (strings) => {
-    if (strings.length !== 2 || strings[0] !== '' || strings[1] !== '') {
-        throw new Error('`live` bindings can only contain a single expression');
-    }
-};
-
-const passiveEvents = ['touchstart', 'touchmove', 'scroll', 'mousewheel'];
-const createValidityObj = (customValidity = {}) => {
-    /*
-     * We need to make ValidityState an object because it is readonly and
-     * we cannot use the spread operator. Also, we don't export
-     * `CustomValidityState` because it is a leaky implementation and the user
-     * already has access to `ValidityState` in lib.dom.ts. Also an interface
-     * {a: Type} can be casted to {readonly a: Type} so passing any object
-     * should be fine.
-     */
-    const objectifiedCustomValidity = {};
-    // eslint-disable-next-line guard-for-in
-    for (const propName in customValidity) {
-        /*
-         * Casting is needed because ValidityState's props are all readonly and
-         * thus cannot be set on `onjectifiedCustomValidity`. In the end, the
-         * interface is the same as ValidityState (but not readonly), but the
-         * function signature casts the output to ValidityState (thus readonly).
-         */
-        objectifiedCustomValidity[propName] =
-            customValidity[propName];
-    }
-    return Object.assign({ badInput: false, customError: false, patternMismatch: false, rangeOverflow: false, rangeUnderflow: false, stepMismatch: false, tooLong: false, tooShort: false, typeMismatch: false, valid: true, valueMissing: false }, objectifiedCustomValidity);
-};
-class TextFieldBase extends FormElement {
-    constructor() {
-        super(...arguments);
-        this.mdcFoundationClass = MDCTextFieldFoundation;
-        this.value = '';
-        this.type = 'text';
-        this.placeholder = '';
-        this.label = '';
-        this.icon = '';
-        this.iconTrailing = '';
-        this.disabled = false;
-        this.required = false;
-        this.minLength = -1;
-        this.maxLength = -1;
-        this.outlined = false;
-        this.helper = '';
-        this.validateOnInitialRender = false;
-        this.validationMessage = '';
-        this.autoValidate = false;
-        this.pattern = '';
-        this.min = '';
-        this.max = '';
-        this.step = null;
-        this.size = null;
-        this.helperPersistent = false;
-        this.charCounter = false;
-        this.endAligned = false;
-        this.prefix = '';
-        this.suffix = '';
-        this.name = '';
-        this.readOnly = false;
-        this.autocapitalize = '';
-        this.outlineOpen = false;
-        this.outlineWidth = 0;
-        this.isUiValid = true;
-        this._validity = createValidityObj();
-        this._outlineUpdateComplete = null;
-        this.validityTransform = null;
-    }
-    get validity() {
-        this._checkValidity(this.value);
-        return this._validity;
-    }
-    get willValidate() {
-        return this.formElement.willValidate;
-    }
-    get selectionStart() {
-        return this.formElement.selectionStart;
-    }
-    get selectionEnd() {
-        return this.formElement.selectionEnd;
-    }
-    get shouldRenderHelperText() {
-        return !!this.helper || !!this.validationMessage || this.charCounterVisible;
-    }
-    get charCounterVisible() {
-        return this.charCounter && this.maxLength !== -1;
-    }
-    focus() {
-        const focusEvt = new CustomEvent('focus');
-        this.formElement.dispatchEvent(focusEvt);
-        this.formElement.focus();
-    }
-    blur() {
-        const blurEvt = new CustomEvent('blur');
-        this.formElement.dispatchEvent(blurEvt);
-        this.formElement.blur();
-    }
-    select() {
-        this.formElement.select();
-    }
-    setSelectionRange(selectionStart, selectionEnd, selectionDirection) {
-        this.formElement.setSelectionRange(selectionStart, selectionEnd, selectionDirection);
-    }
-    update(changedProperties) {
-        if (changedProperties.has('value') && typeof this.value !== 'string') {
-            this.value = `${this.value}`;
-        }
-        super.update(changedProperties);
-    }
-    render() {
-        const classes = {
-            'mdc-text-field--disabled': this.disabled,
-            'mdc-text-field--no-label': !this.label,
-            'mdc-text-field--filled': !this.outlined,
-            'mdc-text-field--outlined': this.outlined,
-            'mdc-text-field--with-leading-icon': this.icon,
-            'mdc-text-field--with-trailing-icon': this.iconTrailing,
-            'mdc-text-field--end-aligned': this.endAligned,
-        };
-        return html `
-      <label class="mdc-text-field ${classMap(classes)}">
+ */const he=y(i=>e=>{let t;if(e instanceof V||e instanceof W)throw new Error("The `live` directive is not allowed on text or event bindings");if(e instanceof M)k(e.strings),t=e.element.hasAttribute(e.name),e.value=t;else{const{element:d,name:n,strings:r}=e.committer;if(k(r),e instanceof Y){if(t=d[n],t===i)return}else e instanceof B&&(t=d.getAttribute(n));if(t===String(i))return}e.setValue(i)}),k=i=>{if(i.length!==2||i[0]!==""||i[1]!=="")throw new Error("`live` bindings can only contain a single expression")},pe=["touchstart","touchmove","scroll","mousewheel"],P=(i={})=>{const e={};for(const t in i)e[t]=i[t];return Object.assign({badInput:!1,customError:!1,patternMismatch:!1,rangeOverflow:!1,rangeUnderflow:!1,stepMismatch:!1,tooLong:!1,tooShort:!1,typeMismatch:!1,valid:!0,valueMissing:!1},e)};class o extends ee{constructor(){super(...arguments);this.mdcFoundationClass=me,this.value="",this.type="text",this.placeholder="",this.label="",this.icon="",this.iconTrailing="",this.disabled=!1,this.required=!1,this.minLength=-1,this.maxLength=-1,this.outlined=!1,this.helper="",this.validateOnInitialRender=!1,this.validationMessage="",this.autoValidate=!1,this.pattern="",this.min="",this.max="",this.step=null,this.size=null,this.helperPersistent=!1,this.charCounter=!1,this.endAligned=!1,this.prefix="",this.suffix="",this.name="",this.readOnly=!1,this.autocapitalize="",this.outlineOpen=!1,this.outlineWidth=0,this.isUiValid=!0,this._validity=P(),this._outlineUpdateComplete=null,this.validityTransform=null}get validity(){return this._checkValidity(this.value),this._validity}get willValidate(){return this.formElement.willValidate}get selectionStart(){return this.formElement.selectionStart}get selectionEnd(){return this.formElement.selectionEnd}get shouldRenderHelperText(){return!!this.helper||!!this.validationMessage||this.charCounterVisible}get charCounterVisible(){return this.charCounter&&this.maxLength!==-1}focus(){const i=new CustomEvent("focus");this.formElement.dispatchEvent(i),this.formElement.focus()}blur(){const i=new CustomEvent("blur");this.formElement.dispatchEvent(i),this.formElement.blur()}select(){this.formElement.select()}setSelectionRange(i,e,t){this.formElement.setSelectionRange(i,e,t)}update(i){i.has("value")&&typeof this.value!="string"&&(this.value=`${this.value}`),super.update(i)}render(){const i={"mdc-text-field--disabled":this.disabled,"mdc-text-field--no-label":!this.label,"mdc-text-field--filled":!this.outlined,"mdc-text-field--outlined":this.outlined,"mdc-text-field--with-leading-icon":this.icon,"mdc-text-field--with-trailing-icon":this.iconTrailing,"mdc-text-field--end-aligned":this.endAligned};return s`
+      <label class="mdc-text-field ${u(i)}">
         ${this.renderRipple()}
-        ${this.outlined ? this.renderOutline() : this.renderLabel()}
+        ${this.outlined?this.renderOutline():this.renderLabel()}
         ${this.renderLeadingIcon()}
         ${this.renderPrefix()}
         ${this.renderInput()}
@@ -1494,431 +302,48 @@ class TextFieldBase extends FormElement {
         ${this.renderLineRipple()}
       </label>
       ${this.renderHelperText(this.renderCharCounter())}
-    `;
-    }
-    updated(changedProperties) {
-        if (changedProperties.has('value') &&
-            changedProperties.get('value') !== undefined) {
-            this.mdcFoundation.setValue(this.value);
-        }
-    }
-    renderRipple() {
-        if (this.outlined) {
-            return nothing;
-        }
-        return html `
+    `}updated(i){i.has("value")&&i.get("value")!==void 0&&this.mdcFoundation.setValue(this.value)}renderRipple(){return this.outlined?c:s`
       <span class="mdc-text-field__ripple"></span>
-    `;
-    }
-    renderOutline() {
-        if (!this.outlined) {
-            return nothing;
-        }
-        return html `
+    `}renderOutline(){return this.outlined?s`
       <mwc-notched-outline
           .width=${this.outlineWidth}
           .open=${this.outlineOpen}
           class="mdc-notched-outline">
         ${this.renderLabel()}
-      </mwc-notched-outline>`;
-    }
-    renderLabel() {
-        if (!this.label) {
-            return nothing;
-        }
-        return html `
+      </mwc-notched-outline>`:c}renderLabel(){return this.label?s`
       <span
-          .floatingLabelFoundation=${floatingLabel(this.label)}
+          .floatingLabelFoundation=${ne(this.label)}
           id="label">${this.label}</span>
-    `;
-    }
-    renderLeadingIcon() {
-        return this.icon ? this.renderIcon(this.icon) : nothing;
-    }
-    renderTrailingIcon() {
-        return this.iconTrailing ? this.renderIcon(this.iconTrailing, true) :
-            nothing;
-    }
-    renderIcon(icon, isTrailingIcon = false) {
-        const classes = {
-            'mdc-text-field__icon--leading': !isTrailingIcon,
-            'mdc-text-field__icon--trailing': isTrailingIcon
-        };
-        return html `<i class="material-icons mdc-text-field__icon ${classMap(classes)}">${icon}</i>`;
-    }
-    renderPrefix() {
-        return this.prefix ? this.renderAffix(this.prefix) : nothing;
-    }
-    renderSuffix() {
-        return this.suffix ? this.renderAffix(this.suffix, true) : nothing;
-    }
-    renderAffix(content, isSuffix = false) {
-        const classes = {
-            'mdc-text-field__affix--prefix': !isSuffix,
-            'mdc-text-field__affix--suffix': isSuffix
-        };
-        return html `<span class="mdc-text-field__affix ${classMap(classes)}">
-        ${content}</span>`;
-    }
-    renderInput() {
-        const minOrUndef = this.minLength === -1 ? undefined : this.minLength;
-        const maxOrUndef = this.maxLength === -1 ? undefined : this.maxLength;
-        const autocapitalizeOrUndef = this.autocapitalize ?
-            this.autocapitalize :
-            undefined;
-        // TODO: live() directive needs casting for lit-analyzer
-        // https://github.com/runem/lit-analyzer/pull/91/files
-        // TODO: lit-analyzer labels min/max as (number|string) instead of string
-        return html `
+    `:c}renderLeadingIcon(){return this.icon?this.renderIcon(this.icon):c}renderTrailingIcon(){return this.iconTrailing?this.renderIcon(this.iconTrailing,!0):c}renderIcon(i,e=!1){const t={"mdc-text-field__icon--leading":!e,"mdc-text-field__icon--trailing":e};return s`<i class="material-icons mdc-text-field__icon ${u(t)}">${i}</i>`}renderPrefix(){return this.prefix?this.renderAffix(this.prefix):c}renderSuffix(){return this.suffix?this.renderAffix(this.suffix,!0):c}renderAffix(i,e=!1){const t={"mdc-text-field__affix--prefix":!e,"mdc-text-field__affix--suffix":e};return s`<span class="mdc-text-field__affix ${u(t)}">
+        ${i}</span>`}renderInput(){const i=this.minLength===-1?void 0:this.minLength,e=this.maxLength===-1?void 0:this.maxLength,t=this.autocapitalize?this.autocapitalize:void 0;return s`
       <input
           aria-labelledby="label"
           class="mdc-text-field__input"
           type="${this.type}"
-          .value="${live(this.value)}"
+          .value="${he(this.value)}"
           ?disabled="${this.disabled}"
           placeholder="${this.placeholder}"
           ?required="${this.required}"
           ?readonly="${this.readOnly}"
-          minlength="${ifDefined(minOrUndef)}"
-          maxlength="${ifDefined(maxOrUndef)}"
-          pattern="${ifDefined(this.pattern ? this.pattern : undefined)}"
-          min="${ifDefined(this.min === '' ? undefined : this.min)}"
-          max="${ifDefined(this.max === '' ? undefined : this.max)}"
-          step="${ifDefined(this.step === null ? undefined : this.step)}"
-          size="${ifDefined(this.size === null ? undefined : this.size)}"
-          name="${ifDefined(this.name === '' ? undefined : this.name)}"
-          inputmode="${ifDefined(this.inputMode)}"
-          autocapitalize="${ifDefined(autocapitalizeOrUndef)}"
+          minlength="${f(i)}"
+          maxlength="${f(e)}"
+          pattern="${f(this.pattern?this.pattern:void 0)}"
+          min="${f(this.min===""?void 0:this.min)}"
+          max="${f(this.max===""?void 0:this.max)}"
+          step="${f(this.step===null?void 0:this.step)}"
+          size="${f(this.size===null?void 0:this.size)}"
+          name="${f(this.name===""?void 0:this.name)}"
+          inputmode="${f(this.inputMode)}"
+          autocapitalize="${f(t)}"
           @input="${this.handleInputChange}"
-          @blur="${this.onInputBlur}">`;
-    }
-    renderLineRipple() {
-        if (this.outlined) {
-            return nothing;
-        }
-        return html `
-      <span .lineRippleFoundation=${lineRipple()}></span>
-    `;
-    }
-    renderHelperText(charCounterTemplate = nothing) {
-        if (!this.shouldRenderHelperText) {
-            return nothing;
-        }
-        const showValidationMessage = this.validationMessage && !this.isUiValid;
-        const classes = {
-            'mdc-text-field-helper-text--persistent': this.helperPersistent,
-            'mdc-text-field-helper-text--validation-msg': showValidationMessage,
-        };
-        return html `
+          @blur="${this.onInputBlur}">`}renderLineRipple(){return this.outlined?c:s`
+      <span .lineRippleFoundation=${ae()}></span>
+    `}renderHelperText(i=c){if(!this.shouldRenderHelperText)return c;const e=this.validationMessage&&!this.isUiValid,t={"mdc-text-field-helper-text--persistent":this.helperPersistent,"mdc-text-field-helper-text--validation-msg":e};return s`
       <div class="mdc-text-field-helper-line">
-        <div class="mdc-text-field-helper-text ${classMap(classes)}">${showValidationMessage ? this.validationMessage : this.helper}</div>
-        ${charCounterTemplate}
+        <div class="mdc-text-field-helper-text ${u(t)}">${e?this.validationMessage:this.helper}</div>
+        ${i}
       </div>
-    `;
-    }
-    renderCharCounter() {
-        if (!this.charCounterVisible) {
-            return nothing;
-        }
-        const length = Math.min(this.value.length, this.maxLength);
-        return html `<span class="mdc-text-field-character-counter">${length} / ${this.maxLength}</span>`;
-    }
-    onInputBlur() {
-        this.reportValidity();
-    }
-    checkValidity() {
-        const isValid = this._checkValidity(this.value);
-        if (!isValid) {
-            const invalidEvent = new Event('invalid', { bubbles: false, cancelable: true });
-            this.dispatchEvent(invalidEvent);
-        }
-        return isValid;
-    }
-    reportValidity() {
-        const isValid = this.checkValidity();
-        this.mdcFoundation.setValid(isValid);
-        this.isUiValid = isValid;
-        return isValid;
-    }
-    _checkValidity(value) {
-        const nativeValidity = this.formElement.validity;
-        let validity = createValidityObj(nativeValidity);
-        if (this.validityTransform) {
-            const customValidity = this.validityTransform(value, validity);
-            validity = Object.assign(Object.assign({}, validity), customValidity);
-            this.mdcFoundation.setUseNativeValidation(false);
-        }
-        else {
-            this.mdcFoundation.setUseNativeValidation(true);
-        }
-        this._validity = validity;
-        return this._validity.valid;
-    }
-    setCustomValidity(message) {
-        this.validationMessage = message;
-        this.formElement.setCustomValidity(message);
-    }
-    handleInputChange() {
-        this.value = this.formElement.value;
-        if (this.autoValidate) {
-            this.reportValidity();
-        }
-    }
-    createFoundation() {
-        if (this.mdcFoundation !== undefined) {
-            this.mdcFoundation.destroy();
-        }
-        this.mdcFoundation = new this.mdcFoundationClass(this.createAdapter());
-        this.mdcFoundation.init();
-    }
-    createAdapter() {
-        return Object.assign(Object.assign(Object.assign(Object.assign(Object.assign({}, this.getRootAdapterMethods()), this.getInputAdapterMethods()), this.getLabelAdapterMethods()), this.getLineRippleAdapterMethods()), this.getOutlineAdapterMethods());
-    }
-    getRootAdapterMethods() {
-        return Object.assign({ registerTextFieldInteractionHandler: (evtType, handler) => this.addEventListener(evtType, handler), deregisterTextFieldInteractionHandler: (evtType, handler) => this.removeEventListener(evtType, handler), registerValidationAttributeChangeHandler: (handler) => {
-                const getAttributesList = (mutationsList) => {
-                    return mutationsList.map((mutation) => mutation.attributeName)
-                        .filter((attributeName) => attributeName);
-                };
-                const observer = new MutationObserver((mutationsList) => {
-                    handler(getAttributesList(mutationsList));
-                });
-                const config = { attributes: true };
-                observer.observe(this.formElement, config);
-                return observer;
-            }, deregisterValidationAttributeChangeHandler: (observer) => observer.disconnect() }, addHasRemoveClass(this.mdcRoot));
-    }
-    getInputAdapterMethods() {
-        return {
-            getNativeInput: () => this.formElement,
-            isFocused: () => this.shadowRoot ?
-                this.shadowRoot.activeElement === this.formElement :
-                false,
-            registerInputInteractionHandler: (evtType, handler) => this.formElement.addEventListener(evtType, handler, { passive: evtType in passiveEvents }),
-            deregisterInputInteractionHandler: (evtType, handler) => this.formElement.removeEventListener(evtType, handler),
-        };
-    }
-    getLabelAdapterMethods() {
-        return {
-            floatLabel: (shouldFloat) => this.labelElement &&
-                this.labelElement.floatingLabelFoundation.float(shouldFloat),
-            getLabelWidth: () => {
-                return this.labelElement ?
-                    this.labelElement.floatingLabelFoundation.getWidth() :
-                    0;
-            },
-            hasLabel: () => Boolean(this.labelElement),
-            shakeLabel: (shouldShake) => this.labelElement &&
-                this.labelElement.floatingLabelFoundation.shake(shouldShake),
-            setLabelRequired: (isRequired) => {
-                if (this.labelElement) {
-                    this.labelElement.floatingLabelFoundation.setRequired(isRequired);
-                }
-            },
-        };
-    }
-    getLineRippleAdapterMethods() {
-        return {
-            activateLineRipple: () => {
-                if (this.lineRippleElement) {
-                    this.lineRippleElement.lineRippleFoundation.activate();
-                }
-            },
-            deactivateLineRipple: () => {
-                if (this.lineRippleElement) {
-                    this.lineRippleElement.lineRippleFoundation.deactivate();
-                }
-            },
-            setLineRippleTransformOrigin: (normalizedX) => {
-                if (this.lineRippleElement) {
-                    this.lineRippleElement.lineRippleFoundation.setRippleCenter(normalizedX);
-                }
-            },
-        };
-    }
-    async _getUpdateComplete() {
-        await super._getUpdateComplete();
-        await this._outlineUpdateComplete;
-    }
-    async firstUpdated() {
-        const outlineElement = this.outlineElement;
-        if (outlineElement) {
-            this._outlineUpdateComplete = outlineElement.updateComplete;
-            await this._outlineUpdateComplete;
-        }
-        super.firstUpdated();
-        if (this.validateOnInitialRender) {
-            this.reportValidity();
-        }
-    }
-    getOutlineAdapterMethods() {
-        return {
-            closeOutline: () => this.outlineElement && (this.outlineOpen = false),
-            hasOutline: () => Boolean(this.outlineElement),
-            notchOutline: (labelWidth) => {
-                const outlineElement = this.outlineElement;
-                if (outlineElement && !this.outlineOpen) {
-                    this.outlineWidth = labelWidth;
-                    this.outlineOpen = true;
-                }
-            }
-        };
-    }
-    async layout() {
-        await this.updateComplete;
-        const labelElement = this.labelElement;
-        if (!labelElement) {
-            this.outlineOpen = false;
-            return;
-        }
-        const shouldFloat = !!this.label && !!this.value;
-        labelElement.floatingLabelFoundation.float(shouldFloat);
-        if (!this.outlined) {
-            return;
-        }
-        this.outlineOpen = shouldFloat;
-        await this.updateComplete;
-        /* When the textfield automatically notches due to a value and label
-         * being defined, the textfield may be set to `display: none` by the user.
-         * this means that the notch is of size 0px. We provide this function so
-         * that the user may manually resize the notch to the floated label's
-         * width.
-         */
-        const labelWidth = labelElement.floatingLabelFoundation.getWidth();
-        if (this.outlineOpen) {
-            this.outlineWidth = labelWidth;
-        }
-    }
-}
-__decorate([
-    query('.mdc-text-field')
-], TextFieldBase.prototype, "mdcRoot", void 0);
-__decorate([
-    query('input')
-], TextFieldBase.prototype, "formElement", void 0);
-__decorate([
-    query('.mdc-floating-label')
-], TextFieldBase.prototype, "labelElement", void 0);
-__decorate([
-    query('.mdc-line-ripple')
-], TextFieldBase.prototype, "lineRippleElement", void 0);
-__decorate([
-    query('mwc-notched-outline')
-], TextFieldBase.prototype, "outlineElement", void 0);
-__decorate([
-    query('.mdc-notched-outline__notch')
-], TextFieldBase.prototype, "notchElement", void 0);
-__decorate([
-    property({ type: String })
-], TextFieldBase.prototype, "value", void 0);
-__decorate([
-    property({ type: String })
-], TextFieldBase.prototype, "type", void 0);
-__decorate([
-    property({ type: String })
-], TextFieldBase.prototype, "placeholder", void 0);
-__decorate([
-    property({ type: String }),
-    observer(function (_newVal, oldVal) {
-        if (oldVal !== undefined && this.label !== oldVal) {
-            this.layout();
-        }
-    })
-], TextFieldBase.prototype, "label", void 0);
-__decorate([
-    property({ type: String })
-], TextFieldBase.prototype, "icon", void 0);
-__decorate([
-    property({ type: String })
-], TextFieldBase.prototype, "iconTrailing", void 0);
-__decorate([
-    property({ type: Boolean, reflect: true })
-], TextFieldBase.prototype, "disabled", void 0);
-__decorate([
-    property({ type: Boolean })
-], TextFieldBase.prototype, "required", void 0);
-__decorate([
-    property({ type: Number })
-], TextFieldBase.prototype, "minLength", void 0);
-__decorate([
-    property({ type: Number })
-], TextFieldBase.prototype, "maxLength", void 0);
-__decorate([
-    property({ type: Boolean, reflect: true }),
-    observer(function (_newVal, oldVal) {
-        if (oldVal !== undefined && this.outlined !== oldVal) {
-            this.layout();
-        }
-    })
-], TextFieldBase.prototype, "outlined", void 0);
-__decorate([
-    property({ type: String })
-], TextFieldBase.prototype, "helper", void 0);
-__decorate([
-    property({ type: Boolean })
-], TextFieldBase.prototype, "validateOnInitialRender", void 0);
-__decorate([
-    property({ type: String })
-], TextFieldBase.prototype, "validationMessage", void 0);
-__decorate([
-    property({ type: Boolean })
-], TextFieldBase.prototype, "autoValidate", void 0);
-__decorate([
-    property({ type: String })
-], TextFieldBase.prototype, "pattern", void 0);
-__decorate([
-    property({ type: String })
-], TextFieldBase.prototype, "min", void 0);
-__decorate([
-    property({ type: String })
-], TextFieldBase.prototype, "max", void 0);
-__decorate([
-    property({ type: Number })
-], TextFieldBase.prototype, "step", void 0);
-__decorate([
-    property({ type: Number })
-], TextFieldBase.prototype, "size", void 0);
-__decorate([
-    property({ type: Boolean })
-], TextFieldBase.prototype, "helperPersistent", void 0);
-__decorate([
-    property({ type: Boolean })
-], TextFieldBase.prototype, "charCounter", void 0);
-__decorate([
-    property({ type: Boolean })
-], TextFieldBase.prototype, "endAligned", void 0);
-__decorate([
-    property({ type: String })
-], TextFieldBase.prototype, "prefix", void 0);
-__decorate([
-    property({ type: String })
-], TextFieldBase.prototype, "suffix", void 0);
-__decorate([
-    property({ type: String })
-], TextFieldBase.prototype, "name", void 0);
-__decorate([
-    property({ type: String })
-], TextFieldBase.prototype, "inputMode", void 0);
-__decorate([
-    property({ type: Boolean })
-], TextFieldBase.prototype, "readOnly", void 0);
-__decorate([
-    property({ type: String })
-], TextFieldBase.prototype, "autocapitalize", void 0);
-__decorate([
-    property({ type: Boolean })
-], TextFieldBase.prototype, "outlineOpen", void 0);
-__decorate([
-    property({ type: Number })
-], TextFieldBase.prototype, "outlineWidth", void 0);
-__decorate([
-    property({ type: Boolean })
-], TextFieldBase.prototype, "isUiValid", void 0);
-__decorate([
-    eventOptions({ passive: true })
-], TextFieldBase.prototype, "handleInputChange", null);
-
-/**
+    `}renderCharCounter(){if(!this.charCounterVisible)return c;const i=Math.min(this.value.length,this.maxLength);return s`<span class="mdc-text-field-character-counter">${i} / ${this.maxLength}</span>`}onInputBlur(){this.reportValidity()}checkValidity(){const i=this._checkValidity(this.value);if(!i){const e=new Event("invalid",{bubbles:!1,cancelable:!0});this.dispatchEvent(e)}return i}reportValidity(){const i=this.checkValidity();return this.mdcFoundation.setValid(i),this.isUiValid=i,i}_checkValidity(i){const e=this.formElement.validity;let t=P(e);if(this.validityTransform){const d=this.validityTransform(i,t);t=Object.assign(Object.assign({},t),d),this.mdcFoundation.setUseNativeValidation(!1)}else this.mdcFoundation.setUseNativeValidation(!0);return this._validity=t,this._validity.valid}setCustomValidity(i){this.validationMessage=i,this.formElement.setCustomValidity(i)}handleInputChange(){this.value=this.formElement.value,this.autoValidate&&this.reportValidity()}createFoundation(){this.mdcFoundation!==void 0&&this.mdcFoundation.destroy(),this.mdcFoundation=new this.mdcFoundationClass(this.createAdapter()),this.mdcFoundation.init()}createAdapter(){return Object.assign(Object.assign(Object.assign(Object.assign(Object.assign({},this.getRootAdapterMethods()),this.getInputAdapterMethods()),this.getLabelAdapterMethods()),this.getLineRippleAdapterMethods()),this.getOutlineAdapterMethods())}getRootAdapterMethods(){return Object.assign({registerTextFieldInteractionHandler:(i,e)=>this.addEventListener(i,e),deregisterTextFieldInteractionHandler:(i,e)=>this.removeEventListener(i,e),registerValidationAttributeChangeHandler:i=>{const e=n=>n.map(r=>r.attributeName).filter(r=>r),t=new MutationObserver(n=>{i(e(n))}),d={attributes:!0};return t.observe(this.formElement,d),t},deregisterValidationAttributeChangeHandler:i=>i.disconnect()},Q(this.mdcRoot))}getInputAdapterMethods(){return{getNativeInput:()=>this.formElement,isFocused:()=>this.shadowRoot?this.shadowRoot.activeElement===this.formElement:!1,registerInputInteractionHandler:(i,e)=>this.formElement.addEventListener(i,e,{passive:i in pe}),deregisterInputInteractionHandler:(i,e)=>this.formElement.removeEventListener(i,e)}}getLabelAdapterMethods(){return{floatLabel:i=>this.labelElement&&this.labelElement.floatingLabelFoundation.float(i),getLabelWidth:()=>this.labelElement?this.labelElement.floatingLabelFoundation.getWidth():0,hasLabel:()=>Boolean(this.labelElement),shakeLabel:i=>this.labelElement&&this.labelElement.floatingLabelFoundation.shake(i),setLabelRequired:i=>{this.labelElement&&this.labelElement.floatingLabelFoundation.setRequired(i)}}}getLineRippleAdapterMethods(){return{activateLineRipple:()=>{this.lineRippleElement&&this.lineRippleElement.lineRippleFoundation.activate()},deactivateLineRipple:()=>{this.lineRippleElement&&this.lineRippleElement.lineRippleFoundation.deactivate()},setLineRippleTransformOrigin:i=>{this.lineRippleElement&&this.lineRippleElement.lineRippleFoundation.setRippleCenter(i)}}}async _getUpdateComplete(){await super._getUpdateComplete(),await this._outlineUpdateComplete}async firstUpdated(){const i=this.outlineElement;i&&(this._outlineUpdateComplete=i.updateComplete,await this._outlineUpdateComplete),super.firstUpdated(),this.validateOnInitialRender&&this.reportValidity()}getOutlineAdapterMethods(){return{closeOutline:()=>this.outlineElement&&(this.outlineOpen=!1),hasOutline:()=>Boolean(this.outlineElement),notchOutline:i=>{const e=this.outlineElement;e&&!this.outlineOpen&&(this.outlineWidth=i,this.outlineOpen=!0)}}}async layout(){await this.updateComplete;const i=this.labelElement;if(!i){this.outlineOpen=!1;return}const e=!!this.label&&!!this.value;if(i.floatingLabelFoundation.float(e),!this.outlined)return;this.outlineOpen=e,await this.updateComplete;const t=i.floatingLabelFoundation.getWidth();this.outlineOpen&&(this.outlineWidth=t)}}l([h(".mdc-text-field")],o.prototype,"mdcRoot",void 0),l([h("input")],o.prototype,"formElement",void 0),l([h(".mdc-floating-label")],o.prototype,"labelElement",void 0),l([h(".mdc-line-ripple")],o.prototype,"lineRippleElement",void 0),l([h("mwc-notched-outline")],o.prototype,"outlineElement",void 0),l([h(".mdc-notched-outline__notch")],o.prototype,"notchElement",void 0),l([a({type:String})],o.prototype,"value",void 0),l([a({type:String})],o.prototype,"type",void 0),l([a({type:String})],o.prototype,"placeholder",void 0),l([a({type:String}),N(function(i,e){e!==void 0&&this.label!==e&&this.layout()})],o.prototype,"label",void 0),l([a({type:String})],o.prototype,"icon",void 0),l([a({type:String})],o.prototype,"iconTrailing",void 0),l([a({type:Boolean,reflect:!0})],o.prototype,"disabled",void 0),l([a({type:Boolean})],o.prototype,"required",void 0),l([a({type:Number})],o.prototype,"minLength",void 0),l([a({type:Number})],o.prototype,"maxLength",void 0),l([a({type:Boolean,reflect:!0}),N(function(i,e){e!==void 0&&this.outlined!==e&&this.layout()})],o.prototype,"outlined",void 0),l([a({type:String})],o.prototype,"helper",void 0),l([a({type:Boolean})],o.prototype,"validateOnInitialRender",void 0),l([a({type:String})],o.prototype,"validationMessage",void 0),l([a({type:Boolean})],o.prototype,"autoValidate",void 0),l([a({type:String})],o.prototype,"pattern",void 0),l([a({type:String})],o.prototype,"min",void 0),l([a({type:String})],o.prototype,"max",void 0),l([a({type:Number})],o.prototype,"step",void 0),l([a({type:Number})],o.prototype,"size",void 0),l([a({type:Boolean})],o.prototype,"helperPersistent",void 0),l([a({type:Boolean})],o.prototype,"charCounter",void 0),l([a({type:Boolean})],o.prototype,"endAligned",void 0),l([a({type:String})],o.prototype,"prefix",void 0),l([a({type:String})],o.prototype,"suffix",void 0),l([a({type:String})],o.prototype,"name",void 0),l([a({type:String})],o.prototype,"inputMode",void 0),l([a({type:Boolean})],o.prototype,"readOnly",void 0),l([a({type:String})],o.prototype,"autocapitalize",void 0),l([a({type:Boolean})],o.prototype,"outlineOpen",void 0),l([a({type:Number})],o.prototype,"outlineWidth",void 0),l([a({type:Boolean})],o.prototype,"isUiValid",void 0),l([z({passive:!0})],o.prototype,"handleInputChange",null);/**
 @license
 Copyright 2018 Google Inc. All Rights Reserved.
 
@@ -1933,10 +358,7 @@ distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
-*/
-const style$1 = css `.mdc-floating-label{-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased;font-family:Roboto, sans-serif;font-family:var(--mdc-typography-subtitle1-font-family, var(--mdc-typography-font-family, Roboto, sans-serif));font-size:1rem;font-size:var(--mdc-typography-subtitle1-font-size, 1rem);font-weight:400;font-weight:var(--mdc-typography-subtitle1-font-weight, 400);letter-spacing:0.009375em;letter-spacing:var(--mdc-typography-subtitle1-letter-spacing, 0.009375em);text-decoration:inherit;text-decoration:var(--mdc-typography-subtitle1-text-decoration, inherit);text-transform:inherit;text-transform:var(--mdc-typography-subtitle1-text-transform, inherit);position:absolute;left:0;transform-origin:left top;line-height:1.15rem;text-align:left;text-overflow:ellipsis;white-space:nowrap;cursor:text;overflow:hidden;will-change:transform;transition:transform 150ms cubic-bezier(0.4, 0, 0.2, 1),color 150ms cubic-bezier(0.4, 0, 0.2, 1)}[dir=rtl] .mdc-floating-label,.mdc-floating-label[dir=rtl]{right:0;left:auto;transform-origin:right top;text-align:right}.mdc-floating-label--float-above{cursor:auto}.mdc-floating-label--required::after{margin-left:1px;margin-right:0px;content:"*"}[dir=rtl] .mdc-floating-label--required::after,.mdc-floating-label--required[dir=rtl]::after{margin-left:0;margin-right:1px}.mdc-floating-label--float-above{transform:translateY(-106%) scale(0.75)}.mdc-floating-label--shake{animation:mdc-floating-label-shake-float-above-standard 250ms 1}@keyframes mdc-floating-label-shake-float-above-standard{0%{transform:translateX(calc(0 - 0%)) translateY(-106%) scale(0.75)}33%{animation-timing-function:cubic-bezier(0.5, 0, 0.701732, 0.495819);transform:translateX(calc(4% - 0%)) translateY(-106%) scale(0.75)}66%{animation-timing-function:cubic-bezier(0.302435, 0.381352, 0.55, 0.956352);transform:translateX(calc(-4% - 0%)) translateY(-106%) scale(0.75)}100%{transform:translateX(calc(0 - 0%)) translateY(-106%) scale(0.75)}}.mdc-line-ripple::before,.mdc-line-ripple::after{position:absolute;bottom:0;left:0;width:100%;border-bottom-style:solid;content:""}.mdc-line-ripple::before{border-bottom-width:1px;z-index:1}.mdc-line-ripple::after{transform:scaleX(0);border-bottom-width:2px;opacity:0;z-index:2}.mdc-line-ripple::after{transition:transform 180ms cubic-bezier(0.4, 0, 0.2, 1),opacity 180ms cubic-bezier(0.4, 0, 0.2, 1)}.mdc-line-ripple--active::after{transform:scaleX(1);opacity:1}.mdc-line-ripple--deactivating::after{opacity:0}.mdc-notched-outline{display:flex;position:absolute;top:0;right:0;left:0;box-sizing:border-box;width:100%;max-width:100%;height:100%;text-align:left;pointer-events:none}[dir=rtl] .mdc-notched-outline,.mdc-notched-outline[dir=rtl]{text-align:right}.mdc-notched-outline__leading,.mdc-notched-outline__notch,.mdc-notched-outline__trailing{box-sizing:border-box;height:100%;border-top:1px solid;border-bottom:1px solid;pointer-events:none}.mdc-notched-outline__leading{border-left:1px solid;border-right:none;width:12px}[dir=rtl] .mdc-notched-outline__leading,.mdc-notched-outline__leading[dir=rtl]{border-left:none;border-right:1px solid}.mdc-notched-outline__trailing{border-left:none;border-right:1px solid;flex-grow:1}[dir=rtl] .mdc-notched-outline__trailing,.mdc-notched-outline__trailing[dir=rtl]{border-left:1px solid;border-right:none}.mdc-notched-outline__notch{flex:0 0 auto;width:auto;max-width:calc(100% - 12px * 2)}.mdc-notched-outline .mdc-floating-label{display:inline-block;position:relative;max-width:100%}.mdc-notched-outline .mdc-floating-label--float-above{text-overflow:clip}.mdc-notched-outline--upgraded .mdc-floating-label--float-above{max-width:calc(100% / 0.75)}.mdc-notched-outline--notched .mdc-notched-outline__notch{padding-left:0;padding-right:8px;border-top:none}[dir=rtl] .mdc-notched-outline--notched .mdc-notched-outline__notch,.mdc-notched-outline--notched .mdc-notched-outline__notch[dir=rtl]{padding-left:8px;padding-right:0}.mdc-notched-outline--no-label .mdc-notched-outline__notch{padding:0}@keyframes mdc-ripple-fg-radius-in{from{animation-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transform:translate(var(--mdc-ripple-fg-translate-start, 0)) scale(1)}to{transform:translate(var(--mdc-ripple-fg-translate-end, 0)) scale(var(--mdc-ripple-fg-scale, 1))}}@keyframes mdc-ripple-fg-opacity-in{from{animation-timing-function:linear;opacity:0}to{opacity:var(--mdc-ripple-fg-opacity, 0)}}@keyframes mdc-ripple-fg-opacity-out{from{animation-timing-function:linear;opacity:var(--mdc-ripple-fg-opacity, 0)}to{opacity:0}}.mdc-text-field--filled{--mdc-ripple-fg-size: 0;--mdc-ripple-left: 0;--mdc-ripple-top: 0;--mdc-ripple-fg-scale: 1;--mdc-ripple-fg-translate-end: 0;--mdc-ripple-fg-translate-start: 0;-webkit-tap-highlight-color:rgba(0,0,0,0);will-change:transform,opacity}.mdc-text-field--filled .mdc-text-field__ripple::before,.mdc-text-field--filled .mdc-text-field__ripple::after{position:absolute;border-radius:50%;opacity:0;pointer-events:none;content:""}.mdc-text-field--filled .mdc-text-field__ripple::before{transition:opacity 15ms linear,background-color 15ms linear;z-index:1}.mdc-text-field--filled.mdc-ripple-upgraded .mdc-text-field__ripple::before{transform:scale(var(--mdc-ripple-fg-scale, 1))}.mdc-text-field--filled.mdc-ripple-upgraded .mdc-text-field__ripple::after{top:0;left:0;transform:scale(0);transform-origin:center center}.mdc-text-field--filled.mdc-ripple-upgraded--unbounded .mdc-text-field__ripple::after{top:var(--mdc-ripple-top, 0);left:var(--mdc-ripple-left, 0)}.mdc-text-field--filled.mdc-ripple-upgraded--foreground-activation .mdc-text-field__ripple::after{animation:mdc-ripple-fg-radius-in 225ms forwards,mdc-ripple-fg-opacity-in 75ms forwards}.mdc-text-field--filled.mdc-ripple-upgraded--foreground-deactivation .mdc-text-field__ripple::after{animation:mdc-ripple-fg-opacity-out 150ms;transform:translate(var(--mdc-ripple-fg-translate-end, 0)) scale(var(--mdc-ripple-fg-scale, 1))}.mdc-text-field--filled .mdc-text-field__ripple::before,.mdc-text-field--filled .mdc-text-field__ripple::after{top:calc(50% - 100%);left:calc(50% - 100%);width:200%;height:200%}.mdc-text-field--filled.mdc-ripple-upgraded .mdc-text-field__ripple::after{width:var(--mdc-ripple-fg-size, 100%);height:var(--mdc-ripple-fg-size, 100%)}.mdc-text-field__ripple{position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none}.mdc-text-field{border-top-left-radius:4px;border-top-left-radius:var(--mdc-shape-small, 4px);border-top-right-radius:4px;border-top-right-radius:var(--mdc-shape-small, 4px);border-bottom-right-radius:0;border-bottom-left-radius:0;display:inline-flex;align-items:baseline;padding:0 16px;position:relative;box-sizing:border-box;overflow:hidden;will-change:opacity,transform,color}.mdc-text-field:not(.mdc-text-field--disabled) .mdc-floating-label{color:rgba(0, 0, 0, 0.6)}.mdc-text-field:not(.mdc-text-field--disabled) .mdc-text-field__input{color:rgba(0, 0, 0, 0.87)}@media all{.mdc-text-field:not(.mdc-text-field--disabled) .mdc-text-field__input::placeholder{color:rgba(0, 0, 0, 0.54)}}@media all{.mdc-text-field:not(.mdc-text-field--disabled) .mdc-text-field__input:-ms-input-placeholder{color:rgba(0, 0, 0, 0.54)}}.mdc-text-field .mdc-text-field__input{caret-color:#6200ee;caret-color:var(--mdc-theme-primary, #6200ee)}.mdc-text-field:not(.mdc-text-field--disabled)+.mdc-text-field-helper-line .mdc-text-field-helper-text{color:rgba(0, 0, 0, 0.6)}.mdc-text-field:not(.mdc-text-field--disabled) .mdc-text-field-character-counter,.mdc-text-field:not(.mdc-text-field--disabled)+.mdc-text-field-helper-line .mdc-text-field-character-counter{color:rgba(0, 0, 0, 0.6)}.mdc-text-field:not(.mdc-text-field--disabled) .mdc-text-field__icon--leading{color:rgba(0, 0, 0, 0.54)}.mdc-text-field:not(.mdc-text-field--disabled) .mdc-text-field__icon--trailing{color:rgba(0, 0, 0, 0.54)}.mdc-text-field:not(.mdc-text-field--disabled) .mdc-text-field__affix--prefix{color:rgba(0, 0, 0, 0.6)}.mdc-text-field:not(.mdc-text-field--disabled) .mdc-text-field__affix--suffix{color:rgba(0, 0, 0, 0.6)}.mdc-text-field .mdc-floating-label{top:50%;transform:translateY(-50%);pointer-events:none}.mdc-text-field__input{-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased;font-family:Roboto, sans-serif;font-family:var(--mdc-typography-subtitle1-font-family, var(--mdc-typography-font-family, Roboto, sans-serif));font-size:1rem;font-size:var(--mdc-typography-subtitle1-font-size, 1rem);font-weight:400;font-weight:var(--mdc-typography-subtitle1-font-weight, 400);letter-spacing:0.009375em;letter-spacing:var(--mdc-typography-subtitle1-letter-spacing, 0.009375em);text-decoration:inherit;text-decoration:var(--mdc-typography-subtitle1-text-decoration, inherit);text-transform:inherit;text-transform:var(--mdc-typography-subtitle1-text-transform, inherit);height:28px;transition:opacity 150ms cubic-bezier(0.4, 0, 0.2, 1);width:100%;min-width:0;border:none;border-radius:0;background:none;appearance:none;padding:0}.mdc-text-field__input::-ms-clear{display:none}.mdc-text-field__input::-webkit-calendar-picker-indicator{display:none}.mdc-text-field__input:focus{outline:none}.mdc-text-field__input:invalid{box-shadow:none}@media all{.mdc-text-field__input::placeholder{transition:opacity 67ms cubic-bezier(0.4, 0, 0.2, 1);opacity:0}}@media all{.mdc-text-field__input:-ms-input-placeholder{transition:opacity 67ms cubic-bezier(0.4, 0, 0.2, 1);opacity:0}}@media all{.mdc-text-field--no-label .mdc-text-field__input::placeholder,.mdc-text-field--focused .mdc-text-field__input::placeholder{transition-delay:40ms;transition-duration:110ms;opacity:1}}@media all{.mdc-text-field--no-label .mdc-text-field__input:-ms-input-placeholder,.mdc-text-field--focused .mdc-text-field__input:-ms-input-placeholder{transition-delay:40ms;transition-duration:110ms;opacity:1}}.mdc-text-field__affix{-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased;font-family:Roboto, sans-serif;font-family:var(--mdc-typography-subtitle1-font-family, var(--mdc-typography-font-family, Roboto, sans-serif));font-size:1rem;font-size:var(--mdc-typography-subtitle1-font-size, 1rem);font-weight:400;font-weight:var(--mdc-typography-subtitle1-font-weight, 400);letter-spacing:0.009375em;letter-spacing:var(--mdc-typography-subtitle1-letter-spacing, 0.009375em);text-decoration:inherit;text-decoration:var(--mdc-typography-subtitle1-text-decoration, inherit);text-transform:inherit;text-transform:var(--mdc-typography-subtitle1-text-transform, inherit);height:28px;transition:opacity 150ms cubic-bezier(0.4, 0, 0.2, 1);opacity:0;white-space:nowrap}.mdc-text-field--label-floating .mdc-text-field__affix,.mdc-text-field--no-label .mdc-text-field__affix{opacity:1}@supports(-webkit-hyphens: none){.mdc-text-field--outlined .mdc-text-field__affix{align-items:center;align-self:center;display:inline-flex;height:100%}}.mdc-text-field__affix--prefix{padding-left:0;padding-right:2px}[dir=rtl] .mdc-text-field__affix--prefix,.mdc-text-field__affix--prefix[dir=rtl]{padding-left:2px;padding-right:0}.mdc-text-field--end-aligned .mdc-text-field__affix--prefix{padding-left:0;padding-right:12px}[dir=rtl] .mdc-text-field--end-aligned .mdc-text-field__affix--prefix,.mdc-text-field--end-aligned .mdc-text-field__affix--prefix[dir=rtl]{padding-left:12px;padding-right:0}.mdc-text-field__affix--suffix{padding-left:12px;padding-right:0}[dir=rtl] .mdc-text-field__affix--suffix,.mdc-text-field__affix--suffix[dir=rtl]{padding-left:0;padding-right:12px}.mdc-text-field--end-aligned .mdc-text-field__affix--suffix{padding-left:2px;padding-right:0}[dir=rtl] .mdc-text-field--end-aligned .mdc-text-field__affix--suffix,.mdc-text-field--end-aligned .mdc-text-field__affix--suffix[dir=rtl]{padding-left:0;padding-right:2px}.mdc-text-field--filled{height:56px}.mdc-text-field--filled .mdc-text-field__ripple::before,.mdc-text-field--filled .mdc-text-field__ripple::after{background-color:rgba(0, 0, 0, 0.87)}.mdc-text-field--filled:hover .mdc-text-field__ripple::before{opacity:.04}.mdc-text-field--filled.mdc-ripple-upgraded--background-focused .mdc-text-field__ripple::before,.mdc-text-field--filled:not(.mdc-ripple-upgraded):focus .mdc-text-field__ripple::before{transition-duration:75ms;opacity:.12}.mdc-text-field--filled::before{display:inline-block;width:0;height:40px;content:"";vertical-align:0}.mdc-text-field--filled:not(.mdc-text-field--disabled){background-color:whitesmoke}.mdc-text-field--filled:not(.mdc-text-field--disabled) .mdc-line-ripple::before{border-bottom-color:rgba(0, 0, 0, 0.42)}.mdc-text-field--filled:not(.mdc-text-field--disabled):hover .mdc-line-ripple::before{border-bottom-color:rgba(0, 0, 0, 0.87)}.mdc-text-field--filled .mdc-line-ripple::after{border-bottom-color:#6200ee;border-bottom-color:var(--mdc-theme-primary, #6200ee)}.mdc-text-field--filled .mdc-floating-label{left:16px;right:initial}[dir=rtl] .mdc-text-field--filled .mdc-floating-label,.mdc-text-field--filled .mdc-floating-label[dir=rtl]{left:initial;right:16px}.mdc-text-field--filled .mdc-floating-label--float-above{transform:translateY(-106%) scale(0.75)}.mdc-text-field--filled.mdc-text-field--no-label .mdc-text-field__input{height:100%}.mdc-text-field--filled.mdc-text-field--no-label .mdc-floating-label{display:none}.mdc-text-field--filled.mdc-text-field--no-label::before{display:none}@supports(-webkit-hyphens: none){.mdc-text-field--filled.mdc-text-field--no-label .mdc-text-field__affix{align-items:center;align-self:center;display:inline-flex;height:100%}}.mdc-text-field--outlined{height:56px;overflow:visible}.mdc-text-field--outlined .mdc-floating-label--float-above{transform:translateY(-37.25px) scale(1)}.mdc-text-field--outlined .mdc-floating-label--float-above{font-size:.75rem}.mdc-text-field--outlined.mdc-notched-outline--upgraded .mdc-floating-label--float-above,.mdc-text-field--outlined .mdc-notched-outline--upgraded .mdc-floating-label--float-above{transform:translateY(-34.75px) scale(0.75)}.mdc-text-field--outlined.mdc-notched-outline--upgraded .mdc-floating-label--float-above,.mdc-text-field--outlined .mdc-notched-outline--upgraded .mdc-floating-label--float-above{font-size:1rem}.mdc-text-field--outlined .mdc-floating-label--shake{animation:mdc-floating-label-shake-float-above-text-field-outlined 250ms 1}@keyframes mdc-floating-label-shake-float-above-text-field-outlined{0%{transform:translateX(calc(0 - 0%)) translateY(-34.75px) scale(0.75)}33%{animation-timing-function:cubic-bezier(0.5, 0, 0.701732, 0.495819);transform:translateX(calc(4% - 0%)) translateY(-34.75px) scale(0.75)}66%{animation-timing-function:cubic-bezier(0.302435, 0.381352, 0.55, 0.956352);transform:translateX(calc(-4% - 0%)) translateY(-34.75px) scale(0.75)}100%{transform:translateX(calc(0 - 0%)) translateY(-34.75px) scale(0.75)}}.mdc-text-field--outlined .mdc-text-field__input{height:100%}.mdc-text-field--outlined:not(.mdc-text-field--disabled) .mdc-notched-outline__leading,.mdc-text-field--outlined:not(.mdc-text-field--disabled) .mdc-notched-outline__notch,.mdc-text-field--outlined:not(.mdc-text-field--disabled) .mdc-notched-outline__trailing{border-color:rgba(0, 0, 0, 0.38)}.mdc-text-field--outlined:not(.mdc-text-field--disabled):not(.mdc-text-field--focused):hover .mdc-notched-outline .mdc-notched-outline__leading,.mdc-text-field--outlined:not(.mdc-text-field--disabled):not(.mdc-text-field--focused):hover .mdc-notched-outline .mdc-notched-outline__notch,.mdc-text-field--outlined:not(.mdc-text-field--disabled):not(.mdc-text-field--focused):hover .mdc-notched-outline .mdc-notched-outline__trailing{border-color:rgba(0, 0, 0, 0.87)}.mdc-text-field--outlined:not(.mdc-text-field--disabled).mdc-text-field--focused .mdc-notched-outline__leading,.mdc-text-field--outlined:not(.mdc-text-field--disabled).mdc-text-field--focused .mdc-notched-outline__notch,.mdc-text-field--outlined:not(.mdc-text-field--disabled).mdc-text-field--focused .mdc-notched-outline__trailing{border-color:#6200ee;border-color:var(--mdc-theme-primary, #6200ee)}.mdc-text-field--outlined .mdc-notched-outline .mdc-notched-outline__leading{border-top-left-radius:4px;border-top-left-radius:var(--mdc-shape-small, 4px);border-top-right-radius:0;border-bottom-right-radius:0;border-bottom-left-radius:4px;border-bottom-left-radius:var(--mdc-shape-small, 4px)}[dir=rtl] .mdc-text-field--outlined .mdc-notched-outline .mdc-notched-outline__leading,.mdc-text-field--outlined .mdc-notched-outline .mdc-notched-outline__leading[dir=rtl]{border-top-left-radius:0;border-top-right-radius:4px;border-top-right-radius:var(--mdc-shape-small, 4px);border-bottom-right-radius:4px;border-bottom-right-radius:var(--mdc-shape-small, 4px);border-bottom-left-radius:0}@supports(top: max(0%)){.mdc-text-field--outlined .mdc-notched-outline .mdc-notched-outline__leading{width:max(12px, var(--mdc-shape-small, 4px))}}@supports(top: max(0%)){.mdc-text-field--outlined .mdc-notched-outline .mdc-notched-outline__notch{max-width:calc(100% - max(12px, var(--mdc-shape-small, 4px)) * 2)}}.mdc-text-field--outlined .mdc-notched-outline .mdc-notched-outline__trailing{border-top-left-radius:0;border-top-right-radius:4px;border-top-right-radius:var(--mdc-shape-small, 4px);border-bottom-right-radius:4px;border-bottom-right-radius:var(--mdc-shape-small, 4px);border-bottom-left-radius:0}[dir=rtl] .mdc-text-field--outlined .mdc-notched-outline .mdc-notched-outline__trailing,.mdc-text-field--outlined .mdc-notched-outline .mdc-notched-outline__trailing[dir=rtl]{border-top-left-radius:4px;border-top-left-radius:var(--mdc-shape-small, 4px);border-top-right-radius:0;border-bottom-right-radius:0;border-bottom-left-radius:4px;border-bottom-left-radius:var(--mdc-shape-small, 4px)}@supports(top: max(0%)){.mdc-text-field--outlined{padding-left:max(16px, calc(var(--mdc-shape-small, 4px) + 4px))}}@supports(top: max(0%)){.mdc-text-field--outlined{padding-right:max(16px, var(--mdc-shape-small, 4px))}}@supports(top: max(0%)){.mdc-text-field--outlined+.mdc-text-field-helper-line{padding-left:max(16px, calc(var(--mdc-shape-small, 4px) + 4px))}}@supports(top: max(0%)){.mdc-text-field--outlined+.mdc-text-field-helper-line{padding-right:max(16px, var(--mdc-shape-small, 4px))}}.mdc-text-field--outlined.mdc-text-field--with-leading-icon{padding-left:0}@supports(top: max(0%)){.mdc-text-field--outlined.mdc-text-field--with-leading-icon{padding-right:max(16px, var(--mdc-shape-small, 4px))}}[dir=rtl] .mdc-text-field--outlined.mdc-text-field--with-leading-icon,.mdc-text-field--outlined.mdc-text-field--with-leading-icon[dir=rtl]{padding-right:0}@supports(top: max(0%)){[dir=rtl] .mdc-text-field--outlined.mdc-text-field--with-leading-icon,.mdc-text-field--outlined.mdc-text-field--with-leading-icon[dir=rtl]{padding-left:max(16px, var(--mdc-shape-small, 4px))}}.mdc-text-field--outlined.mdc-text-field--with-trailing-icon{padding-right:0}@supports(top: max(0%)){.mdc-text-field--outlined.mdc-text-field--with-trailing-icon{padding-left:max(16px, calc(var(--mdc-shape-small, 4px) + 4px))}}[dir=rtl] .mdc-text-field--outlined.mdc-text-field--with-trailing-icon,.mdc-text-field--outlined.mdc-text-field--with-trailing-icon[dir=rtl]{padding-left:0}@supports(top: max(0%)){[dir=rtl] .mdc-text-field--outlined.mdc-text-field--with-trailing-icon,.mdc-text-field--outlined.mdc-text-field--with-trailing-icon[dir=rtl]{padding-right:max(16px, calc(var(--mdc-shape-small, 4px) + 4px))}}.mdc-text-field--outlined.mdc-text-field--with-leading-icon.mdc-text-field--with-trailing-icon{padding-left:0;padding-right:0}.mdc-text-field--outlined .mdc-notched-outline--notched .mdc-notched-outline__notch{padding-top:1px}.mdc-text-field--outlined .mdc-text-field__ripple::before,.mdc-text-field--outlined .mdc-text-field__ripple::after{content:none}.mdc-text-field--outlined .mdc-floating-label{left:4px;right:initial}[dir=rtl] .mdc-text-field--outlined .mdc-floating-label,.mdc-text-field--outlined .mdc-floating-label[dir=rtl]{left:initial;right:4px}.mdc-text-field--outlined .mdc-text-field__input{display:flex;border:none !important;background-color:transparent}.mdc-text-field--outlined .mdc-notched-outline{z-index:1}.mdc-text-field--textarea{flex-direction:column;align-items:center;width:auto;height:auto;padding:0;transition:none}.mdc-text-field--textarea .mdc-floating-label{top:19px}.mdc-text-field--textarea .mdc-floating-label:not(.mdc-floating-label--float-above){transform:none}.mdc-text-field--textarea .mdc-text-field__input{flex-grow:1;height:auto;min-height:1.5rem;overflow-x:hidden;overflow-y:auto;box-sizing:border-box;resize:none;padding:0 16px;line-height:1.5rem}.mdc-text-field--textarea.mdc-text-field--filled::before{display:none}.mdc-text-field--textarea.mdc-text-field--filled .mdc-floating-label--float-above{transform:translateY(-10.25px) scale(0.75)}.mdc-text-field--textarea.mdc-text-field--filled .mdc-floating-label--shake{animation:mdc-floating-label-shake-float-above-textarea-filled 250ms 1}@keyframes mdc-floating-label-shake-float-above-textarea-filled{0%{transform:translateX(calc(0 - 0%)) translateY(-10.25px) scale(0.75)}33%{animation-timing-function:cubic-bezier(0.5, 0, 0.701732, 0.495819);transform:translateX(calc(4% - 0%)) translateY(-10.25px) scale(0.75)}66%{animation-timing-function:cubic-bezier(0.302435, 0.381352, 0.55, 0.956352);transform:translateX(calc(-4% - 0%)) translateY(-10.25px) scale(0.75)}100%{transform:translateX(calc(0 - 0%)) translateY(-10.25px) scale(0.75)}}.mdc-text-field--textarea.mdc-text-field--filled .mdc-text-field__input{margin-top:23px;margin-bottom:9px}.mdc-text-field--textarea.mdc-text-field--filled.mdc-text-field--no-label .mdc-text-field__input{margin-top:16px;margin-bottom:16px}.mdc-text-field--textarea.mdc-text-field--outlined .mdc-notched-outline--notched .mdc-notched-outline__notch{padding-top:0}.mdc-text-field--textarea.mdc-text-field--outlined .mdc-floating-label--float-above{transform:translateY(-27.25px) scale(1)}.mdc-text-field--textarea.mdc-text-field--outlined .mdc-floating-label--float-above{font-size:.75rem}.mdc-text-field--textarea.mdc-text-field--outlined.mdc-notched-outline--upgraded .mdc-floating-label--float-above,.mdc-text-field--textarea.mdc-text-field--outlined .mdc-notched-outline--upgraded .mdc-floating-label--float-above{transform:translateY(-24.75px) scale(0.75)}.mdc-text-field--textarea.mdc-text-field--outlined.mdc-notched-outline--upgraded .mdc-floating-label--float-above,.mdc-text-field--textarea.mdc-text-field--outlined .mdc-notched-outline--upgraded .mdc-floating-label--float-above{font-size:1rem}.mdc-text-field--textarea.mdc-text-field--outlined .mdc-floating-label--shake{animation:mdc-floating-label-shake-float-above-textarea-outlined 250ms 1}@keyframes mdc-floating-label-shake-float-above-textarea-outlined{0%{transform:translateX(calc(0 - 0%)) translateY(-24.75px) scale(0.75)}33%{animation-timing-function:cubic-bezier(0.5, 0, 0.701732, 0.495819);transform:translateX(calc(4% - 0%)) translateY(-24.75px) scale(0.75)}66%{animation-timing-function:cubic-bezier(0.302435, 0.381352, 0.55, 0.956352);transform:translateX(calc(-4% - 0%)) translateY(-24.75px) scale(0.75)}100%{transform:translateX(calc(0 - 0%)) translateY(-24.75px) scale(0.75)}}.mdc-text-field--textarea.mdc-text-field--outlined .mdc-text-field__input{margin-top:16px;margin-bottom:16px}.mdc-text-field--textarea.mdc-text-field--outlined .mdc-floating-label{top:18px}.mdc-text-field--textarea.mdc-text-field--with-internal-counter .mdc-text-field__input{margin-bottom:2px}.mdc-text-field--textarea.mdc-text-field--with-internal-counter .mdc-text-field-character-counter{align-self:flex-end;padding:0 16px}.mdc-text-field--textarea.mdc-text-field--with-internal-counter .mdc-text-field-character-counter::after{display:inline-block;width:0;height:16px;content:"";vertical-align:-16px}.mdc-text-field--textarea.mdc-text-field--with-internal-counter .mdc-text-field-character-counter::before{display:none}.mdc-text-field__resizer{align-self:stretch;display:inline-flex;flex-direction:column;flex-grow:1;max-height:100%;max-width:100%;min-height:56px;min-width:fit-content;min-width:-moz-available;min-width:-webkit-fill-available;overflow:hidden;resize:both}.mdc-text-field--filled .mdc-text-field__resizer{transform:translateY(-1px)}.mdc-text-field--filled .mdc-text-field__resizer .mdc-text-field__input,.mdc-text-field--filled .mdc-text-field__resizer .mdc-text-field-character-counter{transform:translateY(1px)}.mdc-text-field--outlined .mdc-text-field__resizer{transform:translateX(-1px) translateY(-1px)}[dir=rtl] .mdc-text-field--outlined .mdc-text-field__resizer,.mdc-text-field--outlined .mdc-text-field__resizer[dir=rtl]{transform:translateX(1px) translateY(-1px)}.mdc-text-field--outlined .mdc-text-field__resizer .mdc-text-field__input,.mdc-text-field--outlined .mdc-text-field__resizer .mdc-text-field-character-counter{transform:translateX(1px) translateY(1px)}[dir=rtl] .mdc-text-field--outlined .mdc-text-field__resizer .mdc-text-field__input,.mdc-text-field--outlined .mdc-text-field__resizer .mdc-text-field__input[dir=rtl],[dir=rtl] .mdc-text-field--outlined .mdc-text-field__resizer .mdc-text-field-character-counter,.mdc-text-field--outlined .mdc-text-field__resizer .mdc-text-field-character-counter[dir=rtl]{transform:translateX(-1px) translateY(1px)}.mdc-text-field--with-leading-icon{padding-left:0;padding-right:16px}[dir=rtl] .mdc-text-field--with-leading-icon,.mdc-text-field--with-leading-icon[dir=rtl]{padding-left:16px;padding-right:0}.mdc-text-field--with-leading-icon.mdc-text-field--filled .mdc-floating-label{max-width:calc(100% - 48px);left:48px;right:initial}[dir=rtl] .mdc-text-field--with-leading-icon.mdc-text-field--filled .mdc-floating-label,.mdc-text-field--with-leading-icon.mdc-text-field--filled .mdc-floating-label[dir=rtl]{left:initial;right:48px}.mdc-text-field--with-leading-icon.mdc-text-field--filled .mdc-floating-label--float-above{max-width:calc(100% / 0.75 - 64px / 0.75)}.mdc-text-field--with-leading-icon.mdc-text-field--outlined .mdc-floating-label{left:36px;right:initial}[dir=rtl] .mdc-text-field--with-leading-icon.mdc-text-field--outlined .mdc-floating-label,.mdc-text-field--with-leading-icon.mdc-text-field--outlined .mdc-floating-label[dir=rtl]{left:initial;right:36px}.mdc-text-field--with-leading-icon.mdc-text-field--outlined :not(.mdc-notched-outline--notched) .mdc-notched-outline__notch{max-width:calc(100% - 60px)}.mdc-text-field--with-leading-icon.mdc-text-field--outlined .mdc-floating-label--float-above{transform:translateY(-37.25px) translateX(-32px) scale(1)}[dir=rtl] .mdc-text-field--with-leading-icon.mdc-text-field--outlined .mdc-floating-label--float-above,.mdc-text-field--with-leading-icon.mdc-text-field--outlined .mdc-floating-label--float-above[dir=rtl]{transform:translateY(-37.25px) translateX(32px) scale(1)}.mdc-text-field--with-leading-icon.mdc-text-field--outlined .mdc-floating-label--float-above{font-size:.75rem}.mdc-text-field--with-leading-icon.mdc-text-field--outlined.mdc-notched-outline--upgraded .mdc-floating-label--float-above,.mdc-text-field--with-leading-icon.mdc-text-field--outlined .mdc-notched-outline--upgraded .mdc-floating-label--float-above{transform:translateY(-34.75px) translateX(-32px) scale(0.75)}[dir=rtl] .mdc-text-field--with-leading-icon.mdc-text-field--outlined.mdc-notched-outline--upgraded .mdc-floating-label--float-above,.mdc-text-field--with-leading-icon.mdc-text-field--outlined.mdc-notched-outline--upgraded .mdc-floating-label--float-above[dir=rtl],[dir=rtl] .mdc-text-field--with-leading-icon.mdc-text-field--outlined .mdc-notched-outline--upgraded .mdc-floating-label--float-above,.mdc-text-field--with-leading-icon.mdc-text-field--outlined .mdc-notched-outline--upgraded .mdc-floating-label--float-above[dir=rtl]{transform:translateY(-34.75px) translateX(32px) scale(0.75)}.mdc-text-field--with-leading-icon.mdc-text-field--outlined.mdc-notched-outline--upgraded .mdc-floating-label--float-above,.mdc-text-field--with-leading-icon.mdc-text-field--outlined .mdc-notched-outline--upgraded .mdc-floating-label--float-above{font-size:1rem}.mdc-text-field--with-leading-icon.mdc-text-field--outlined .mdc-floating-label--shake{animation:mdc-floating-label-shake-float-above-text-field-outlined-leading-icon 250ms 1}@keyframes mdc-floating-label-shake-float-above-text-field-outlined-leading-icon{0%{transform:translateX(calc(0 - 32px)) translateY(-34.75px) scale(0.75)}33%{animation-timing-function:cubic-bezier(0.5, 0, 0.701732, 0.495819);transform:translateX(calc(4% - 32px)) translateY(-34.75px) scale(0.75)}66%{animation-timing-function:cubic-bezier(0.302435, 0.381352, 0.55, 0.956352);transform:translateX(calc(-4% - 32px)) translateY(-34.75px) scale(0.75)}100%{transform:translateX(calc(0 - 32px)) translateY(-34.75px) scale(0.75)}}[dir=rtl] .mdc-text-field--with-leading-icon.mdc-text-field--outlined .mdc-floating-label--shake,.mdc-text-field--with-leading-icon.mdc-text-field--outlined[dir=rtl] .mdc-floating-label--shake{animation:mdc-floating-label-shake-float-above-text-field-outlined-leading-icon 250ms 1}@keyframes mdc-floating-label-shake-float-above-text-field-outlined-leading-icon-rtl{0%{transform:translateX(calc(0 - -32px)) translateY(-34.75px) scale(0.75)}33%{animation-timing-function:cubic-bezier(0.5, 0, 0.701732, 0.495819);transform:translateX(calc(4% - -32px)) translateY(-34.75px) scale(0.75)}66%{animation-timing-function:cubic-bezier(0.302435, 0.381352, 0.55, 0.956352);transform:translateX(calc(-4% - -32px)) translateY(-34.75px) scale(0.75)}100%{transform:translateX(calc(0 - -32px)) translateY(-34.75px) scale(0.75)}}.mdc-text-field--with-trailing-icon{padding-left:16px;padding-right:0}[dir=rtl] .mdc-text-field--with-trailing-icon,.mdc-text-field--with-trailing-icon[dir=rtl]{padding-left:0;padding-right:16px}.mdc-text-field--with-trailing-icon.mdc-text-field--filled .mdc-floating-label{max-width:calc(100% - 64px)}.mdc-text-field--with-trailing-icon.mdc-text-field--filled .mdc-floating-label--float-above{max-width:calc(100% / 0.75 - 64px / 0.75)}.mdc-text-field--with-trailing-icon.mdc-text-field--outlined :not(.mdc-notched-outline--notched) .mdc-notched-outline__notch{max-width:calc(100% - 60px)}.mdc-text-field--with-leading-icon.mdc-text-field--with-trailing-icon{padding-left:0;padding-right:0}.mdc-text-field--with-leading-icon.mdc-text-field--with-trailing-icon.mdc-text-field--filled .mdc-floating-label{max-width:calc(100% - 96px)}.mdc-text-field--with-leading-icon.mdc-text-field--with-trailing-icon.mdc-text-field--filled .mdc-floating-label--float-above{max-width:calc(100% / 0.75 - 96px / 0.75)}.mdc-text-field-helper-line{display:flex;justify-content:space-between;box-sizing:border-box}.mdc-text-field+.mdc-text-field-helper-line{padding-right:16px;padding-left:16px}.mdc-form-field>.mdc-text-field+label{align-self:flex-start}.mdc-text-field--focused:not(.mdc-text-field--disabled) .mdc-floating-label{color:rgba(98, 0, 238, 0.87)}.mdc-text-field--focused .mdc-notched-outline__leading,.mdc-text-field--focused .mdc-notched-outline__notch,.mdc-text-field--focused .mdc-notched-outline__trailing{border-width:2px}.mdc-text-field--focused+.mdc-text-field-helper-line .mdc-text-field-helper-text:not(.mdc-text-field-helper-text--validation-msg){opacity:1}.mdc-text-field--focused.mdc-text-field--outlined .mdc-notched-outline--notched .mdc-notched-outline__notch{padding-top:2px}.mdc-text-field--focused.mdc-text-field--outlined.mdc-text-field--textarea .mdc-notched-outline--notched .mdc-notched-outline__notch{padding-top:0}.mdc-text-field--invalid:not(.mdc-text-field--disabled):hover .mdc-line-ripple::before{border-bottom-color:#b00020;border-bottom-color:var(--mdc-theme-error, #b00020)}.mdc-text-field--invalid:not(.mdc-text-field--disabled) .mdc-line-ripple::after{border-bottom-color:#b00020;border-bottom-color:var(--mdc-theme-error, #b00020)}.mdc-text-field--invalid:not(.mdc-text-field--disabled) .mdc-floating-label{color:#b00020;color:var(--mdc-theme-error, #b00020)}.mdc-text-field--invalid:not(.mdc-text-field--disabled).mdc-text-field--invalid+.mdc-text-field-helper-line .mdc-text-field-helper-text--validation-msg{color:#b00020;color:var(--mdc-theme-error, #b00020)}.mdc-text-field--invalid .mdc-text-field__input{caret-color:#b00020;caret-color:var(--mdc-theme-error, #b00020)}.mdc-text-field--invalid:not(.mdc-text-field--disabled) .mdc-text-field__icon--trailing{color:#b00020;color:var(--mdc-theme-error, #b00020)}.mdc-text-field--invalid:not(.mdc-text-field--disabled) .mdc-line-ripple::before{border-bottom-color:#b00020;border-bottom-color:var(--mdc-theme-error, #b00020)}.mdc-text-field--invalid:not(.mdc-text-field--disabled) .mdc-notched-outline__leading,.mdc-text-field--invalid:not(.mdc-text-field--disabled) .mdc-notched-outline__notch,.mdc-text-field--invalid:not(.mdc-text-field--disabled) .mdc-notched-outline__trailing{border-color:#b00020;border-color:var(--mdc-theme-error, #b00020)}.mdc-text-field--invalid:not(.mdc-text-field--disabled):not(.mdc-text-field--focused):hover .mdc-notched-outline .mdc-notched-outline__leading,.mdc-text-field--invalid:not(.mdc-text-field--disabled):not(.mdc-text-field--focused):hover .mdc-notched-outline .mdc-notched-outline__notch,.mdc-text-field--invalid:not(.mdc-text-field--disabled):not(.mdc-text-field--focused):hover .mdc-notched-outline .mdc-notched-outline__trailing{border-color:#b00020;border-color:var(--mdc-theme-error, #b00020)}.mdc-text-field--invalid:not(.mdc-text-field--disabled).mdc-text-field--focused .mdc-notched-outline__leading,.mdc-text-field--invalid:not(.mdc-text-field--disabled).mdc-text-field--focused .mdc-notched-outline__notch,.mdc-text-field--invalid:not(.mdc-text-field--disabled).mdc-text-field--focused .mdc-notched-outline__trailing{border-color:#b00020;border-color:var(--mdc-theme-error, #b00020)}.mdc-text-field--invalid+.mdc-text-field-helper-line .mdc-text-field-helper-text--validation-msg{opacity:1}.mdc-text-field--disabled{pointer-events:none}.mdc-text-field--disabled .mdc-text-field__input{color:rgba(0, 0, 0, 0.38)}@media all{.mdc-text-field--disabled .mdc-text-field__input::placeholder{color:rgba(0, 0, 0, 0.38)}}@media all{.mdc-text-field--disabled .mdc-text-field__input:-ms-input-placeholder{color:rgba(0, 0, 0, 0.38)}}.mdc-text-field--disabled .mdc-floating-label{color:rgba(0, 0, 0, 0.38)}.mdc-text-field--disabled+.mdc-text-field-helper-line .mdc-text-field-helper-text{color:rgba(0, 0, 0, 0.38)}.mdc-text-field--disabled .mdc-text-field-character-counter,.mdc-text-field--disabled+.mdc-text-field-helper-line .mdc-text-field-character-counter{color:rgba(0, 0, 0, 0.38)}.mdc-text-field--disabled .mdc-text-field__icon--leading{color:rgba(0, 0, 0, 0.3)}.mdc-text-field--disabled .mdc-text-field__icon--trailing{color:rgba(0, 0, 0, 0.3)}.mdc-text-field--disabled .mdc-text-field__affix--prefix{color:rgba(0, 0, 0, 0.38)}.mdc-text-field--disabled .mdc-text-field__affix--suffix{color:rgba(0, 0, 0, 0.38)}.mdc-text-field--disabled .mdc-line-ripple::before{border-bottom-color:rgba(0, 0, 0, 0.06)}.mdc-text-field--disabled .mdc-notched-outline__leading,.mdc-text-field--disabled .mdc-notched-outline__notch,.mdc-text-field--disabled .mdc-notched-outline__trailing{border-color:rgba(0, 0, 0, 0.06)}@media screen and (-ms-high-contrast: active){.mdc-text-field--disabled .mdc-text-field__input::placeholder{color:GrayText}}@media screen and (-ms-high-contrast: active){.mdc-text-field--disabled .mdc-text-field__input:-ms-input-placeholder{color:GrayText}}@media screen and (-ms-high-contrast: active){.mdc-text-field--disabled .mdc-floating-label{color:GrayText}}@media screen and (-ms-high-contrast: active){.mdc-text-field--disabled+.mdc-text-field-helper-line .mdc-text-field-helper-text{color:GrayText}}@media screen and (-ms-high-contrast: active){.mdc-text-field--disabled .mdc-text-field-character-counter,.mdc-text-field--disabled+.mdc-text-field-helper-line .mdc-text-field-character-counter{color:GrayText}}@media screen and (-ms-high-contrast: active){.mdc-text-field--disabled .mdc-text-field__icon--leading{color:GrayText}}@media screen and (-ms-high-contrast: active){.mdc-text-field--disabled .mdc-text-field__icon--trailing{color:GrayText}}@media screen and (-ms-high-contrast: active){.mdc-text-field--disabled .mdc-text-field__affix--prefix{color:GrayText}}@media screen and (-ms-high-contrast: active){.mdc-text-field--disabled .mdc-text-field__affix--suffix{color:GrayText}}@media screen and (-ms-high-contrast: active){.mdc-text-field--disabled .mdc-line-ripple::before{border-bottom-color:GrayText}}@media screen and (-ms-high-contrast: active){.mdc-text-field--disabled .mdc-notched-outline__leading,.mdc-text-field--disabled .mdc-notched-outline__notch,.mdc-text-field--disabled .mdc-notched-outline__trailing{border-color:GrayText}}.mdc-text-field--disabled .mdc-floating-label{cursor:default}.mdc-text-field--disabled.mdc-text-field--filled{background-color:#fafafa}.mdc-text-field--disabled.mdc-text-field--filled .mdc-text-field__ripple{display:none}.mdc-text-field--disabled .mdc-text-field__input{pointer-events:auto}.mdc-text-field--end-aligned .mdc-text-field__input{text-align:right}[dir=rtl] .mdc-text-field--end-aligned .mdc-text-field__input,.mdc-text-field--end-aligned .mdc-text-field__input[dir=rtl]{text-align:left}[dir=rtl] .mdc-text-field--ltr-text .mdc-text-field__input,[dir=rtl] .mdc-text-field--ltr-text .mdc-text-field__affix,.mdc-text-field--ltr-text[dir=rtl] .mdc-text-field__input,.mdc-text-field--ltr-text[dir=rtl] .mdc-text-field__affix{direction:ltr}[dir=rtl] .mdc-text-field--ltr-text .mdc-text-field__affix--prefix,.mdc-text-field--ltr-text[dir=rtl] .mdc-text-field__affix--prefix{padding-left:0;padding-right:2px}[dir=rtl] .mdc-text-field--ltr-text .mdc-text-field__affix--suffix,.mdc-text-field--ltr-text[dir=rtl] .mdc-text-field__affix--suffix{padding-left:12px;padding-right:0}[dir=rtl] .mdc-text-field--ltr-text .mdc-text-field__icon--leading,.mdc-text-field--ltr-text[dir=rtl] .mdc-text-field__icon--leading{order:1}[dir=rtl] .mdc-text-field--ltr-text .mdc-text-field__affix--suffix,.mdc-text-field--ltr-text[dir=rtl] .mdc-text-field__affix--suffix{order:2}[dir=rtl] .mdc-text-field--ltr-text .mdc-text-field__input,.mdc-text-field--ltr-text[dir=rtl] .mdc-text-field__input{order:3}[dir=rtl] .mdc-text-field--ltr-text .mdc-text-field__affix--prefix,.mdc-text-field--ltr-text[dir=rtl] .mdc-text-field__affix--prefix{order:4}[dir=rtl] .mdc-text-field--ltr-text .mdc-text-field__icon--trailing,.mdc-text-field--ltr-text[dir=rtl] .mdc-text-field__icon--trailing{order:5}[dir=rtl] .mdc-text-field--ltr-text.mdc-text-field--end-aligned .mdc-text-field__input,.mdc-text-field--ltr-text.mdc-text-field--end-aligned[dir=rtl] .mdc-text-field__input{text-align:right}[dir=rtl] .mdc-text-field--ltr-text.mdc-text-field--end-aligned .mdc-text-field__affix--prefix,.mdc-text-field--ltr-text.mdc-text-field--end-aligned[dir=rtl] .mdc-text-field__affix--prefix{padding-right:12px}[dir=rtl] .mdc-text-field--ltr-text.mdc-text-field--end-aligned .mdc-text-field__affix--suffix,.mdc-text-field--ltr-text.mdc-text-field--end-aligned[dir=rtl] .mdc-text-field__affix--suffix{padding-left:2px}.mdc-text-field-helper-text{-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased;font-family:Roboto, sans-serif;font-family:var(--mdc-typography-caption-font-family, var(--mdc-typography-font-family, Roboto, sans-serif));font-size:0.75rem;font-size:var(--mdc-typography-caption-font-size, 0.75rem);line-height:1.25rem;line-height:var(--mdc-typography-caption-line-height, 1.25rem);font-weight:400;font-weight:var(--mdc-typography-caption-font-weight, 400);letter-spacing:0.0333333333em;letter-spacing:var(--mdc-typography-caption-letter-spacing, 0.0333333333em);text-decoration:inherit;text-decoration:var(--mdc-typography-caption-text-decoration, inherit);text-transform:inherit;text-transform:var(--mdc-typography-caption-text-transform, inherit);display:block;margin-top:0;line-height:normal;margin:0;opacity:0;will-change:opacity;transition:opacity 150ms cubic-bezier(0.4, 0, 0.2, 1)}.mdc-text-field-helper-text::before{display:inline-block;width:0;height:16px;content:"";vertical-align:0}.mdc-text-field-helper-text--persistent{transition:none;opacity:1;will-change:initial}.mdc-text-field-character-counter{-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased;font-family:Roboto, sans-serif;font-family:var(--mdc-typography-caption-font-family, var(--mdc-typography-font-family, Roboto, sans-serif));font-size:0.75rem;font-size:var(--mdc-typography-caption-font-size, 0.75rem);line-height:1.25rem;line-height:var(--mdc-typography-caption-line-height, 1.25rem);font-weight:400;font-weight:var(--mdc-typography-caption-font-weight, 400);letter-spacing:0.0333333333em;letter-spacing:var(--mdc-typography-caption-letter-spacing, 0.0333333333em);text-decoration:inherit;text-decoration:var(--mdc-typography-caption-text-decoration, inherit);text-transform:inherit;text-transform:var(--mdc-typography-caption-text-transform, inherit);display:block;margin-top:0;line-height:normal;margin-left:auto;margin-right:0;padding-left:16px;padding-right:0;white-space:nowrap}.mdc-text-field-character-counter::before{display:inline-block;width:0;height:16px;content:"";vertical-align:0}[dir=rtl] .mdc-text-field-character-counter,.mdc-text-field-character-counter[dir=rtl]{margin-left:0;margin-right:auto}[dir=rtl] .mdc-text-field-character-counter,.mdc-text-field-character-counter[dir=rtl]{padding-left:0;padding-right:16px}.mdc-text-field__icon{align-self:center;cursor:pointer}.mdc-text-field__icon:not([tabindex]),.mdc-text-field__icon[tabindex="-1"]{cursor:default;pointer-events:none}.mdc-text-field__icon svg{display:block}.mdc-text-field__icon--leading{margin-left:16px;margin-right:8px}[dir=rtl] .mdc-text-field__icon--leading,.mdc-text-field__icon--leading[dir=rtl]{margin-left:8px;margin-right:16px}.mdc-text-field__icon--trailing{margin-left:12px;margin-right:12px}[dir=rtl] .mdc-text-field__icon--trailing,.mdc-text-field__icon--trailing[dir=rtl]{margin-left:12px;margin-right:12px}.material-icons{font-family:var(--mdc-icon-font, "Material Icons");font-weight:normal;font-style:normal;font-size:var(--mdc-icon-size, 24px);line-height:1;letter-spacing:normal;text-transform:none;display:inline-block;white-space:nowrap;word-wrap:normal;direction:ltr;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;-moz-osx-font-smoothing:grayscale;font-feature-settings:"liga"}:host{display:inline-flex;flex-direction:column;outline:none}.mdc-text-field{width:100%}.mdc-text-field:not(.mdc-text-field--disabled) .mdc-line-ripple::before{border-bottom-color:rgba(0, 0, 0, 0.42);border-bottom-color:var(--mdc-text-field-idle-line-color, rgba(0, 0, 0, 0.42))}.mdc-text-field:not(.mdc-text-field--disabled):hover .mdc-line-ripple::before{border-bottom-color:rgba(0, 0, 0, 0.87);border-bottom-color:var(--mdc-text-field-hover-line-color, rgba(0, 0, 0, 0.87))}.mdc-text-field.mdc-text-field--disabled .mdc-line-ripple::before{border-bottom-color:rgba(0, 0, 0, 0.06);border-bottom-color:var(--mdc-text-field-disabled-line-color, rgba(0, 0, 0, 0.06))}.mdc-text-field.mdc-text-field--invalid:not(.mdc-text-field--disabled) .mdc-line-ripple::before{border-bottom-color:#b00020;border-bottom-color:var(--mdc-theme-error, #b00020)}mwc-notched-outline{--mdc-notched-outline-border-color: var(--mdc-text-field-outlined-idle-border-color, rgba(0, 0, 0, 0.38))}:host(:not([disabled]):hover) :not(.mdc-text-field--invalid):not(.mdc-text-field--focused) mwc-notched-outline{--mdc-notched-outline-border-color: var(--mdc-text-field-outlined-hover-border-color, rgba(0, 0, 0, 0.87))}:host(:not([disabled])) .mdc-text-field:not(.mdc-text-field--outlined){background-color:var(--mdc-text-field-fill-color, whitesmoke)}:host(:not([disabled])) .mdc-text-field.mdc-text-field--invalid mwc-notched-outline{--mdc-notched-outline-border-color: var(--mdc-text-field-error-color, var(--mdc-theme-error, #b00020))}:host(:not([disabled])) .mdc-text-field.mdc-text-field--invalid+.mdc-text-field-helper-line .mdc-text-field-character-counter,:host(:not([disabled])) .mdc-text-field.mdc-text-field--invalid .mdc-text-field__icon{color:var(--mdc-text-field-error-color, var(--mdc-theme-error, #b00020))}:host(:not([disabled])) .mdc-text-field:not(.mdc-text-field--invalid):not(.mdc-text-field--focused) .mdc-floating-label,:host(:not([disabled])) .mdc-text-field:not(.mdc-text-field--invalid):not(.mdc-text-field--focused) .mdc-floating-label::after{color:var(--mdc-text-field-label-ink-color, rgba(0, 0, 0, 0.6))}:host(:not([disabled])) .mdc-text-field.mdc-text-field--focused mwc-notched-outline{--mdc-notched-outline-stroke-width: 2px}:host(:not([disabled])) .mdc-text-field.mdc-text-field--focused:not(.mdc-text-field--invalid) mwc-notched-outline{--mdc-notched-outline-border-color: var(--mdc-text-field-focused-label-color, var(--mdc-theme-primary, rgba(98, 0, 238, 0.87)))}:host(:not([disabled])) .mdc-text-field.mdc-text-field--focused:not(.mdc-text-field--invalid) .mdc-floating-label{color:#6200ee;color:var(--mdc-theme-primary, #6200ee)}:host(:not([disabled])) .mdc-text-field .mdc-text-field__input{color:var(--mdc-text-field-ink-color, rgba(0, 0, 0, 0.87))}:host(:not([disabled])) .mdc-text-field .mdc-text-field__input::placeholder{color:var(--mdc-text-field-label-ink-color, rgba(0, 0, 0, 0.6))}:host(:not([disabled])) .mdc-text-field-helper-line .mdc-text-field-helper-text:not(.mdc-text-field-helper-text--validation-msg),:host(:not([disabled])) .mdc-text-field-helper-line:not(.mdc-text-field--invalid) .mdc-text-field-character-counter{color:var(--mdc-text-field-label-ink-color, rgba(0, 0, 0, 0.6))}:host([disabled]) .mdc-text-field:not(.mdc-text-field--outlined){background-color:var(--mdc-text-field-disabled-fill-color, #fafafa)}:host([disabled]) .mdc-text-field.mdc-text-field--outlined mwc-notched-outline{--mdc-notched-outline-border-color: var(--mdc-text-field-outlined-disabled-border-color, rgba(0, 0, 0, 0.06))}:host([disabled]) .mdc-text-field:not(.mdc-text-field--invalid):not(.mdc-text-field--focused) .mdc-floating-label,:host([disabled]) .mdc-text-field:not(.mdc-text-field--invalid):not(.mdc-text-field--focused) .mdc-floating-label::after{color:var(--mdc-text-field-disabled-ink-color, rgba(0, 0, 0, 0.38))}:host([disabled]) .mdc-text-field .mdc-text-field__input,:host([disabled]) .mdc-text-field .mdc-text-field__input::placeholder{color:var(--mdc-text-field-disabled-ink-color, rgba(0, 0, 0, 0.38))}:host([disabled]) .mdc-text-field-helper-line .mdc-text-field-helper-text,:host([disabled]) .mdc-text-field-helper-line .mdc-text-field-character-counter{color:var(--mdc-text-field-disabled-ink-color, rgba(0, 0, 0, 0.38))}`;
-
-/**
+*/const ue=O`.mdc-floating-label{-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased;font-family:Roboto, sans-serif;font-family:var(--mdc-typography-subtitle1-font-family, var(--mdc-typography-font-family, Roboto, sans-serif));font-size:1rem;font-size:var(--mdc-typography-subtitle1-font-size, 1rem);font-weight:400;font-weight:var(--mdc-typography-subtitle1-font-weight, 400);letter-spacing:0.009375em;letter-spacing:var(--mdc-typography-subtitle1-letter-spacing, 0.009375em);text-decoration:inherit;text-decoration:var(--mdc-typography-subtitle1-text-decoration, inherit);text-transform:inherit;text-transform:var(--mdc-typography-subtitle1-text-transform, inherit);position:absolute;left:0;transform-origin:left top;line-height:1.15rem;text-align:left;text-overflow:ellipsis;white-space:nowrap;cursor:text;overflow:hidden;will-change:transform;transition:transform 150ms cubic-bezier(0.4, 0, 0.2, 1),color 150ms cubic-bezier(0.4, 0, 0.2, 1)}[dir=rtl] .mdc-floating-label,.mdc-floating-label[dir=rtl]{right:0;left:auto;transform-origin:right top;text-align:right}.mdc-floating-label--float-above{cursor:auto}.mdc-floating-label--required::after{margin-left:1px;margin-right:0px;content:"*"}[dir=rtl] .mdc-floating-label--required::after,.mdc-floating-label--required[dir=rtl]::after{margin-left:0;margin-right:1px}.mdc-floating-label--float-above{transform:translateY(-106%) scale(0.75)}.mdc-floating-label--shake{animation:mdc-floating-label-shake-float-above-standard 250ms 1}@keyframes mdc-floating-label-shake-float-above-standard{0%{transform:translateX(calc(0 - 0%)) translateY(-106%) scale(0.75)}33%{animation-timing-function:cubic-bezier(0.5, 0, 0.701732, 0.495819);transform:translateX(calc(4% - 0%)) translateY(-106%) scale(0.75)}66%{animation-timing-function:cubic-bezier(0.302435, 0.381352, 0.55, 0.956352);transform:translateX(calc(-4% - 0%)) translateY(-106%) scale(0.75)}100%{transform:translateX(calc(0 - 0%)) translateY(-106%) scale(0.75)}}.mdc-line-ripple::before,.mdc-line-ripple::after{position:absolute;bottom:0;left:0;width:100%;border-bottom-style:solid;content:""}.mdc-line-ripple::before{border-bottom-width:1px;z-index:1}.mdc-line-ripple::after{transform:scaleX(0);border-bottom-width:2px;opacity:0;z-index:2}.mdc-line-ripple::after{transition:transform 180ms cubic-bezier(0.4, 0, 0.2, 1),opacity 180ms cubic-bezier(0.4, 0, 0.2, 1)}.mdc-line-ripple--active::after{transform:scaleX(1);opacity:1}.mdc-line-ripple--deactivating::after{opacity:0}.mdc-notched-outline{display:flex;position:absolute;top:0;right:0;left:0;box-sizing:border-box;width:100%;max-width:100%;height:100%;text-align:left;pointer-events:none}[dir=rtl] .mdc-notched-outline,.mdc-notched-outline[dir=rtl]{text-align:right}.mdc-notched-outline__leading,.mdc-notched-outline__notch,.mdc-notched-outline__trailing{box-sizing:border-box;height:100%;border-top:1px solid;border-bottom:1px solid;pointer-events:none}.mdc-notched-outline__leading{border-left:1px solid;border-right:none;width:12px}[dir=rtl] .mdc-notched-outline__leading,.mdc-notched-outline__leading[dir=rtl]{border-left:none;border-right:1px solid}.mdc-notched-outline__trailing{border-left:none;border-right:1px solid;flex-grow:1}[dir=rtl] .mdc-notched-outline__trailing,.mdc-notched-outline__trailing[dir=rtl]{border-left:1px solid;border-right:none}.mdc-notched-outline__notch{flex:0 0 auto;width:auto;max-width:calc(100% - 12px * 2)}.mdc-notched-outline .mdc-floating-label{display:inline-block;position:relative;max-width:100%}.mdc-notched-outline .mdc-floating-label--float-above{text-overflow:clip}.mdc-notched-outline--upgraded .mdc-floating-label--float-above{max-width:calc(100% / 0.75)}.mdc-notched-outline--notched .mdc-notched-outline__notch{padding-left:0;padding-right:8px;border-top:none}[dir=rtl] .mdc-notched-outline--notched .mdc-notched-outline__notch,.mdc-notched-outline--notched .mdc-notched-outline__notch[dir=rtl]{padding-left:8px;padding-right:0}.mdc-notched-outline--no-label .mdc-notched-outline__notch{padding:0}@keyframes mdc-ripple-fg-radius-in{from{animation-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transform:translate(var(--mdc-ripple-fg-translate-start, 0)) scale(1)}to{transform:translate(var(--mdc-ripple-fg-translate-end, 0)) scale(var(--mdc-ripple-fg-scale, 1))}}@keyframes mdc-ripple-fg-opacity-in{from{animation-timing-function:linear;opacity:0}to{opacity:var(--mdc-ripple-fg-opacity, 0)}}@keyframes mdc-ripple-fg-opacity-out{from{animation-timing-function:linear;opacity:var(--mdc-ripple-fg-opacity, 0)}to{opacity:0}}.mdc-text-field--filled{--mdc-ripple-fg-size: 0;--mdc-ripple-left: 0;--mdc-ripple-top: 0;--mdc-ripple-fg-scale: 1;--mdc-ripple-fg-translate-end: 0;--mdc-ripple-fg-translate-start: 0;-webkit-tap-highlight-color:rgba(0,0,0,0);will-change:transform,opacity}.mdc-text-field--filled .mdc-text-field__ripple::before,.mdc-text-field--filled .mdc-text-field__ripple::after{position:absolute;border-radius:50%;opacity:0;pointer-events:none;content:""}.mdc-text-field--filled .mdc-text-field__ripple::before{transition:opacity 15ms linear,background-color 15ms linear;z-index:1}.mdc-text-field--filled.mdc-ripple-upgraded .mdc-text-field__ripple::before{transform:scale(var(--mdc-ripple-fg-scale, 1))}.mdc-text-field--filled.mdc-ripple-upgraded .mdc-text-field__ripple::after{top:0;left:0;transform:scale(0);transform-origin:center center}.mdc-text-field--filled.mdc-ripple-upgraded--unbounded .mdc-text-field__ripple::after{top:var(--mdc-ripple-top, 0);left:var(--mdc-ripple-left, 0)}.mdc-text-field--filled.mdc-ripple-upgraded--foreground-activation .mdc-text-field__ripple::after{animation:mdc-ripple-fg-radius-in 225ms forwards,mdc-ripple-fg-opacity-in 75ms forwards}.mdc-text-field--filled.mdc-ripple-upgraded--foreground-deactivation .mdc-text-field__ripple::after{animation:mdc-ripple-fg-opacity-out 150ms;transform:translate(var(--mdc-ripple-fg-translate-end, 0)) scale(var(--mdc-ripple-fg-scale, 1))}.mdc-text-field--filled .mdc-text-field__ripple::before,.mdc-text-field--filled .mdc-text-field__ripple::after{top:calc(50% - 100%);left:calc(50% - 100%);width:200%;height:200%}.mdc-text-field--filled.mdc-ripple-upgraded .mdc-text-field__ripple::after{width:var(--mdc-ripple-fg-size, 100%);height:var(--mdc-ripple-fg-size, 100%)}.mdc-text-field__ripple{position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none}.mdc-text-field{border-top-left-radius:4px;border-top-left-radius:var(--mdc-shape-small, 4px);border-top-right-radius:4px;border-top-right-radius:var(--mdc-shape-small, 4px);border-bottom-right-radius:0;border-bottom-left-radius:0;display:inline-flex;align-items:baseline;padding:0 16px;position:relative;box-sizing:border-box;overflow:hidden;will-change:opacity,transform,color}.mdc-text-field:not(.mdc-text-field--disabled) .mdc-floating-label{color:rgba(0, 0, 0, 0.6)}.mdc-text-field:not(.mdc-text-field--disabled) .mdc-text-field__input{color:rgba(0, 0, 0, 0.87)}@media all{.mdc-text-field:not(.mdc-text-field--disabled) .mdc-text-field__input::placeholder{color:rgba(0, 0, 0, 0.54)}}@media all{.mdc-text-field:not(.mdc-text-field--disabled) .mdc-text-field__input:-ms-input-placeholder{color:rgba(0, 0, 0, 0.54)}}.mdc-text-field .mdc-text-field__input{caret-color:#6200ee;caret-color:var(--mdc-theme-primary, #6200ee)}.mdc-text-field:not(.mdc-text-field--disabled)+.mdc-text-field-helper-line .mdc-text-field-helper-text{color:rgba(0, 0, 0, 0.6)}.mdc-text-field:not(.mdc-text-field--disabled) .mdc-text-field-character-counter,.mdc-text-field:not(.mdc-text-field--disabled)+.mdc-text-field-helper-line .mdc-text-field-character-counter{color:rgba(0, 0, 0, 0.6)}.mdc-text-field:not(.mdc-text-field--disabled) .mdc-text-field__icon--leading{color:rgba(0, 0, 0, 0.54)}.mdc-text-field:not(.mdc-text-field--disabled) .mdc-text-field__icon--trailing{color:rgba(0, 0, 0, 0.54)}.mdc-text-field:not(.mdc-text-field--disabled) .mdc-text-field__affix--prefix{color:rgba(0, 0, 0, 0.6)}.mdc-text-field:not(.mdc-text-field--disabled) .mdc-text-field__affix--suffix{color:rgba(0, 0, 0, 0.6)}.mdc-text-field .mdc-floating-label{top:50%;transform:translateY(-50%);pointer-events:none}.mdc-text-field__input{-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased;font-family:Roboto, sans-serif;font-family:var(--mdc-typography-subtitle1-font-family, var(--mdc-typography-font-family, Roboto, sans-serif));font-size:1rem;font-size:var(--mdc-typography-subtitle1-font-size, 1rem);font-weight:400;font-weight:var(--mdc-typography-subtitle1-font-weight, 400);letter-spacing:0.009375em;letter-spacing:var(--mdc-typography-subtitle1-letter-spacing, 0.009375em);text-decoration:inherit;text-decoration:var(--mdc-typography-subtitle1-text-decoration, inherit);text-transform:inherit;text-transform:var(--mdc-typography-subtitle1-text-transform, inherit);height:28px;transition:opacity 150ms cubic-bezier(0.4, 0, 0.2, 1);width:100%;min-width:0;border:none;border-radius:0;background:none;appearance:none;padding:0}.mdc-text-field__input::-ms-clear{display:none}.mdc-text-field__input::-webkit-calendar-picker-indicator{display:none}.mdc-text-field__input:focus{outline:none}.mdc-text-field__input:invalid{box-shadow:none}@media all{.mdc-text-field__input::placeholder{transition:opacity 67ms cubic-bezier(0.4, 0, 0.2, 1);opacity:0}}@media all{.mdc-text-field__input:-ms-input-placeholder{transition:opacity 67ms cubic-bezier(0.4, 0, 0.2, 1);opacity:0}}@media all{.mdc-text-field--no-label .mdc-text-field__input::placeholder,.mdc-text-field--focused .mdc-text-field__input::placeholder{transition-delay:40ms;transition-duration:110ms;opacity:1}}@media all{.mdc-text-field--no-label .mdc-text-field__input:-ms-input-placeholder,.mdc-text-field--focused .mdc-text-field__input:-ms-input-placeholder{transition-delay:40ms;transition-duration:110ms;opacity:1}}.mdc-text-field__affix{-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased;font-family:Roboto, sans-serif;font-family:var(--mdc-typography-subtitle1-font-family, var(--mdc-typography-font-family, Roboto, sans-serif));font-size:1rem;font-size:var(--mdc-typography-subtitle1-font-size, 1rem);font-weight:400;font-weight:var(--mdc-typography-subtitle1-font-weight, 400);letter-spacing:0.009375em;letter-spacing:var(--mdc-typography-subtitle1-letter-spacing, 0.009375em);text-decoration:inherit;text-decoration:var(--mdc-typography-subtitle1-text-decoration, inherit);text-transform:inherit;text-transform:var(--mdc-typography-subtitle1-text-transform, inherit);height:28px;transition:opacity 150ms cubic-bezier(0.4, 0, 0.2, 1);opacity:0;white-space:nowrap}.mdc-text-field--label-floating .mdc-text-field__affix,.mdc-text-field--no-label .mdc-text-field__affix{opacity:1}@supports(-webkit-hyphens: none){.mdc-text-field--outlined .mdc-text-field__affix{align-items:center;align-self:center;display:inline-flex;height:100%}}.mdc-text-field__affix--prefix{padding-left:0;padding-right:2px}[dir=rtl] .mdc-text-field__affix--prefix,.mdc-text-field__affix--prefix[dir=rtl]{padding-left:2px;padding-right:0}.mdc-text-field--end-aligned .mdc-text-field__affix--prefix{padding-left:0;padding-right:12px}[dir=rtl] .mdc-text-field--end-aligned .mdc-text-field__affix--prefix,.mdc-text-field--end-aligned .mdc-text-field__affix--prefix[dir=rtl]{padding-left:12px;padding-right:0}.mdc-text-field__affix--suffix{padding-left:12px;padding-right:0}[dir=rtl] .mdc-text-field__affix--suffix,.mdc-text-field__affix--suffix[dir=rtl]{padding-left:0;padding-right:12px}.mdc-text-field--end-aligned .mdc-text-field__affix--suffix{padding-left:2px;padding-right:0}[dir=rtl] .mdc-text-field--end-aligned .mdc-text-field__affix--suffix,.mdc-text-field--end-aligned .mdc-text-field__affix--suffix[dir=rtl]{padding-left:0;padding-right:2px}.mdc-text-field--filled{height:56px}.mdc-text-field--filled .mdc-text-field__ripple::before,.mdc-text-field--filled .mdc-text-field__ripple::after{background-color:rgba(0, 0, 0, 0.87)}.mdc-text-field--filled:hover .mdc-text-field__ripple::before{opacity:.04}.mdc-text-field--filled.mdc-ripple-upgraded--background-focused .mdc-text-field__ripple::before,.mdc-text-field--filled:not(.mdc-ripple-upgraded):focus .mdc-text-field__ripple::before{transition-duration:75ms;opacity:.12}.mdc-text-field--filled::before{display:inline-block;width:0;height:40px;content:"";vertical-align:0}.mdc-text-field--filled:not(.mdc-text-field--disabled){background-color:whitesmoke}.mdc-text-field--filled:not(.mdc-text-field--disabled) .mdc-line-ripple::before{border-bottom-color:rgba(0, 0, 0, 0.42)}.mdc-text-field--filled:not(.mdc-text-field--disabled):hover .mdc-line-ripple::before{border-bottom-color:rgba(0, 0, 0, 0.87)}.mdc-text-field--filled .mdc-line-ripple::after{border-bottom-color:#6200ee;border-bottom-color:var(--mdc-theme-primary, #6200ee)}.mdc-text-field--filled .mdc-floating-label{left:16px;right:initial}[dir=rtl] .mdc-text-field--filled .mdc-floating-label,.mdc-text-field--filled .mdc-floating-label[dir=rtl]{left:initial;right:16px}.mdc-text-field--filled .mdc-floating-label--float-above{transform:translateY(-106%) scale(0.75)}.mdc-text-field--filled.mdc-text-field--no-label .mdc-text-field__input{height:100%}.mdc-text-field--filled.mdc-text-field--no-label .mdc-floating-label{display:none}.mdc-text-field--filled.mdc-text-field--no-label::before{display:none}@supports(-webkit-hyphens: none){.mdc-text-field--filled.mdc-text-field--no-label .mdc-text-field__affix{align-items:center;align-self:center;display:inline-flex;height:100%}}.mdc-text-field--outlined{height:56px;overflow:visible}.mdc-text-field--outlined .mdc-floating-label--float-above{transform:translateY(-37.25px) scale(1)}.mdc-text-field--outlined .mdc-floating-label--float-above{font-size:.75rem}.mdc-text-field--outlined.mdc-notched-outline--upgraded .mdc-floating-label--float-above,.mdc-text-field--outlined .mdc-notched-outline--upgraded .mdc-floating-label--float-above{transform:translateY(-34.75px) scale(0.75)}.mdc-text-field--outlined.mdc-notched-outline--upgraded .mdc-floating-label--float-above,.mdc-text-field--outlined .mdc-notched-outline--upgraded .mdc-floating-label--float-above{font-size:1rem}.mdc-text-field--outlined .mdc-floating-label--shake{animation:mdc-floating-label-shake-float-above-text-field-outlined 250ms 1}@keyframes mdc-floating-label-shake-float-above-text-field-outlined{0%{transform:translateX(calc(0 - 0%)) translateY(-34.75px) scale(0.75)}33%{animation-timing-function:cubic-bezier(0.5, 0, 0.701732, 0.495819);transform:translateX(calc(4% - 0%)) translateY(-34.75px) scale(0.75)}66%{animation-timing-function:cubic-bezier(0.302435, 0.381352, 0.55, 0.956352);transform:translateX(calc(-4% - 0%)) translateY(-34.75px) scale(0.75)}100%{transform:translateX(calc(0 - 0%)) translateY(-34.75px) scale(0.75)}}.mdc-text-field--outlined .mdc-text-field__input{height:100%}.mdc-text-field--outlined:not(.mdc-text-field--disabled) .mdc-notched-outline__leading,.mdc-text-field--outlined:not(.mdc-text-field--disabled) .mdc-notched-outline__notch,.mdc-text-field--outlined:not(.mdc-text-field--disabled) .mdc-notched-outline__trailing{border-color:rgba(0, 0, 0, 0.38)}.mdc-text-field--outlined:not(.mdc-text-field--disabled):not(.mdc-text-field--focused):hover .mdc-notched-outline .mdc-notched-outline__leading,.mdc-text-field--outlined:not(.mdc-text-field--disabled):not(.mdc-text-field--focused):hover .mdc-notched-outline .mdc-notched-outline__notch,.mdc-text-field--outlined:not(.mdc-text-field--disabled):not(.mdc-text-field--focused):hover .mdc-notched-outline .mdc-notched-outline__trailing{border-color:rgba(0, 0, 0, 0.87)}.mdc-text-field--outlined:not(.mdc-text-field--disabled).mdc-text-field--focused .mdc-notched-outline__leading,.mdc-text-field--outlined:not(.mdc-text-field--disabled).mdc-text-field--focused .mdc-notched-outline__notch,.mdc-text-field--outlined:not(.mdc-text-field--disabled).mdc-text-field--focused .mdc-notched-outline__trailing{border-color:#6200ee;border-color:var(--mdc-theme-primary, #6200ee)}.mdc-text-field--outlined .mdc-notched-outline .mdc-notched-outline__leading{border-top-left-radius:4px;border-top-left-radius:var(--mdc-shape-small, 4px);border-top-right-radius:0;border-bottom-right-radius:0;border-bottom-left-radius:4px;border-bottom-left-radius:var(--mdc-shape-small, 4px)}[dir=rtl] .mdc-text-field--outlined .mdc-notched-outline .mdc-notched-outline__leading,.mdc-text-field--outlined .mdc-notched-outline .mdc-notched-outline__leading[dir=rtl]{border-top-left-radius:0;border-top-right-radius:4px;border-top-right-radius:var(--mdc-shape-small, 4px);border-bottom-right-radius:4px;border-bottom-right-radius:var(--mdc-shape-small, 4px);border-bottom-left-radius:0}@supports(top: max(0%)){.mdc-text-field--outlined .mdc-notched-outline .mdc-notched-outline__leading{width:max(12px, var(--mdc-shape-small, 4px))}}@supports(top: max(0%)){.mdc-text-field--outlined .mdc-notched-outline .mdc-notched-outline__notch{max-width:calc(100% - max(12px, var(--mdc-shape-small, 4px)) * 2)}}.mdc-text-field--outlined .mdc-notched-outline .mdc-notched-outline__trailing{border-top-left-radius:0;border-top-right-radius:4px;border-top-right-radius:var(--mdc-shape-small, 4px);border-bottom-right-radius:4px;border-bottom-right-radius:var(--mdc-shape-small, 4px);border-bottom-left-radius:0}[dir=rtl] .mdc-text-field--outlined .mdc-notched-outline .mdc-notched-outline__trailing,.mdc-text-field--outlined .mdc-notched-outline .mdc-notched-outline__trailing[dir=rtl]{border-top-left-radius:4px;border-top-left-radius:var(--mdc-shape-small, 4px);border-top-right-radius:0;border-bottom-right-radius:0;border-bottom-left-radius:4px;border-bottom-left-radius:var(--mdc-shape-small, 4px)}@supports(top: max(0%)){.mdc-text-field--outlined{padding-left:max(16px, calc(var(--mdc-shape-small, 4px) + 4px))}}@supports(top: max(0%)){.mdc-text-field--outlined{padding-right:max(16px, var(--mdc-shape-small, 4px))}}@supports(top: max(0%)){.mdc-text-field--outlined+.mdc-text-field-helper-line{padding-left:max(16px, calc(var(--mdc-shape-small, 4px) + 4px))}}@supports(top: max(0%)){.mdc-text-field--outlined+.mdc-text-field-helper-line{padding-right:max(16px, var(--mdc-shape-small, 4px))}}.mdc-text-field--outlined.mdc-text-field--with-leading-icon{padding-left:0}@supports(top: max(0%)){.mdc-text-field--outlined.mdc-text-field--with-leading-icon{padding-right:max(16px, var(--mdc-shape-small, 4px))}}[dir=rtl] .mdc-text-field--outlined.mdc-text-field--with-leading-icon,.mdc-text-field--outlined.mdc-text-field--with-leading-icon[dir=rtl]{padding-right:0}@supports(top: max(0%)){[dir=rtl] .mdc-text-field--outlined.mdc-text-field--with-leading-icon,.mdc-text-field--outlined.mdc-text-field--with-leading-icon[dir=rtl]{padding-left:max(16px, var(--mdc-shape-small, 4px))}}.mdc-text-field--outlined.mdc-text-field--with-trailing-icon{padding-right:0}@supports(top: max(0%)){.mdc-text-field--outlined.mdc-text-field--with-trailing-icon{padding-left:max(16px, calc(var(--mdc-shape-small, 4px) + 4px))}}[dir=rtl] .mdc-text-field--outlined.mdc-text-field--with-trailing-icon,.mdc-text-field--outlined.mdc-text-field--with-trailing-icon[dir=rtl]{padding-left:0}@supports(top: max(0%)){[dir=rtl] .mdc-text-field--outlined.mdc-text-field--with-trailing-icon,.mdc-text-field--outlined.mdc-text-field--with-trailing-icon[dir=rtl]{padding-right:max(16px, calc(var(--mdc-shape-small, 4px) + 4px))}}.mdc-text-field--outlined.mdc-text-field--with-leading-icon.mdc-text-field--with-trailing-icon{padding-left:0;padding-right:0}.mdc-text-field--outlined .mdc-notched-outline--notched .mdc-notched-outline__notch{padding-top:1px}.mdc-text-field--outlined .mdc-text-field__ripple::before,.mdc-text-field--outlined .mdc-text-field__ripple::after{content:none}.mdc-text-field--outlined .mdc-floating-label{left:4px;right:initial}[dir=rtl] .mdc-text-field--outlined .mdc-floating-label,.mdc-text-field--outlined .mdc-floating-label[dir=rtl]{left:initial;right:4px}.mdc-text-field--outlined .mdc-text-field__input{display:flex;border:none !important;background-color:transparent}.mdc-text-field--outlined .mdc-notched-outline{z-index:1}.mdc-text-field--textarea{flex-direction:column;align-items:center;width:auto;height:auto;padding:0;transition:none}.mdc-text-field--textarea .mdc-floating-label{top:19px}.mdc-text-field--textarea .mdc-floating-label:not(.mdc-floating-label--float-above){transform:none}.mdc-text-field--textarea .mdc-text-field__input{flex-grow:1;height:auto;min-height:1.5rem;overflow-x:hidden;overflow-y:auto;box-sizing:border-box;resize:none;padding:0 16px;line-height:1.5rem}.mdc-text-field--textarea.mdc-text-field--filled::before{display:none}.mdc-text-field--textarea.mdc-text-field--filled .mdc-floating-label--float-above{transform:translateY(-10.25px) scale(0.75)}.mdc-text-field--textarea.mdc-text-field--filled .mdc-floating-label--shake{animation:mdc-floating-label-shake-float-above-textarea-filled 250ms 1}@keyframes mdc-floating-label-shake-float-above-textarea-filled{0%{transform:translateX(calc(0 - 0%)) translateY(-10.25px) scale(0.75)}33%{animation-timing-function:cubic-bezier(0.5, 0, 0.701732, 0.495819);transform:translateX(calc(4% - 0%)) translateY(-10.25px) scale(0.75)}66%{animation-timing-function:cubic-bezier(0.302435, 0.381352, 0.55, 0.956352);transform:translateX(calc(-4% - 0%)) translateY(-10.25px) scale(0.75)}100%{transform:translateX(calc(0 - 0%)) translateY(-10.25px) scale(0.75)}}.mdc-text-field--textarea.mdc-text-field--filled .mdc-text-field__input{margin-top:23px;margin-bottom:9px}.mdc-text-field--textarea.mdc-text-field--filled.mdc-text-field--no-label .mdc-text-field__input{margin-top:16px;margin-bottom:16px}.mdc-text-field--textarea.mdc-text-field--outlined .mdc-notched-outline--notched .mdc-notched-outline__notch{padding-top:0}.mdc-text-field--textarea.mdc-text-field--outlined .mdc-floating-label--float-above{transform:translateY(-27.25px) scale(1)}.mdc-text-field--textarea.mdc-text-field--outlined .mdc-floating-label--float-above{font-size:.75rem}.mdc-text-field--textarea.mdc-text-field--outlined.mdc-notched-outline--upgraded .mdc-floating-label--float-above,.mdc-text-field--textarea.mdc-text-field--outlined .mdc-notched-outline--upgraded .mdc-floating-label--float-above{transform:translateY(-24.75px) scale(0.75)}.mdc-text-field--textarea.mdc-text-field--outlined.mdc-notched-outline--upgraded .mdc-floating-label--float-above,.mdc-text-field--textarea.mdc-text-field--outlined .mdc-notched-outline--upgraded .mdc-floating-label--float-above{font-size:1rem}.mdc-text-field--textarea.mdc-text-field--outlined .mdc-floating-label--shake{animation:mdc-floating-label-shake-float-above-textarea-outlined 250ms 1}@keyframes mdc-floating-label-shake-float-above-textarea-outlined{0%{transform:translateX(calc(0 - 0%)) translateY(-24.75px) scale(0.75)}33%{animation-timing-function:cubic-bezier(0.5, 0, 0.701732, 0.495819);transform:translateX(calc(4% - 0%)) translateY(-24.75px) scale(0.75)}66%{animation-timing-function:cubic-bezier(0.302435, 0.381352, 0.55, 0.956352);transform:translateX(calc(-4% - 0%)) translateY(-24.75px) scale(0.75)}100%{transform:translateX(calc(0 - 0%)) translateY(-24.75px) scale(0.75)}}.mdc-text-field--textarea.mdc-text-field--outlined .mdc-text-field__input{margin-top:16px;margin-bottom:16px}.mdc-text-field--textarea.mdc-text-field--outlined .mdc-floating-label{top:18px}.mdc-text-field--textarea.mdc-text-field--with-internal-counter .mdc-text-field__input{margin-bottom:2px}.mdc-text-field--textarea.mdc-text-field--with-internal-counter .mdc-text-field-character-counter{align-self:flex-end;padding:0 16px}.mdc-text-field--textarea.mdc-text-field--with-internal-counter .mdc-text-field-character-counter::after{display:inline-block;width:0;height:16px;content:"";vertical-align:-16px}.mdc-text-field--textarea.mdc-text-field--with-internal-counter .mdc-text-field-character-counter::before{display:none}.mdc-text-field__resizer{align-self:stretch;display:inline-flex;flex-direction:column;flex-grow:1;max-height:100%;max-width:100%;min-height:56px;min-width:fit-content;min-width:-moz-available;min-width:-webkit-fill-available;overflow:hidden;resize:both}.mdc-text-field--filled .mdc-text-field__resizer{transform:translateY(-1px)}.mdc-text-field--filled .mdc-text-field__resizer .mdc-text-field__input,.mdc-text-field--filled .mdc-text-field__resizer .mdc-text-field-character-counter{transform:translateY(1px)}.mdc-text-field--outlined .mdc-text-field__resizer{transform:translateX(-1px) translateY(-1px)}[dir=rtl] .mdc-text-field--outlined .mdc-text-field__resizer,.mdc-text-field--outlined .mdc-text-field__resizer[dir=rtl]{transform:translateX(1px) translateY(-1px)}.mdc-text-field--outlined .mdc-text-field__resizer .mdc-text-field__input,.mdc-text-field--outlined .mdc-text-field__resizer .mdc-text-field-character-counter{transform:translateX(1px) translateY(1px)}[dir=rtl] .mdc-text-field--outlined .mdc-text-field__resizer .mdc-text-field__input,.mdc-text-field--outlined .mdc-text-field__resizer .mdc-text-field__input[dir=rtl],[dir=rtl] .mdc-text-field--outlined .mdc-text-field__resizer .mdc-text-field-character-counter,.mdc-text-field--outlined .mdc-text-field__resizer .mdc-text-field-character-counter[dir=rtl]{transform:translateX(-1px) translateY(1px)}.mdc-text-field--with-leading-icon{padding-left:0;padding-right:16px}[dir=rtl] .mdc-text-field--with-leading-icon,.mdc-text-field--with-leading-icon[dir=rtl]{padding-left:16px;padding-right:0}.mdc-text-field--with-leading-icon.mdc-text-field--filled .mdc-floating-label{max-width:calc(100% - 48px);left:48px;right:initial}[dir=rtl] .mdc-text-field--with-leading-icon.mdc-text-field--filled .mdc-floating-label,.mdc-text-field--with-leading-icon.mdc-text-field--filled .mdc-floating-label[dir=rtl]{left:initial;right:48px}.mdc-text-field--with-leading-icon.mdc-text-field--filled .mdc-floating-label--float-above{max-width:calc(100% / 0.75 - 64px / 0.75)}.mdc-text-field--with-leading-icon.mdc-text-field--outlined .mdc-floating-label{left:36px;right:initial}[dir=rtl] .mdc-text-field--with-leading-icon.mdc-text-field--outlined .mdc-floating-label,.mdc-text-field--with-leading-icon.mdc-text-field--outlined .mdc-floating-label[dir=rtl]{left:initial;right:36px}.mdc-text-field--with-leading-icon.mdc-text-field--outlined :not(.mdc-notched-outline--notched) .mdc-notched-outline__notch{max-width:calc(100% - 60px)}.mdc-text-field--with-leading-icon.mdc-text-field--outlined .mdc-floating-label--float-above{transform:translateY(-37.25px) translateX(-32px) scale(1)}[dir=rtl] .mdc-text-field--with-leading-icon.mdc-text-field--outlined .mdc-floating-label--float-above,.mdc-text-field--with-leading-icon.mdc-text-field--outlined .mdc-floating-label--float-above[dir=rtl]{transform:translateY(-37.25px) translateX(32px) scale(1)}.mdc-text-field--with-leading-icon.mdc-text-field--outlined .mdc-floating-label--float-above{font-size:.75rem}.mdc-text-field--with-leading-icon.mdc-text-field--outlined.mdc-notched-outline--upgraded .mdc-floating-label--float-above,.mdc-text-field--with-leading-icon.mdc-text-field--outlined .mdc-notched-outline--upgraded .mdc-floating-label--float-above{transform:translateY(-34.75px) translateX(-32px) scale(0.75)}[dir=rtl] .mdc-text-field--with-leading-icon.mdc-text-field--outlined.mdc-notched-outline--upgraded .mdc-floating-label--float-above,.mdc-text-field--with-leading-icon.mdc-text-field--outlined.mdc-notched-outline--upgraded .mdc-floating-label--float-above[dir=rtl],[dir=rtl] .mdc-text-field--with-leading-icon.mdc-text-field--outlined .mdc-notched-outline--upgraded .mdc-floating-label--float-above,.mdc-text-field--with-leading-icon.mdc-text-field--outlined .mdc-notched-outline--upgraded .mdc-floating-label--float-above[dir=rtl]{transform:translateY(-34.75px) translateX(32px) scale(0.75)}.mdc-text-field--with-leading-icon.mdc-text-field--outlined.mdc-notched-outline--upgraded .mdc-floating-label--float-above,.mdc-text-field--with-leading-icon.mdc-text-field--outlined .mdc-notched-outline--upgraded .mdc-floating-label--float-above{font-size:1rem}.mdc-text-field--with-leading-icon.mdc-text-field--outlined .mdc-floating-label--shake{animation:mdc-floating-label-shake-float-above-text-field-outlined-leading-icon 250ms 1}@keyframes mdc-floating-label-shake-float-above-text-field-outlined-leading-icon{0%{transform:translateX(calc(0 - 32px)) translateY(-34.75px) scale(0.75)}33%{animation-timing-function:cubic-bezier(0.5, 0, 0.701732, 0.495819);transform:translateX(calc(4% - 32px)) translateY(-34.75px) scale(0.75)}66%{animation-timing-function:cubic-bezier(0.302435, 0.381352, 0.55, 0.956352);transform:translateX(calc(-4% - 32px)) translateY(-34.75px) scale(0.75)}100%{transform:translateX(calc(0 - 32px)) translateY(-34.75px) scale(0.75)}}[dir=rtl] .mdc-text-field--with-leading-icon.mdc-text-field--outlined .mdc-floating-label--shake,.mdc-text-field--with-leading-icon.mdc-text-field--outlined[dir=rtl] .mdc-floating-label--shake{animation:mdc-floating-label-shake-float-above-text-field-outlined-leading-icon 250ms 1}@keyframes mdc-floating-label-shake-float-above-text-field-outlined-leading-icon-rtl{0%{transform:translateX(calc(0 - -32px)) translateY(-34.75px) scale(0.75)}33%{animation-timing-function:cubic-bezier(0.5, 0, 0.701732, 0.495819);transform:translateX(calc(4% - -32px)) translateY(-34.75px) scale(0.75)}66%{animation-timing-function:cubic-bezier(0.302435, 0.381352, 0.55, 0.956352);transform:translateX(calc(-4% - -32px)) translateY(-34.75px) scale(0.75)}100%{transform:translateX(calc(0 - -32px)) translateY(-34.75px) scale(0.75)}}.mdc-text-field--with-trailing-icon{padding-left:16px;padding-right:0}[dir=rtl] .mdc-text-field--with-trailing-icon,.mdc-text-field--with-trailing-icon[dir=rtl]{padding-left:0;padding-right:16px}.mdc-text-field--with-trailing-icon.mdc-text-field--filled .mdc-floating-label{max-width:calc(100% - 64px)}.mdc-text-field--with-trailing-icon.mdc-text-field--filled .mdc-floating-label--float-above{max-width:calc(100% / 0.75 - 64px / 0.75)}.mdc-text-field--with-trailing-icon.mdc-text-field--outlined :not(.mdc-notched-outline--notched) .mdc-notched-outline__notch{max-width:calc(100% - 60px)}.mdc-text-field--with-leading-icon.mdc-text-field--with-trailing-icon{padding-left:0;padding-right:0}.mdc-text-field--with-leading-icon.mdc-text-field--with-trailing-icon.mdc-text-field--filled .mdc-floating-label{max-width:calc(100% - 96px)}.mdc-text-field--with-leading-icon.mdc-text-field--with-trailing-icon.mdc-text-field--filled .mdc-floating-label--float-above{max-width:calc(100% / 0.75 - 96px / 0.75)}.mdc-text-field-helper-line{display:flex;justify-content:space-between;box-sizing:border-box}.mdc-text-field+.mdc-text-field-helper-line{padding-right:16px;padding-left:16px}.mdc-form-field>.mdc-text-field+label{align-self:flex-start}.mdc-text-field--focused:not(.mdc-text-field--disabled) .mdc-floating-label{color:rgba(98, 0, 238, 0.87)}.mdc-text-field--focused .mdc-notched-outline__leading,.mdc-text-field--focused .mdc-notched-outline__notch,.mdc-text-field--focused .mdc-notched-outline__trailing{border-width:2px}.mdc-text-field--focused+.mdc-text-field-helper-line .mdc-text-field-helper-text:not(.mdc-text-field-helper-text--validation-msg){opacity:1}.mdc-text-field--focused.mdc-text-field--outlined .mdc-notched-outline--notched .mdc-notched-outline__notch{padding-top:2px}.mdc-text-field--focused.mdc-text-field--outlined.mdc-text-field--textarea .mdc-notched-outline--notched .mdc-notched-outline__notch{padding-top:0}.mdc-text-field--invalid:not(.mdc-text-field--disabled):hover .mdc-line-ripple::before{border-bottom-color:#b00020;border-bottom-color:var(--mdc-theme-error, #b00020)}.mdc-text-field--invalid:not(.mdc-text-field--disabled) .mdc-line-ripple::after{border-bottom-color:#b00020;border-bottom-color:var(--mdc-theme-error, #b00020)}.mdc-text-field--invalid:not(.mdc-text-field--disabled) .mdc-floating-label{color:#b00020;color:var(--mdc-theme-error, #b00020)}.mdc-text-field--invalid:not(.mdc-text-field--disabled).mdc-text-field--invalid+.mdc-text-field-helper-line .mdc-text-field-helper-text--validation-msg{color:#b00020;color:var(--mdc-theme-error, #b00020)}.mdc-text-field--invalid .mdc-text-field__input{caret-color:#b00020;caret-color:var(--mdc-theme-error, #b00020)}.mdc-text-field--invalid:not(.mdc-text-field--disabled) .mdc-text-field__icon--trailing{color:#b00020;color:var(--mdc-theme-error, #b00020)}.mdc-text-field--invalid:not(.mdc-text-field--disabled) .mdc-line-ripple::before{border-bottom-color:#b00020;border-bottom-color:var(--mdc-theme-error, #b00020)}.mdc-text-field--invalid:not(.mdc-text-field--disabled) .mdc-notched-outline__leading,.mdc-text-field--invalid:not(.mdc-text-field--disabled) .mdc-notched-outline__notch,.mdc-text-field--invalid:not(.mdc-text-field--disabled) .mdc-notched-outline__trailing{border-color:#b00020;border-color:var(--mdc-theme-error, #b00020)}.mdc-text-field--invalid:not(.mdc-text-field--disabled):not(.mdc-text-field--focused):hover .mdc-notched-outline .mdc-notched-outline__leading,.mdc-text-field--invalid:not(.mdc-text-field--disabled):not(.mdc-text-field--focused):hover .mdc-notched-outline .mdc-notched-outline__notch,.mdc-text-field--invalid:not(.mdc-text-field--disabled):not(.mdc-text-field--focused):hover .mdc-notched-outline .mdc-notched-outline__trailing{border-color:#b00020;border-color:var(--mdc-theme-error, #b00020)}.mdc-text-field--invalid:not(.mdc-text-field--disabled).mdc-text-field--focused .mdc-notched-outline__leading,.mdc-text-field--invalid:not(.mdc-text-field--disabled).mdc-text-field--focused .mdc-notched-outline__notch,.mdc-text-field--invalid:not(.mdc-text-field--disabled).mdc-text-field--focused .mdc-notched-outline__trailing{border-color:#b00020;border-color:var(--mdc-theme-error, #b00020)}.mdc-text-field--invalid+.mdc-text-field-helper-line .mdc-text-field-helper-text--validation-msg{opacity:1}.mdc-text-field--disabled{pointer-events:none}.mdc-text-field--disabled .mdc-text-field__input{color:rgba(0, 0, 0, 0.38)}@media all{.mdc-text-field--disabled .mdc-text-field__input::placeholder{color:rgba(0, 0, 0, 0.38)}}@media all{.mdc-text-field--disabled .mdc-text-field__input:-ms-input-placeholder{color:rgba(0, 0, 0, 0.38)}}.mdc-text-field--disabled .mdc-floating-label{color:rgba(0, 0, 0, 0.38)}.mdc-text-field--disabled+.mdc-text-field-helper-line .mdc-text-field-helper-text{color:rgba(0, 0, 0, 0.38)}.mdc-text-field--disabled .mdc-text-field-character-counter,.mdc-text-field--disabled+.mdc-text-field-helper-line .mdc-text-field-character-counter{color:rgba(0, 0, 0, 0.38)}.mdc-text-field--disabled .mdc-text-field__icon--leading{color:rgba(0, 0, 0, 0.3)}.mdc-text-field--disabled .mdc-text-field__icon--trailing{color:rgba(0, 0, 0, 0.3)}.mdc-text-field--disabled .mdc-text-field__affix--prefix{color:rgba(0, 0, 0, 0.38)}.mdc-text-field--disabled .mdc-text-field__affix--suffix{color:rgba(0, 0, 0, 0.38)}.mdc-text-field--disabled .mdc-line-ripple::before{border-bottom-color:rgba(0, 0, 0, 0.06)}.mdc-text-field--disabled .mdc-notched-outline__leading,.mdc-text-field--disabled .mdc-notched-outline__notch,.mdc-text-field--disabled .mdc-notched-outline__trailing{border-color:rgba(0, 0, 0, 0.06)}@media screen and (-ms-high-contrast: active){.mdc-text-field--disabled .mdc-text-field__input::placeholder{color:GrayText}}@media screen and (-ms-high-contrast: active){.mdc-text-field--disabled .mdc-text-field__input:-ms-input-placeholder{color:GrayText}}@media screen and (-ms-high-contrast: active){.mdc-text-field--disabled .mdc-floating-label{color:GrayText}}@media screen and (-ms-high-contrast: active){.mdc-text-field--disabled+.mdc-text-field-helper-line .mdc-text-field-helper-text{color:GrayText}}@media screen and (-ms-high-contrast: active){.mdc-text-field--disabled .mdc-text-field-character-counter,.mdc-text-field--disabled+.mdc-text-field-helper-line .mdc-text-field-character-counter{color:GrayText}}@media screen and (-ms-high-contrast: active){.mdc-text-field--disabled .mdc-text-field__icon--leading{color:GrayText}}@media screen and (-ms-high-contrast: active){.mdc-text-field--disabled .mdc-text-field__icon--trailing{color:GrayText}}@media screen and (-ms-high-contrast: active){.mdc-text-field--disabled .mdc-text-field__affix--prefix{color:GrayText}}@media screen and (-ms-high-contrast: active){.mdc-text-field--disabled .mdc-text-field__affix--suffix{color:GrayText}}@media screen and (-ms-high-contrast: active){.mdc-text-field--disabled .mdc-line-ripple::before{border-bottom-color:GrayText}}@media screen and (-ms-high-contrast: active){.mdc-text-field--disabled .mdc-notched-outline__leading,.mdc-text-field--disabled .mdc-notched-outline__notch,.mdc-text-field--disabled .mdc-notched-outline__trailing{border-color:GrayText}}.mdc-text-field--disabled .mdc-floating-label{cursor:default}.mdc-text-field--disabled.mdc-text-field--filled{background-color:#fafafa}.mdc-text-field--disabled.mdc-text-field--filled .mdc-text-field__ripple{display:none}.mdc-text-field--disabled .mdc-text-field__input{pointer-events:auto}.mdc-text-field--end-aligned .mdc-text-field__input{text-align:right}[dir=rtl] .mdc-text-field--end-aligned .mdc-text-field__input,.mdc-text-field--end-aligned .mdc-text-field__input[dir=rtl]{text-align:left}[dir=rtl] .mdc-text-field--ltr-text .mdc-text-field__input,[dir=rtl] .mdc-text-field--ltr-text .mdc-text-field__affix,.mdc-text-field--ltr-text[dir=rtl] .mdc-text-field__input,.mdc-text-field--ltr-text[dir=rtl] .mdc-text-field__affix{direction:ltr}[dir=rtl] .mdc-text-field--ltr-text .mdc-text-field__affix--prefix,.mdc-text-field--ltr-text[dir=rtl] .mdc-text-field__affix--prefix{padding-left:0;padding-right:2px}[dir=rtl] .mdc-text-field--ltr-text .mdc-text-field__affix--suffix,.mdc-text-field--ltr-text[dir=rtl] .mdc-text-field__affix--suffix{padding-left:12px;padding-right:0}[dir=rtl] .mdc-text-field--ltr-text .mdc-text-field__icon--leading,.mdc-text-field--ltr-text[dir=rtl] .mdc-text-field__icon--leading{order:1}[dir=rtl] .mdc-text-field--ltr-text .mdc-text-field__affix--suffix,.mdc-text-field--ltr-text[dir=rtl] .mdc-text-field__affix--suffix{order:2}[dir=rtl] .mdc-text-field--ltr-text .mdc-text-field__input,.mdc-text-field--ltr-text[dir=rtl] .mdc-text-field__input{order:3}[dir=rtl] .mdc-text-field--ltr-text .mdc-text-field__affix--prefix,.mdc-text-field--ltr-text[dir=rtl] .mdc-text-field__affix--prefix{order:4}[dir=rtl] .mdc-text-field--ltr-text .mdc-text-field__icon--trailing,.mdc-text-field--ltr-text[dir=rtl] .mdc-text-field__icon--trailing{order:5}[dir=rtl] .mdc-text-field--ltr-text.mdc-text-field--end-aligned .mdc-text-field__input,.mdc-text-field--ltr-text.mdc-text-field--end-aligned[dir=rtl] .mdc-text-field__input{text-align:right}[dir=rtl] .mdc-text-field--ltr-text.mdc-text-field--end-aligned .mdc-text-field__affix--prefix,.mdc-text-field--ltr-text.mdc-text-field--end-aligned[dir=rtl] .mdc-text-field__affix--prefix{padding-right:12px}[dir=rtl] .mdc-text-field--ltr-text.mdc-text-field--end-aligned .mdc-text-field__affix--suffix,.mdc-text-field--ltr-text.mdc-text-field--end-aligned[dir=rtl] .mdc-text-field__affix--suffix{padding-left:2px}.mdc-text-field-helper-text{-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased;font-family:Roboto, sans-serif;font-family:var(--mdc-typography-caption-font-family, var(--mdc-typography-font-family, Roboto, sans-serif));font-size:0.75rem;font-size:var(--mdc-typography-caption-font-size, 0.75rem);line-height:1.25rem;line-height:var(--mdc-typography-caption-line-height, 1.25rem);font-weight:400;font-weight:var(--mdc-typography-caption-font-weight, 400);letter-spacing:0.0333333333em;letter-spacing:var(--mdc-typography-caption-letter-spacing, 0.0333333333em);text-decoration:inherit;text-decoration:var(--mdc-typography-caption-text-decoration, inherit);text-transform:inherit;text-transform:var(--mdc-typography-caption-text-transform, inherit);display:block;margin-top:0;line-height:normal;margin:0;opacity:0;will-change:opacity;transition:opacity 150ms cubic-bezier(0.4, 0, 0.2, 1)}.mdc-text-field-helper-text::before{display:inline-block;width:0;height:16px;content:"";vertical-align:0}.mdc-text-field-helper-text--persistent{transition:none;opacity:1;will-change:initial}.mdc-text-field-character-counter{-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased;font-family:Roboto, sans-serif;font-family:var(--mdc-typography-caption-font-family, var(--mdc-typography-font-family, Roboto, sans-serif));font-size:0.75rem;font-size:var(--mdc-typography-caption-font-size, 0.75rem);line-height:1.25rem;line-height:var(--mdc-typography-caption-line-height, 1.25rem);font-weight:400;font-weight:var(--mdc-typography-caption-font-weight, 400);letter-spacing:0.0333333333em;letter-spacing:var(--mdc-typography-caption-letter-spacing, 0.0333333333em);text-decoration:inherit;text-decoration:var(--mdc-typography-caption-text-decoration, inherit);text-transform:inherit;text-transform:var(--mdc-typography-caption-text-transform, inherit);display:block;margin-top:0;line-height:normal;margin-left:auto;margin-right:0;padding-left:16px;padding-right:0;white-space:nowrap}.mdc-text-field-character-counter::before{display:inline-block;width:0;height:16px;content:"";vertical-align:0}[dir=rtl] .mdc-text-field-character-counter,.mdc-text-field-character-counter[dir=rtl]{margin-left:0;margin-right:auto}[dir=rtl] .mdc-text-field-character-counter,.mdc-text-field-character-counter[dir=rtl]{padding-left:0;padding-right:16px}.mdc-text-field__icon{align-self:center;cursor:pointer}.mdc-text-field__icon:not([tabindex]),.mdc-text-field__icon[tabindex="-1"]{cursor:default;pointer-events:none}.mdc-text-field__icon svg{display:block}.mdc-text-field__icon--leading{margin-left:16px;margin-right:8px}[dir=rtl] .mdc-text-field__icon--leading,.mdc-text-field__icon--leading[dir=rtl]{margin-left:8px;margin-right:16px}.mdc-text-field__icon--trailing{margin-left:12px;margin-right:12px}[dir=rtl] .mdc-text-field__icon--trailing,.mdc-text-field__icon--trailing[dir=rtl]{margin-left:12px;margin-right:12px}.material-icons{font-family:var(--mdc-icon-font, "Material Icons");font-weight:normal;font-style:normal;font-size:var(--mdc-icon-size, 24px);line-height:1;letter-spacing:normal;text-transform:none;display:inline-block;white-space:nowrap;word-wrap:normal;direction:ltr;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;-moz-osx-font-smoothing:grayscale;font-feature-settings:"liga"}:host{display:inline-flex;flex-direction:column;outline:none}.mdc-text-field{width:100%}.mdc-text-field:not(.mdc-text-field--disabled) .mdc-line-ripple::before{border-bottom-color:rgba(0, 0, 0, 0.42);border-bottom-color:var(--mdc-text-field-idle-line-color, rgba(0, 0, 0, 0.42))}.mdc-text-field:not(.mdc-text-field--disabled):hover .mdc-line-ripple::before{border-bottom-color:rgba(0, 0, 0, 0.87);border-bottom-color:var(--mdc-text-field-hover-line-color, rgba(0, 0, 0, 0.87))}.mdc-text-field.mdc-text-field--disabled .mdc-line-ripple::before{border-bottom-color:rgba(0, 0, 0, 0.06);border-bottom-color:var(--mdc-text-field-disabled-line-color, rgba(0, 0, 0, 0.06))}.mdc-text-field.mdc-text-field--invalid:not(.mdc-text-field--disabled) .mdc-line-ripple::before{border-bottom-color:#b00020;border-bottom-color:var(--mdc-theme-error, #b00020)}mwc-notched-outline{--mdc-notched-outline-border-color: var(--mdc-text-field-outlined-idle-border-color, rgba(0, 0, 0, 0.38))}:host(:not([disabled]):hover) :not(.mdc-text-field--invalid):not(.mdc-text-field--focused) mwc-notched-outline{--mdc-notched-outline-border-color: var(--mdc-text-field-outlined-hover-border-color, rgba(0, 0, 0, 0.87))}:host(:not([disabled])) .mdc-text-field:not(.mdc-text-field--outlined){background-color:var(--mdc-text-field-fill-color, whitesmoke)}:host(:not([disabled])) .mdc-text-field.mdc-text-field--invalid mwc-notched-outline{--mdc-notched-outline-border-color: var(--mdc-text-field-error-color, var(--mdc-theme-error, #b00020))}:host(:not([disabled])) .mdc-text-field.mdc-text-field--invalid+.mdc-text-field-helper-line .mdc-text-field-character-counter,:host(:not([disabled])) .mdc-text-field.mdc-text-field--invalid .mdc-text-field__icon{color:var(--mdc-text-field-error-color, var(--mdc-theme-error, #b00020))}:host(:not([disabled])) .mdc-text-field:not(.mdc-text-field--invalid):not(.mdc-text-field--focused) .mdc-floating-label,:host(:not([disabled])) .mdc-text-field:not(.mdc-text-field--invalid):not(.mdc-text-field--focused) .mdc-floating-label::after{color:var(--mdc-text-field-label-ink-color, rgba(0, 0, 0, 0.6))}:host(:not([disabled])) .mdc-text-field.mdc-text-field--focused mwc-notched-outline{--mdc-notched-outline-stroke-width: 2px}:host(:not([disabled])) .mdc-text-field.mdc-text-field--focused:not(.mdc-text-field--invalid) mwc-notched-outline{--mdc-notched-outline-border-color: var(--mdc-text-field-focused-label-color, var(--mdc-theme-primary, rgba(98, 0, 238, 0.87)))}:host(:not([disabled])) .mdc-text-field.mdc-text-field--focused:not(.mdc-text-field--invalid) .mdc-floating-label{color:#6200ee;color:var(--mdc-theme-primary, #6200ee)}:host(:not([disabled])) .mdc-text-field .mdc-text-field__input{color:var(--mdc-text-field-ink-color, rgba(0, 0, 0, 0.87))}:host(:not([disabled])) .mdc-text-field .mdc-text-field__input::placeholder{color:var(--mdc-text-field-label-ink-color, rgba(0, 0, 0, 0.6))}:host(:not([disabled])) .mdc-text-field-helper-line .mdc-text-field-helper-text:not(.mdc-text-field-helper-text--validation-msg),:host(:not([disabled])) .mdc-text-field-helper-line:not(.mdc-text-field--invalid) .mdc-text-field-character-counter{color:var(--mdc-text-field-label-ink-color, rgba(0, 0, 0, 0.6))}:host([disabled]) .mdc-text-field:not(.mdc-text-field--outlined){background-color:var(--mdc-text-field-disabled-fill-color, #fafafa)}:host([disabled]) .mdc-text-field.mdc-text-field--outlined mwc-notched-outline{--mdc-notched-outline-border-color: var(--mdc-text-field-outlined-disabled-border-color, rgba(0, 0, 0, 0.06))}:host([disabled]) .mdc-text-field:not(.mdc-text-field--invalid):not(.mdc-text-field--focused) .mdc-floating-label,:host([disabled]) .mdc-text-field:not(.mdc-text-field--invalid):not(.mdc-text-field--focused) .mdc-floating-label::after{color:var(--mdc-text-field-disabled-ink-color, rgba(0, 0, 0, 0.38))}:host([disabled]) .mdc-text-field .mdc-text-field__input,:host([disabled]) .mdc-text-field .mdc-text-field__input::placeholder{color:var(--mdc-text-field-disabled-ink-color, rgba(0, 0, 0, 0.38))}:host([disabled]) .mdc-text-field-helper-line .mdc-text-field-helper-text,:host([disabled]) .mdc-text-field-helper-line .mdc-text-field-character-counter{color:var(--mdc-text-field-disabled-ink-color, rgba(0, 0, 0, 0.38))}`;/**
 @license
 Copyright 2019 Google Inc. All Rights Reserved.
 
@@ -1951,12 +373,4 @@ distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
-*/
-let TextField = class TextField extends TextFieldBase {
-};
-TextField.styles = style$1;
-TextField = __decorate([
-    customElement('mwc-textfield')
-], TextField);
-
-export { TextField };
+*/let v=class extends o{};v.styles=ue,v=l([A("mwc-textfield")],v);export{v as TextField};

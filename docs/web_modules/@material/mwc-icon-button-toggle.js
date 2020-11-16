@@ -1,12 +1,4 @@
-import { a as __extends, b as __assign, _ as __decorate } from '../common/foundation-dde8a859.js';
-import { d as directive, n as noChange, N as NodePart, h as html } from '../common/lit-html-e7095b40.js';
-import { c as css, L as LitElement, t as templateFactory } from '../common/lit-element-f25bd23a.js';
-import { query, property, customElement } from '../lit-element/lib/decorators.js';
-import { m as matches } from '../common/ponyfill-4ccc5f83.js';
-import { s as supportsCssVariables, M as MDCRippleFoundation } from '../common/foundation-c4780e20.js';
-import { a as applyPassive } from '../common/events-a64aa528.js';
-
-/**
+import{a as O,b as T,_ as a}from"../common/foundation-dde8a859.js";import{d as N,n as f,N as A,h as R}from"../common/lit-html-e7095b40.js";import{c as g,L as E,t as S}from"../common/lit-element-f25bd23a.js";import{query as v,property as d,customElement as w}from"../lit-element/lib/decorators.js";import{m as L}from"../common/ponyfill-4ccc5f83.js";import{s as C,M as F}from"../common/foundation-c4780e20.js";import{a as l}from"../common/events-a64aa528.js";/**
 @license
 Copyright 2018 Google Inc. All Rights Reserved.
 
@@ -21,10 +13,7 @@ distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
-*/
-const style = css `.mdc-icon-button{display:inline-block;position:relative;box-sizing:border-box;border:none;outline:none;background-color:transparent;fill:currentColor;color:inherit;font-size:24px;text-decoration:none;cursor:pointer;user-select:none;width:48px;height:48px;padding:12px}.mdc-icon-button svg,.mdc-icon-button img{width:24px;height:24px}.mdc-icon-button:disabled{color:rgba(0,0,0,.38);color:var(--mdc-theme-text-disabled-on-light, rgba(0, 0, 0, 0.38))}.mdc-icon-button:disabled{cursor:default;pointer-events:none}.mdc-icon-button__icon{display:inline-block}.mdc-icon-button__icon.mdc-icon-button__icon--on{display:none}.mdc-icon-button--on .mdc-icon-button__icon{display:none}.mdc-icon-button--on .mdc-icon-button__icon.mdc-icon-button__icon--on{display:inline-block}@keyframes mdc-ripple-fg-radius-in{from{animation-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transform:translate(var(--mdc-ripple-fg-translate-start, 0)) scale(1)}to{transform:translate(var(--mdc-ripple-fg-translate-end, 0)) scale(var(--mdc-ripple-fg-scale, 1))}}@keyframes mdc-ripple-fg-opacity-in{from{animation-timing-function:linear;opacity:0}to{opacity:var(--mdc-ripple-fg-opacity, 0)}}@keyframes mdc-ripple-fg-opacity-out{from{animation-timing-function:linear;opacity:var(--mdc-ripple-fg-opacity, 0)}to{opacity:0}}.mdc-ripple-surface--test-edge-var-bug{--mdc-ripple-surface-test-edge-var: 1px solid #000;visibility:hidden}.mdc-ripple-surface--test-edge-var-bug::before{border:var(--mdc-ripple-surface-test-edge-var)}.mdc-icon-button{--mdc-ripple-fg-size: 0;--mdc-ripple-left: 0;--mdc-ripple-top: 0;--mdc-ripple-fg-scale: 1;--mdc-ripple-fg-translate-end: 0;--mdc-ripple-fg-translate-start: 0;-webkit-tap-highlight-color:rgba(0,0,0,0)}.mdc-icon-button::before,.mdc-icon-button::after{position:absolute;border-radius:50%;opacity:0;pointer-events:none;content:""}.mdc-icon-button::before{transition:opacity 15ms linear,background-color 15ms linear;z-index:1}.mdc-icon-button.mdc-ripple-upgraded::before{transform:scale(var(--mdc-ripple-fg-scale, 1))}.mdc-icon-button.mdc-ripple-upgraded::after{top:0;left:0;transform:scale(0);transform-origin:center center}.mdc-icon-button.mdc-ripple-upgraded--unbounded::after{top:var(--mdc-ripple-top, 0);left:var(--mdc-ripple-left, 0)}.mdc-icon-button.mdc-ripple-upgraded--foreground-activation::after{animation:mdc-ripple-fg-radius-in 225ms forwards,mdc-ripple-fg-opacity-in 75ms forwards}.mdc-icon-button.mdc-ripple-upgraded--foreground-deactivation::after{animation:mdc-ripple-fg-opacity-out 150ms;transform:translate(var(--mdc-ripple-fg-translate-end, 0)) scale(var(--mdc-ripple-fg-scale, 1))}.mdc-icon-button::before,.mdc-icon-button::after{top:calc(50% - 50%);left:calc(50% - 50%);width:100%;height:100%}.mdc-icon-button.mdc-ripple-upgraded::before,.mdc-icon-button.mdc-ripple-upgraded::after{top:var(--mdc-ripple-top, calc(50% - 50%));left:var(--mdc-ripple-left, calc(50% - 50%));width:var(--mdc-ripple-fg-size, 100%);height:var(--mdc-ripple-fg-size, 100%)}.mdc-icon-button.mdc-ripple-upgraded::after{width:var(--mdc-ripple-fg-size, 100%);height:var(--mdc-ripple-fg-size, 100%)}.mdc-icon-button::before,.mdc-icon-button::after{background-color:#000}.mdc-icon-button:hover::before{opacity:.04}.mdc-icon-button.mdc-ripple-upgraded--background-focused::before,.mdc-icon-button:not(.mdc-ripple-upgraded):focus::before{transition-duration:75ms;opacity:.12}.mdc-icon-button:not(.mdc-ripple-upgraded)::after{transition:opacity 150ms linear}.mdc-icon-button:not(.mdc-ripple-upgraded):active::after{transition-duration:75ms;opacity:.12}.mdc-icon-button.mdc-ripple-upgraded{--mdc-ripple-fg-opacity: 0.12}.material-icons{font-family:var(--mdc-icon-font, "Material Icons");font-weight:normal;font-style:normal;font-size:var(--mdc-icon-size, 24px);line-height:1;letter-spacing:normal;text-transform:none;display:inline-block;white-space:nowrap;word-wrap:normal;direction:ltr;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;-moz-osx-font-smoothing:grayscale;font-feature-settings:"liga"}:host{display:inline-block;outline:none}:host,.mdc-icon-button{vertical-align:top}.mdc-icon-button{width:var(--mdc-icon-button-size, 48px);height:var(--mdc-icon-button-size, 48px);padding:calc((var(--mdc-icon-button-size, 48px) - var(--mdc-icon-size, 24px)) / 2)}.mdc-icon-button>i{position:absolute;top:0;padding-top:inherit}.mdc-icon-button i,.mdc-icon-button svg,.mdc-icon-button img,.mdc-icon-button ::slotted(*){display:block;width:var(--mdc-icon-size, 24px);height:var(--mdc-icon-size, 24px)}.mdc-ripple-upgraded:focus::before,.mdc-ripple-upgraded:focus::after{background-color:currentColor;background-color:var(--mdc-theme-on-primary, currentColor);opacity:.12;opacity:var(--mdc-icon-button-ripple-opacity, 0.12)}`;
-
-/**
+*/const H=g`.mdc-icon-button{display:inline-block;position:relative;box-sizing:border-box;border:none;outline:none;background-color:transparent;fill:currentColor;color:inherit;font-size:24px;text-decoration:none;cursor:pointer;user-select:none;width:48px;height:48px;padding:12px}.mdc-icon-button svg,.mdc-icon-button img{width:24px;height:24px}.mdc-icon-button:disabled{color:rgba(0,0,0,.38);color:var(--mdc-theme-text-disabled-on-light, rgba(0, 0, 0, 0.38))}.mdc-icon-button:disabled{cursor:default;pointer-events:none}.mdc-icon-button__icon{display:inline-block}.mdc-icon-button__icon.mdc-icon-button__icon--on{display:none}.mdc-icon-button--on .mdc-icon-button__icon{display:none}.mdc-icon-button--on .mdc-icon-button__icon.mdc-icon-button__icon--on{display:inline-block}@keyframes mdc-ripple-fg-radius-in{from{animation-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transform:translate(var(--mdc-ripple-fg-translate-start, 0)) scale(1)}to{transform:translate(var(--mdc-ripple-fg-translate-end, 0)) scale(var(--mdc-ripple-fg-scale, 1))}}@keyframes mdc-ripple-fg-opacity-in{from{animation-timing-function:linear;opacity:0}to{opacity:var(--mdc-ripple-fg-opacity, 0)}}@keyframes mdc-ripple-fg-opacity-out{from{animation-timing-function:linear;opacity:var(--mdc-ripple-fg-opacity, 0)}to{opacity:0}}.mdc-ripple-surface--test-edge-var-bug{--mdc-ripple-surface-test-edge-var: 1px solid #000;visibility:hidden}.mdc-ripple-surface--test-edge-var-bug::before{border:var(--mdc-ripple-surface-test-edge-var)}.mdc-icon-button{--mdc-ripple-fg-size: 0;--mdc-ripple-left: 0;--mdc-ripple-top: 0;--mdc-ripple-fg-scale: 1;--mdc-ripple-fg-translate-end: 0;--mdc-ripple-fg-translate-start: 0;-webkit-tap-highlight-color:rgba(0,0,0,0)}.mdc-icon-button::before,.mdc-icon-button::after{position:absolute;border-radius:50%;opacity:0;pointer-events:none;content:""}.mdc-icon-button::before{transition:opacity 15ms linear,background-color 15ms linear;z-index:1}.mdc-icon-button.mdc-ripple-upgraded::before{transform:scale(var(--mdc-ripple-fg-scale, 1))}.mdc-icon-button.mdc-ripple-upgraded::after{top:0;left:0;transform:scale(0);transform-origin:center center}.mdc-icon-button.mdc-ripple-upgraded--unbounded::after{top:var(--mdc-ripple-top, 0);left:var(--mdc-ripple-left, 0)}.mdc-icon-button.mdc-ripple-upgraded--foreground-activation::after{animation:mdc-ripple-fg-radius-in 225ms forwards,mdc-ripple-fg-opacity-in 75ms forwards}.mdc-icon-button.mdc-ripple-upgraded--foreground-deactivation::after{animation:mdc-ripple-fg-opacity-out 150ms;transform:translate(var(--mdc-ripple-fg-translate-end, 0)) scale(var(--mdc-ripple-fg-scale, 1))}.mdc-icon-button::before,.mdc-icon-button::after{top:calc(50% - 50%);left:calc(50% - 50%);width:100%;height:100%}.mdc-icon-button.mdc-ripple-upgraded::before,.mdc-icon-button.mdc-ripple-upgraded::after{top:var(--mdc-ripple-top, calc(50% - 50%));left:var(--mdc-ripple-left, calc(50% - 50%));width:var(--mdc-ripple-fg-size, 100%);height:var(--mdc-ripple-fg-size, 100%)}.mdc-icon-button.mdc-ripple-upgraded::after{width:var(--mdc-ripple-fg-size, 100%);height:var(--mdc-ripple-fg-size, 100%)}.mdc-icon-button::before,.mdc-icon-button::after{background-color:#000}.mdc-icon-button:hover::before{opacity:.04}.mdc-icon-button.mdc-ripple-upgraded--background-focused::before,.mdc-icon-button:not(.mdc-ripple-upgraded):focus::before{transition-duration:75ms;opacity:.12}.mdc-icon-button:not(.mdc-ripple-upgraded)::after{transition:opacity 150ms linear}.mdc-icon-button:not(.mdc-ripple-upgraded):active::after{transition-duration:75ms;opacity:.12}.mdc-icon-button.mdc-ripple-upgraded{--mdc-ripple-fg-opacity: 0.12}.material-icons{font-family:var(--mdc-icon-font, "Material Icons");font-weight:normal;font-style:normal;font-size:var(--mdc-icon-size, 24px);line-height:1;letter-spacing:normal;text-transform:none;display:inline-block;white-space:nowrap;word-wrap:normal;direction:ltr;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;-moz-osx-font-smoothing:grayscale;font-feature-settings:"liga"}:host{display:inline-block;outline:none}:host,.mdc-icon-button{vertical-align:top}.mdc-icon-button{width:var(--mdc-icon-button-size, 48px);height:var(--mdc-icon-button-size, 48px);padding:calc((var(--mdc-icon-button-size, 48px) - var(--mdc-icon-size, 24px)) / 2)}.mdc-icon-button>i{position:absolute;top:0;padding-top:inherit}.mdc-icon-button i,.mdc-icon-button svg,.mdc-icon-button img,.mdc-icon-button ::slotted(*){display:block;width:var(--mdc-icon-size, 24px);height:var(--mdc-icon-size, 24px)}.mdc-ripple-upgraded:focus::before,.mdc-ripple-upgraded:focus::after{background-color:currentColor;background-color:var(--mdc-theme-on-primary, currentColor);opacity:.12;opacity:var(--mdc-icon-button-ripple-opacity, 0.12)}`;/**
  * @license
  * Copyright 2016 Google Inc.
  *
@@ -45,59 +34,7 @@ const style = css `.mdc-icon-button{display:inline-block;position:relative;box-s
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
- */
-var MDCFoundation = /** @class */ (function () {
-    function MDCFoundation(adapter) {
-        if (adapter === void 0) { adapter = {}; }
-        this.adapter_ = adapter;
-    }
-    Object.defineProperty(MDCFoundation, "cssClasses", {
-        get: function () {
-            // Classes extending MDCFoundation should implement this method to return an object which exports every
-            // CSS class the foundation class needs as a property. e.g. {ACTIVE: 'mdc-component--active'}
-            return {};
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MDCFoundation, "strings", {
-        get: function () {
-            // Classes extending MDCFoundation should implement this method to return an object which exports all
-            // semantic strings as constants. e.g. {ARIA_ROLE: 'tablist'}
-            return {};
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MDCFoundation, "numbers", {
-        get: function () {
-            // Classes extending MDCFoundation should implement this method to return an object which exports all
-            // of its semantic numbers as constants. e.g. {ANIMATION_DELAY_MS: 350}
-            return {};
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MDCFoundation, "defaultAdapter", {
-        get: function () {
-            // Classes extending MDCFoundation may choose to implement this getter in order to provide a convenient
-            // way of viewing the necessary methods of an adapter. In the future, this could also be used for adapter
-            // validation.
-            return {};
-        },
-        enumerable: true,
-        configurable: true
-    });
-    MDCFoundation.prototype.init = function () {
-        // Subclasses should override this method to perform initialization routines (registering events, etc.)
-    };
-    MDCFoundation.prototype.destroy = function () {
-        // Subclasses should override this method to perform de-initialization routines (de-registering events, etc.)
-    };
-    return MDCFoundation;
-}());
-
-/**
+ */var D=function(){function t(e){e===void 0&&(e={}),this.adapter_=e}return Object.defineProperty(t,"cssClasses",{get:function(){return{}},enumerable:!0,configurable:!0}),Object.defineProperty(t,"strings",{get:function(){return{}},enumerable:!0,configurable:!0}),Object.defineProperty(t,"numbers",{get:function(){return{}},enumerable:!0,configurable:!0}),Object.defineProperty(t,"defaultAdapter",{get:function(){return{}},enumerable:!0,configurable:!0}),t.prototype.init=function(){},t.prototype.destroy=function(){},t}();/**
  * @license
  * Copyright 2018 Google Inc.
  *
@@ -118,17 +55,7 @@ var MDCFoundation = /** @class */ (function () {
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
- */
-var cssClasses = {
-    ICON_BUTTON_ON: 'mdc-icon-button--on',
-    ROOT: 'mdc-icon-button',
-};
-var strings = {
-    ARIA_PRESSED: 'aria-pressed',
-    CHANGE_EVENT: 'MDCIconButtonToggle:change',
-};
-
-/**
+ */var p={ICON_BUTTON_ON:"mdc-icon-button--on",ROOT:"mdc-icon-button"},m={ARIA_PRESSED:"aria-pressed",CHANGE_EVENT:"MDCIconButtonToggle:change"};/**
  * @license
  * Copyright 2018 Google Inc.
  *
@@ -149,92 +76,7 @@ var strings = {
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
- */
-var MDCIconButtonToggleFoundation = /** @class */ (function (_super) {
-    __extends(MDCIconButtonToggleFoundation, _super);
-    function MDCIconButtonToggleFoundation(adapter) {
-        return _super.call(this, __assign({}, MDCIconButtonToggleFoundation.defaultAdapter, adapter)) || this;
-    }
-    Object.defineProperty(MDCIconButtonToggleFoundation, "cssClasses", {
-        get: function () {
-            return cssClasses;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MDCIconButtonToggleFoundation, "strings", {
-        get: function () {
-            return strings;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MDCIconButtonToggleFoundation, "defaultAdapter", {
-        get: function () {
-            return {
-                addClass: function () { return undefined; },
-                hasClass: function () { return false; },
-                notifyChange: function () { return undefined; },
-                removeClass: function () { return undefined; },
-                setAttr: function () { return undefined; },
-            };
-        },
-        enumerable: true,
-        configurable: true
-    });
-    MDCIconButtonToggleFoundation.prototype.init = function () {
-        this.adapter_.setAttr(strings.ARIA_PRESSED, "" + this.isOn());
-    };
-    MDCIconButtonToggleFoundation.prototype.handleClick = function () {
-        this.toggle();
-        this.adapter_.notifyChange({ isOn: this.isOn() });
-    };
-    MDCIconButtonToggleFoundation.prototype.isOn = function () {
-        return this.adapter_.hasClass(cssClasses.ICON_BUTTON_ON);
-    };
-    MDCIconButtonToggleFoundation.prototype.toggle = function (isOn) {
-        if (isOn === void 0) { isOn = !this.isOn(); }
-        if (isOn) {
-            this.adapter_.addClass(cssClasses.ICON_BUTTON_ON);
-        }
-        else {
-            this.adapter_.removeClass(cssClasses.ICON_BUTTON_ON);
-        }
-        this.adapter_.setAttr(strings.ARIA_PRESSED, "" + isOn);
-    };
-    return MDCIconButtonToggleFoundation;
-}(MDCFoundation));
-
-const observer = (observer) => 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-(proto, propName) => {
-    // if we haven't wrapped `updated` in this class, do so
-    if (!proto.constructor._observers) {
-        proto.constructor._observers = new Map();
-        const userUpdated = proto.updated;
-        proto.updated = function (changedProperties) {
-            userUpdated.call(this, changedProperties);
-            changedProperties.forEach((v, k) => {
-                const observer = this.constructor._observers.get(k);
-                if (observer !== undefined) {
-                    observer.call(this, this[k], v);
-                }
-            });
-        };
-        // clone any existing observers (superclasses)
-    }
-    else if (!proto.constructor.hasOwnProperty('_observers')) {
-        const observers = proto.constructor._observers;
-        proto.constructor._observers = new Map();
-        observers.forEach(
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        (v, k) => proto.constructor._observers.set(k, v));
-    }
-    // set this method
-    proto.constructor._observers.set(propName, observer);
-};
-
-/**
+ */var x=function(t){O(e,t);function e(n){return t.call(this,T({},e.defaultAdapter,n))||this}return Object.defineProperty(e,"cssClasses",{get:function(){return p},enumerable:!0,configurable:!0}),Object.defineProperty(e,"strings",{get:function(){return m},enumerable:!0,configurable:!0}),Object.defineProperty(e,"defaultAdapter",{get:function(){return{addClass:function(){return},hasClass:function(){return!1},notifyChange:function(){return},removeClass:function(){return},setAttr:function(){return}}},enumerable:!0,configurable:!0}),e.prototype.init=function(){this.adapter_.setAttr(m.ARIA_PRESSED,""+this.isOn())},e.prototype.handleClick=function(){this.toggle(),this.adapter_.notifyChange({isOn:this.isOn()})},e.prototype.isOn=function(){return this.adapter_.hasClass(p.ICON_BUTTON_ON)},e.prototype.toggle=function(n){n===void 0&&(n=!this.isOn()),n?this.adapter_.addClass(p.ICON_BUTTON_ON):this.adapter_.removeClass(p.ICON_BUTTON_ON),this.adapter_.setAttr(m.ARIA_PRESSED,""+n)},e}(D);const _=t=>(e,n)=>{if(e.constructor._observers){if(!e.constructor.hasOwnProperty("_observers")){const r=e.constructor._observers;e.constructor._observers=new Map,r.forEach((o,i)=>e.constructor._observers.set(i,o))}}else{e.constructor._observers=new Map;const r=e.updated;e.updated=function(o){r.call(this,o),o.forEach((i,s)=>{const h=this.constructor._observers.get(s);h!==void 0&&h.call(this,this[s],i)})}}e.constructor._observers.set(n,t)};/**
 @license
 Copyright 2018 Google Inc. All Rights Reserved.
 
@@ -249,28 +91,7 @@ distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
-*/
-function addHasRemoveClass(element) {
-    return {
-        addClass: (className) => {
-            element.classList.add(className);
-        },
-        removeClass: (className) => {
-            element.classList.remove(className);
-        },
-        hasClass: (className) => element.classList.contains(className),
-    };
-}
-const fn = () => { };
-const optionsBlock = {
-    get passive() {
-        return false;
-    }
-};
-document.addEventListener('x', fn, optionsBlock);
-document.removeEventListener('x', fn);
-
-/**
+*/function U(t){return{addClass:e=>{t.classList.add(e)},removeClass:e=>{t.classList.remove(e)},hasClass:e=>t.classList.contains(e)}}const b=()=>{},P={get passive(){return!1}};document.addEventListener("x",b,P),document.removeEventListener("x",b);/**
 @license
 Copyright 2018 Google Inc. All Rights Reserved.
 
@@ -285,24 +106,7 @@ distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
-*/
-class BaseElement extends LitElement {
-    /**
-     * Create and attach the MDC Foundation to the instance
-     */
-    createFoundation() {
-        if (this.mdcFoundation !== undefined) {
-            this.mdcFoundation.destroy();
-        }
-        this.mdcFoundation = new this.mdcFoundationClass(this.createAdapter());
-        this.mdcFoundation.init();
-    }
-    firstUpdated() {
-        this.createFoundation();
-    }
-}
-
-/**
+*/class W extends E{createFoundation(){this.mdcFoundation!==void 0&&this.mdcFoundation.destroy(),this.mdcFoundation=new this.mdcFoundationClass(this.createAdapter()),this.mdcFoundation.init()}firstUpdated(){this.createFoundation()}}/**
 @license
 Copyright 2018 Google Inc. All Rights Reserved.
 
@@ -317,10 +121,7 @@ distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
-*/
-const style$1 = css `@keyframes mdc-ripple-fg-radius-in{from{animation-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transform:translate(var(--mdc-ripple-fg-translate-start, 0)) scale(1)}to{transform:translate(var(--mdc-ripple-fg-translate-end, 0)) scale(var(--mdc-ripple-fg-scale, 1))}}@keyframes mdc-ripple-fg-opacity-in{from{animation-timing-function:linear;opacity:0}to{opacity:var(--mdc-ripple-fg-opacity, 0)}}@keyframes mdc-ripple-fg-opacity-out{from{animation-timing-function:linear;opacity:var(--mdc-ripple-fg-opacity, 0)}to{opacity:0}}`;
-
-/**
+*/const B=g`@keyframes mdc-ripple-fg-radius-in{from{animation-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transform:translate(var(--mdc-ripple-fg-translate-start, 0)) scale(1)}to{transform:translate(var(--mdc-ripple-fg-translate-end, 0)) scale(var(--mdc-ripple-fg-scale, 1))}}@keyframes mdc-ripple-fg-opacity-in{from{animation-timing-function:linear;opacity:0}to{opacity:var(--mdc-ripple-fg-opacity, 0)}}@keyframes mdc-ripple-fg-opacity-out{from{animation-timing-function:linear;opacity:var(--mdc-ripple-fg-opacity, 0)}to{opacity:0}}`;/**
 @license
 Copyright 2018 Google Inc. All Rights Reserved.
 
@@ -335,140 +136,7 @@ distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
-*/
-const supportsCssVariablesWin = supportsCssVariables(window);
-/**
- * force the ripple directive to share API names with `mwc-ripple` after Closure
- * Compiler.
- */
-class RippleIntermediate {
-    constructor(foundation) {
-        this.foundation = foundation;
-    }
-    startPress() {
-        this.foundation.activate();
-    }
-    endPress() {
-        this.foundation.deactivate();
-    }
-    startFocus() {
-        this.foundation.handleFocus();
-    }
-    endFocus() {
-        this.foundation.handleBlur();
-    }
-    destroy() {
-        this.foundation.destroy();
-    }
-    setUnbounded(value) {
-        this.foundation.setUnbounded(value);
-    }
-}
-// NOTE: This is a workaround for
-// https://bugs.webkit.org/show_bug.cgi?id=173027. Since keyframes on
-// pseudo-elements (:after) are not supported in Shadow DOM, we put the keyframe
-// style into the <head> element.
-const isSafari = navigator.userAgent.match(/Safari/);
-let didApplyRippleStyle = false;
-const applyRippleStyle = () => {
-    didApplyRippleStyle = true;
-    const styleElement = document.createElement('style');
-    const part = new NodePart({ templateFactory });
-    part.appendInto(styleElement);
-    part.setValue(style$1);
-    part.commit();
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    document.head.appendChild(styleElement);
-};
-/**
- * Applied a ripple to the node specified by {surfaceNode}.
- * @param options {RippleNodeOptions}
- */
-const rippleNode = (options) => {
-    if (isSafari && !didApplyRippleStyle) {
-        applyRippleStyle();
-    }
-    // TODO(sorvell): This directive requires bringing css yourself. We probably
-    // need to do this because of ShadyCSS, but on Safari, the keyframes styling
-    // must be global. Perhaps this directive could fix that.
-    const surfaceNode = options.surfaceNode;
-    const interactionNode = options.interactionNode || surfaceNode;
-    // only style interaction node if not in the same root
-    if (interactionNode.getRootNode() !== surfaceNode.getRootNode()) {
-        if (interactionNode.style.position === '') {
-            interactionNode.style.position = 'relative';
-        }
-    }
-    const adapter = {
-        browserSupportsCssVars: () => supportsCssVariablesWin,
-        isUnbounded: () => options.unbounded === undefined ? true : options.unbounded,
-        isSurfaceActive: () => matches(interactionNode, ':active'),
-        isSurfaceDisabled: () => Boolean(interactionNode.hasAttribute('disabled')),
-        addClass: (className) => surfaceNode.classList.add(className),
-        removeClass: (className) => surfaceNode.classList.remove(className),
-        containsEventTarget: (target) => interactionNode.contains(target),
-        registerInteractionHandler: (type, handler) => interactionNode.addEventListener(type, handler, applyPassive()),
-        deregisterInteractionHandler: (type, handler) => interactionNode.removeEventListener(type, handler, applyPassive()),
-        registerDocumentInteractionHandler: (evtType, handler) => 
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        document.documentElement.addEventListener(evtType, handler, applyPassive()),
-        deregisterDocumentInteractionHandler: (evtType, handler) => 
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        document.documentElement.removeEventListener(evtType, handler, applyPassive()),
-        registerResizeHandler: (handler) => window.addEventListener('resize', handler),
-        deregisterResizeHandler: (handler) => window.removeEventListener('resize', handler),
-        updateCssVariable: (varName, value) => surfaceNode.style.setProperty(varName, value),
-        computeBoundingRect: () => surfaceNode.getBoundingClientRect(),
-        getWindowPageOffset: () => ({ x: window.pageXOffset, y: window.pageYOffset }),
-    };
-    const rippleFoundation = new MDCRippleFoundation(adapter);
-    rippleFoundation.init();
-    return new RippleIntermediate(rippleFoundation);
-};
-const rippleInteractionNodes = new WeakMap();
-/**
- * A directive that applies a Material ripple to a part node. The directive
- * should be applied to a PropertyPart.
- * @param options {RippleOptions}
- */
-const ripple = directive((options = {}) => (part) => {
-    const surfaceNode = part.committer.element;
-    const interactionNode = options.interactionNode || surfaceNode;
-    let rippleFoundation = part.value;
-    // if the interaction node changes, destroy and invalidate the foundation.
-    const existingInteractionNode = rippleInteractionNodes.get(rippleFoundation);
-    if (existingInteractionNode !== undefined &&
-        existingInteractionNode !== interactionNode) {
-        rippleFoundation.destroy();
-        rippleFoundation = noChange;
-    }
-    // make the ripple, if needed
-    if (rippleFoundation === noChange) {
-        rippleFoundation =
-            rippleNode(Object.assign({}, options, { surfaceNode }));
-        rippleInteractionNodes.set(rippleFoundation, interactionNode);
-        part.setValue(rippleFoundation);
-        // otherwise update settings as needed.
-    }
-    else {
-        if (options.unbounded !== undefined) {
-            rippleFoundation
-                .setUnbounded(options.unbounded);
-        }
-        if (options.disabled !== undefined) {
-            rippleFoundation
-                .setUnbounded(options.disabled);
-        }
-    }
-    if (options.active === true) {
-        rippleFoundation.startPress();
-    }
-    else if (options.active === false) {
-        rippleFoundation.endPress();
-    }
-});
-
-/**
+*/const M=C(window);class Y{constructor(t){this.foundation=t}startPress(){this.foundation.activate()}endPress(){this.foundation.deactivate()}startFocus(){this.foundation.handleFocus()}endFocus(){this.foundation.handleBlur()}destroy(){this.foundation.destroy()}setUnbounded(t){this.foundation.setUnbounded(t)}}const k=navigator.userAgent.match(/Safari/);let I=!1;const G=()=>{I=!0;const t=document.createElement("style"),e=new A({templateFactory:S});e.appendInto(t),e.setValue(B),e.commit(),document.head.appendChild(t)},z=t=>{k&&!I&&G();const e=t.surfaceNode,n=t.interactionNode||e;n.getRootNode()!==e.getRootNode()&&(n.style.position===""&&(n.style.position="relative"));const r={browserSupportsCssVars:()=>M,isUnbounded:()=>t.unbounded===void 0?!0:t.unbounded,isSurfaceActive:()=>L(n,":active"),isSurfaceDisabled:()=>Boolean(n.hasAttribute("disabled")),addClass:i=>e.classList.add(i),removeClass:i=>e.classList.remove(i),containsEventTarget:i=>n.contains(i),registerInteractionHandler:(i,s)=>n.addEventListener(i,s,l()),deregisterInteractionHandler:(i,s)=>n.removeEventListener(i,s,l()),registerDocumentInteractionHandler:(i,s)=>document.documentElement.addEventListener(i,s,l()),deregisterDocumentInteractionHandler:(i,s)=>document.documentElement.removeEventListener(i,s,l()),registerResizeHandler:i=>window.addEventListener("resize",i),deregisterResizeHandler:i=>window.removeEventListener("resize",i),updateCssVariable:(i,s)=>e.style.setProperty(i,s),computeBoundingRect:()=>e.getBoundingClientRect(),getWindowPageOffset:()=>({x:window.pageXOffset,y:window.pageYOffset})},o=new F(r);return o.init(),new Y(o)},y=new WeakMap,j=N((t={})=>e=>{const n=e.committer.element,r=t.interactionNode||n;let o=e.value;const i=y.get(o);i!==void 0&&i!==r&&(o.destroy(),o=f),o===f?(o=z(Object.assign({},t,{surfaceNode:n})),y.set(o,r),e.setValue(o)):(t.unbounded!==void 0&&o.setUnbounded(t.unbounded),t.disabled!==void 0&&o.setUnbounded(t.disabled)),t.active===!0?o.startPress():t.active===!1&&o.endPress()});/**
 @license
 Copyright 2019 Google Inc. All Rights Reserved.
 
@@ -483,35 +151,9 @@ distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
-*/
-class IconButtonToggleBase extends BaseElement {
-    constructor() {
-        super(...arguments);
-        this.mdcFoundationClass = MDCIconButtonToggleFoundation;
-        this.label = '';
-        this.disabled = false;
-        this.onIcon = '';
-        this.offIcon = '';
-        this.on = false;
-    }
-    createAdapter() {
-        return Object.assign(Object.assign({}, addHasRemoveClass(this.mdcRoot)), { setAttr: (name, value) => {
-                this.mdcRoot.setAttribute(name, value);
-            }, notifyChange: (evtData) => {
-                this.dispatchEvent(new CustomEvent('MDCIconButtonToggle:change', { detail: evtData, bubbles: true }));
-            } });
-    }
-    handleClick() {
-        this.on = !this.on;
-        this.mdcFoundation.handleClick();
-    }
-    focus() {
-        this.mdcRoot.focus();
-    }
-    render() {
-        return html `
+*/class c extends W{constructor(){super(...arguments);this.mdcFoundationClass=x,this.label="",this.disabled=!1,this.onIcon="",this.offIcon="",this.on=!1}createAdapter(){return Object.assign(Object.assign({},U(this.mdcRoot)),{setAttr:(t,e)=>{this.mdcRoot.setAttribute(t,e)},notifyChange:t=>{this.dispatchEvent(new CustomEvent("MDCIconButtonToggle:change",{detail:t,bubbles:!0}))}})}handleClick(){this.on=!this.on,this.mdcFoundation.handleClick()}focus(){this.mdcRoot.focus()}render(){return R`
       <button
-        .ripple="${ripple()}"
+        .ripple="${j()}"
         class="mdc-icon-button"
         @click="${this.handleClick}"
         aria-hidden="true"
@@ -527,32 +169,7 @@ class IconButtonToggleBase extends BaseElement {
             <i class="material-icons">${this.onIcon}</i>
           </slot>
         </span>
-      </button>`;
-    }
-}
-__decorate([
-    query('.mdc-icon-button')
-], IconButtonToggleBase.prototype, "mdcRoot", void 0);
-__decorate([
-    property({ type: String })
-], IconButtonToggleBase.prototype, "label", void 0);
-__decorate([
-    property({ type: Boolean, reflect: true })
-], IconButtonToggleBase.prototype, "disabled", void 0);
-__decorate([
-    property({ type: String })
-], IconButtonToggleBase.prototype, "onIcon", void 0);
-__decorate([
-    property({ type: String })
-], IconButtonToggleBase.prototype, "offIcon", void 0);
-__decorate([
-    property({ type: Boolean, reflect: true }),
-    observer(function (state) {
-        this.mdcFoundation.toggle(state);
-    })
-], IconButtonToggleBase.prototype, "on", void 0);
-
-/**
+      </button>`}}a([v(".mdc-icon-button")],c.prototype,"mdcRoot",void 0),a([d({type:String})],c.prototype,"label",void 0),a([d({type:Boolean,reflect:!0})],c.prototype,"disabled",void 0),a([d({type:String})],c.prototype,"onIcon",void 0),a([d({type:String})],c.prototype,"offIcon",void 0),a([d({type:Boolean,reflect:!0}),_(function(t){this.mdcFoundation.toggle(t)})],c.prototype,"on",void 0);/**
 @license
 Copyright 2019 Google Inc. All Rights Reserved.
 
@@ -567,12 +184,4 @@ distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
-*/
-let IconButtonToggle = class IconButtonToggle extends IconButtonToggleBase {
-};
-IconButtonToggle.styles = style;
-IconButtonToggle = __decorate([
-    customElement('mwc-icon-button-toggle')
-], IconButtonToggle);
-
-export { IconButtonToggle };
+*/let u=class extends c{};u.styles=H,u=a([w("mwc-icon-button-toggle")],u);export{u as IconButtonToggle};

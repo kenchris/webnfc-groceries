@@ -1,6 +1,4 @@
-import { d as directive, A as AttributePart } from './lit-html-e7095b40.js';
-
-/**
+import{d as r,A as n}from"./lit-html-e7095b40.js";/**
  * @license
  * Copyright (c) 2018 The Polymer Project Authors. All rights reserved.
  * This code may only be used under the BSD style license found at
@@ -12,28 +10,4 @@ import { d as directive, A as AttributePart } from './lit-html-e7095b40.js';
  * Code distributed by Google as part of the polymer project is also
  * subject to an additional IP rights grant found at
  * http://polymer.github.io/PATENTS.txt
- */
-const previousValues = new WeakMap();
-/**
- * For AttributeParts, sets the attribute if the value is defined and removes
- * the attribute if the value is undefined.
- *
- * For other part types, this directive is a no-op.
- */
-const ifDefined = directive((value) => (part) => {
-    const previousValue = previousValues.get(part);
-    if (value === undefined && part instanceof AttributePart) {
-        // If the value is undefined, remove the attribute, but only if the value
-        // was previously defined.
-        if (previousValue !== undefined || !previousValues.has(part)) {
-            const name = part.committer.name;
-            part.committer.element.removeAttribute(name);
-        }
-    }
-    else if (value !== previousValue) {
-        part.setValue(value);
-    }
-    previousValues.set(part, value);
-});
-
-export { ifDefined as i };
+ */const i=new WeakMap,u=r(t=>e=>{const o=i.get(e);if(t===void 0&&e instanceof n){if(o!==void 0||!i.has(e)){const s=e.committer.name;e.committer.element.removeAttribute(s)}}else t!==o&&e.setValue(t);i.set(e,t)});export{u as i};

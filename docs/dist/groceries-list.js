@@ -1,62 +1,5 @@
-function _decorate(decorators, factory, superClass, mixins) { var api = _getDecoratorsApi(); if (mixins) { for (var i = 0; i < mixins.length; i++) { api = mixins[i](api); } } var r = factory(function initialize(O) { api.initializeInstanceElements(O, decorated.elements); }, superClass); var decorated = api.decorateClass(_coalesceClassElements(r.d.map(_createElementDescriptor)), decorators); api.initializeClassElements(r.F, decorated.elements); return api.runClassFinishers(r.F, decorated.finishers); }
-
-function _getDecoratorsApi() { _getDecoratorsApi = function () { return api; }; var api = { elementsDefinitionOrder: [["method"], ["field"]], initializeInstanceElements: function (O, elements) { ["method", "field"].forEach(function (kind) { elements.forEach(function (element) { if (element.kind === kind && element.placement === "own") { this.defineClassElement(O, element); } }, this); }, this); }, initializeClassElements: function (F, elements) { var proto = F.prototype; ["method", "field"].forEach(function (kind) { elements.forEach(function (element) { var placement = element.placement; if (element.kind === kind && (placement === "static" || placement === "prototype")) { var receiver = placement === "static" ? F : proto; this.defineClassElement(receiver, element); } }, this); }, this); }, defineClassElement: function (receiver, element) { var descriptor = element.descriptor; if (element.kind === "field") { var initializer = element.initializer; descriptor = { enumerable: descriptor.enumerable, writable: descriptor.writable, configurable: descriptor.configurable, value: initializer === void 0 ? void 0 : initializer.call(receiver) }; } Object.defineProperty(receiver, element.key, descriptor); }, decorateClass: function (elements, decorators) { var newElements = []; var finishers = []; var placements = { static: [], prototype: [], own: [] }; elements.forEach(function (element) { this.addElementPlacement(element, placements); }, this); elements.forEach(function (element) { if (!_hasDecorators(element)) return newElements.push(element); var elementFinishersExtras = this.decorateElement(element, placements); newElements.push(elementFinishersExtras.element); newElements.push.apply(newElements, elementFinishersExtras.extras); finishers.push.apply(finishers, elementFinishersExtras.finishers); }, this); if (!decorators) { return { elements: newElements, finishers: finishers }; } var result = this.decorateConstructor(newElements, decorators); finishers.push.apply(finishers, result.finishers); result.finishers = finishers; return result; }, addElementPlacement: function (element, placements, silent) { var keys = placements[element.placement]; if (!silent && keys.indexOf(element.key) !== -1) { throw new TypeError("Duplicated element (" + element.key + ")"); } keys.push(element.key); }, decorateElement: function (element, placements) { var extras = []; var finishers = []; for (var decorators = element.decorators, i = decorators.length - 1; i >= 0; i--) { var keys = placements[element.placement]; keys.splice(keys.indexOf(element.key), 1); var elementObject = this.fromElementDescriptor(element); var elementFinisherExtras = this.toElementFinisherExtras((0, decorators[i])(elementObject) || elementObject); element = elementFinisherExtras.element; this.addElementPlacement(element, placements); if (elementFinisherExtras.finisher) { finishers.push(elementFinisherExtras.finisher); } var newExtras = elementFinisherExtras.extras; if (newExtras) { for (var j = 0; j < newExtras.length; j++) { this.addElementPlacement(newExtras[j], placements); } extras.push.apply(extras, newExtras); } } return { element: element, finishers: finishers, extras: extras }; }, decorateConstructor: function (elements, decorators) { var finishers = []; for (var i = decorators.length - 1; i >= 0; i--) { var obj = this.fromClassDescriptor(elements); var elementsAndFinisher = this.toClassDescriptor((0, decorators[i])(obj) || obj); if (elementsAndFinisher.finisher !== undefined) { finishers.push(elementsAndFinisher.finisher); } if (elementsAndFinisher.elements !== undefined) { elements = elementsAndFinisher.elements; for (var j = 0; j < elements.length - 1; j++) { for (var k = j + 1; k < elements.length; k++) { if (elements[j].key === elements[k].key && elements[j].placement === elements[k].placement) { throw new TypeError("Duplicated element (" + elements[j].key + ")"); } } } } } return { elements: elements, finishers: finishers }; }, fromElementDescriptor: function (element) { var obj = { kind: element.kind, key: element.key, placement: element.placement, descriptor: element.descriptor }; var desc = { value: "Descriptor", configurable: true }; Object.defineProperty(obj, Symbol.toStringTag, desc); if (element.kind === "field") obj.initializer = element.initializer; return obj; }, toElementDescriptors: function (elementObjects) { if (elementObjects === undefined) return; return _toArray(elementObjects).map(function (elementObject) { var element = this.toElementDescriptor(elementObject); this.disallowProperty(elementObject, "finisher", "An element descriptor"); this.disallowProperty(elementObject, "extras", "An element descriptor"); return element; }, this); }, toElementDescriptor: function (elementObject) { var kind = String(elementObject.kind); if (kind !== "method" && kind !== "field") { throw new TypeError('An element descriptor\'s .kind property must be either "method" or' + ' "field", but a decorator created an element descriptor with' + ' .kind "' + kind + '"'); } var key = _toPropertyKey(elementObject.key); var placement = String(elementObject.placement); if (placement !== "static" && placement !== "prototype" && placement !== "own") { throw new TypeError('An element descriptor\'s .placement property must be one of "static",' + ' "prototype" or "own", but a decorator created an element descriptor' + ' with .placement "' + placement + '"'); } var descriptor = elementObject.descriptor; this.disallowProperty(elementObject, "elements", "An element descriptor"); var element = { kind: kind, key: key, placement: placement, descriptor: Object.assign({}, descriptor) }; if (kind !== "field") { this.disallowProperty(elementObject, "initializer", "A method descriptor"); } else { this.disallowProperty(descriptor, "get", "The property descriptor of a field descriptor"); this.disallowProperty(descriptor, "set", "The property descriptor of a field descriptor"); this.disallowProperty(descriptor, "value", "The property descriptor of a field descriptor"); element.initializer = elementObject.initializer; } return element; }, toElementFinisherExtras: function (elementObject) { var element = this.toElementDescriptor(elementObject); var finisher = _optionalCallableProperty(elementObject, "finisher"); var extras = this.toElementDescriptors(elementObject.extras); return { element: element, finisher: finisher, extras: extras }; }, fromClassDescriptor: function (elements) { var obj = { kind: "class", elements: elements.map(this.fromElementDescriptor, this) }; var desc = { value: "Descriptor", configurable: true }; Object.defineProperty(obj, Symbol.toStringTag, desc); return obj; }, toClassDescriptor: function (obj) { var kind = String(obj.kind); if (kind !== "class") { throw new TypeError('A class descriptor\'s .kind property must be "class", but a decorator' + ' created a class descriptor with .kind "' + kind + '"'); } this.disallowProperty(obj, "key", "A class descriptor"); this.disallowProperty(obj, "placement", "A class descriptor"); this.disallowProperty(obj, "descriptor", "A class descriptor"); this.disallowProperty(obj, "initializer", "A class descriptor"); this.disallowProperty(obj, "extras", "A class descriptor"); var finisher = _optionalCallableProperty(obj, "finisher"); var elements = this.toElementDescriptors(obj.elements); return { elements: elements, finisher: finisher }; }, runClassFinishers: function (constructor, finishers) { for (var i = 0; i < finishers.length; i++) { var newConstructor = (0, finishers[i])(constructor); if (newConstructor !== undefined) { if (typeof newConstructor !== "function") { throw new TypeError("Finishers must return a constructor."); } constructor = newConstructor; } } return constructor; }, disallowProperty: function (obj, name, objectType) { if (obj[name] !== undefined) { throw new TypeError(objectType + " can't have a ." + name + " property."); } } }; return api; }
-
-function _createElementDescriptor(def) { var key = _toPropertyKey(def.key); var descriptor; if (def.kind === "method") { descriptor = { value: def.value, writable: true, configurable: true, enumerable: false }; } else if (def.kind === "get") { descriptor = { get: def.value, configurable: true, enumerable: false }; } else if (def.kind === "set") { descriptor = { set: def.value, configurable: true, enumerable: false }; } else if (def.kind === "field") { descriptor = { configurable: true, writable: true, enumerable: true }; } var element = { kind: def.kind === "field" ? "field" : "method", key: key, placement: def.static ? "static" : def.kind === "field" ? "own" : "prototype", descriptor: descriptor }; if (def.decorators) element.decorators = def.decorators; if (def.kind === "field") element.initializer = def.value; return element; }
-
-function _coalesceGetterSetter(element, other) { if (element.descriptor.get !== undefined) { other.descriptor.get = element.descriptor.get; } else { other.descriptor.set = element.descriptor.set; } }
-
-function _coalesceClassElements(elements) { var newElements = []; var isSameElement = function (other) { return other.kind === "method" && other.key === element.key && other.placement === element.placement; }; for (var i = 0; i < elements.length; i++) { var element = elements[i]; var other; if (element.kind === "method" && (other = newElements.find(isSameElement))) { if (_isDataDescriptor(element.descriptor) || _isDataDescriptor(other.descriptor)) { if (_hasDecorators(element) || _hasDecorators(other)) { throw new ReferenceError("Duplicated methods (" + element.key + ") can't be decorated."); } other.descriptor = element.descriptor; } else { if (_hasDecorators(element)) { if (_hasDecorators(other)) { throw new ReferenceError("Decorators can't be placed on different accessors with for " + "the same property (" + element.key + ")."); } other.decorators = element.decorators; } _coalesceGetterSetter(element, other); } } else { newElements.push(element); } } return newElements; }
-
-function _hasDecorators(element) { return element.decorators && element.decorators.length; }
-
-function _isDataDescriptor(desc) { return desc !== undefined && !(desc.value === undefined && desc.writable === undefined); }
-
-function _optionalCallableProperty(obj, name) { var value = obj[name]; if (value !== undefined && typeof value !== "function") { throw new TypeError("Expected '" + name + "' to be a function"); } return value; }
-
-function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return typeof key === "symbol" ? key : String(key); }
-
-function _toPrimitive(input, hint) { if (typeof input !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (typeof res !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
-
-function _toArray(arr) { return _arrayWithHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableRest(); }
-
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
-
-function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter); }
-
-function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
-
-import { LitElement, html, css, property, customElement } from '../web_modules/lit-element.js';
-import { repeat } from '../web_modules/lit-html/directives/repeat.js';
-import { classMap } from '../web_modules/lit-html/directives/class-map.js';
-import "../web_modules/@material/mwc-checkbox.js";
-import "../web_modules/@material/mwc-icon-button.js";
-import './dismissable-item.js';
-import { style as listStyle } from './mwc-list-item-css.js';
-import { GroceryStore } from './grocery-store.js';
-export let GroceryItem = _decorate([customElement('grocery-item')], function (_initialize, _LitElement) {
-  class GroceryItem extends _LitElement {
-    constructor(...args) {
-      super(...args);
-
-      _initialize(this);
-    }
-
-  }
-
-  return {
-    F: GroceryItem,
-    d: [{
-      kind: "field",
-      static: true,
-      key: "styles",
-
-      value() {
-        return [listStyle, css`
+function m(n,e,t,i){var r=v();if(i)for(var o=0;o<i.length;o++)r=i[o](r);var s=e(function(c){r.initializeInstanceElements(c,a.elements)},t),a=r.decorateClass(S(s.d.map(I)),n);return r.initializeClassElements(s.F,a.elements),r.runClassFinishers(s.F,a.finishers)}function v(){v=function(){return n};var n={elementsDefinitionOrder:[["method"],["field"]],initializeInstanceElements:function(e,t){["method","field"].forEach(function(i){t.forEach(function(r){r.kind===i&&r.placement==="own"&&this.defineClassElement(e,r)},this)},this)},initializeClassElements:function(e,t){var i=e.prototype;["method","field"].forEach(function(r){t.forEach(function(o){var s=o.placement;if(o.kind===r&&(s==="static"||s==="prototype")){var a=s==="static"?e:i;this.defineClassElement(a,o)}},this)},this)},defineClassElement:function(e,t){var i=t.descriptor;if(t.kind==="field"){var r=t.initializer;i={enumerable:i.enumerable,writable:i.writable,configurable:i.configurable,value:r===void 0?void 0:r.call(e)}}Object.defineProperty(e,t.key,i)},decorateClass:function(e,t){var i=[],r=[],o={static:[],prototype:[],own:[]};if(e.forEach(function(a){this.addElementPlacement(a,o)},this),e.forEach(function(a){if(!d(a))return i.push(a);var l=this.decorateElement(a,o);i.push(l.element),i.push.apply(i,l.extras),r.push.apply(r,l.finishers)},this),!t)return{elements:i,finishers:r};var s=this.decorateConstructor(i,t);return r.push.apply(r,s.finishers),s.finishers=r,s},addElementPlacement:function(e,t,i){var r=t[e.placement];if(!i&&r.indexOf(e.key)!==-1)throw new TypeError("Duplicated element ("+e.key+")");r.push(e.key)},decorateElement:function(e,t){for(var i=[],r=[],o=e.decorators,s=o.length-1;s>=0;s--){var a=t[e.placement];a.splice(a.indexOf(e.key),1);var l=this.fromElementDescriptor(e),c=this.toElementFinisherExtras((0,o[s])(l)||l);e=c.element,this.addElementPlacement(e,t),c.finisher&&r.push(c.finisher);var u=c.extras;if(u){for(var f=0;f<u.length;f++)this.addElementPlacement(u[f],t);i.push.apply(i,u)}}return{element:e,finishers:r,extras:i}},decorateConstructor:function(e,t){for(var i=[],r=t.length-1;r>=0;r--){var o=this.fromClassDescriptor(e),s=this.toClassDescriptor((0,t[r])(o)||o);if(s.finisher!==void 0&&i.push(s.finisher),s.elements!==void 0){e=s.elements;for(var a=0;a<e.length-1;a++)for(var l=a+1;l<e.length;l++)if(e[a].key===e[l].key&&e[a].placement===e[l].placement)throw new TypeError("Duplicated element ("+e[a].key+")")}}return{elements:e,finishers:i}},fromElementDescriptor:function(e){var t={kind:e.kind,key:e.key,placement:e.placement,descriptor:e.descriptor},i={value:"Descriptor",configurable:!0};return Object.defineProperty(t,Symbol.toStringTag,i),e.kind==="field"&&(t.initializer=e.initializer),t},toElementDescriptors:function(e){return e===void 0?void 0:T(e).map(function(t){var i=this.toElementDescriptor(t);return this.disallowProperty(t,"finisher","An element descriptor"),this.disallowProperty(t,"extras","An element descriptor"),i},this)},toElementDescriptor:function(e){var t=String(e.kind);if(t!=="method"&&t!=="field")throw new TypeError(`An element descriptor's .kind property must be either "method" or "field", but a decorator created an element descriptor with .kind "`+t+'"');var i=k(e.key),r=String(e.placement);if(r!=="static"&&r!=="prototype"&&r!=="own")throw new TypeError(`An element descriptor's .placement property must be one of "static", "prototype" or "own", but a decorator created an element descriptor with .placement "`+r+'"');var o=e.descriptor;this.disallowProperty(e,"elements","An element descriptor");var s={kind:t,key:i,placement:r,descriptor:Object.assign({},o)};return t!=="field"?this.disallowProperty(e,"initializer","A method descriptor"):(this.disallowProperty(o,"get","The property descriptor of a field descriptor"),this.disallowProperty(o,"set","The property descriptor of a field descriptor"),this.disallowProperty(o,"value","The property descriptor of a field descriptor"),s.initializer=e.initializer),s},toElementFinisherExtras:function(e){var t=this.toElementDescriptor(e),i=g(e,"finisher"),r=this.toElementDescriptors(e.extras);return{element:t,finisher:i,extras:r}},fromClassDescriptor:function(e){var t={kind:"class",elements:e.map(this.fromElementDescriptor,this)},i={value:"Descriptor",configurable:!0};return Object.defineProperty(t,Symbol.toStringTag,i),t},toClassDescriptor:function(e){var t=String(e.kind);if(t!=="class")throw new TypeError(`A class descriptor's .kind property must be "class", but a decorator created a class descriptor with .kind "`+t+'"');this.disallowProperty(e,"key","A class descriptor"),this.disallowProperty(e,"placement","A class descriptor"),this.disallowProperty(e,"descriptor","A class descriptor"),this.disallowProperty(e,"initializer","A class descriptor"),this.disallowProperty(e,"extras","A class descriptor");var i=g(e,"finisher"),r=this.toElementDescriptors(e.elements);return{elements:r,finisher:i}},runClassFinishers:function(e,t){for(var i=0;i<t.length;i++){var r=(0,t[i])(e);if(r!==void 0){if(typeof r!="function")throw new TypeError("Finishers must return a constructor.");e=r}}return e},disallowProperty:function(e,t,i){if(e[t]!==void 0)throw new TypeError(i+" can't have a ."+t+" property.")}};return n}function I(n){var e=k(n.key),t;n.kind==="method"?t={value:n.value,writable:!0,configurable:!0,enumerable:!1}:n.kind==="get"?t={get:n.value,configurable:!0,enumerable:!1}:n.kind==="set"?t={set:n.value,configurable:!0,enumerable:!1}:n.kind==="field"&&(t={configurable:!0,writable:!0,enumerable:!0});var i={kind:n.kind==="field"?"field":"method",key:e,placement:n.static?"static":n.kind==="field"?"own":"prototype",descriptor:t};return n.decorators&&(i.decorators=n.decorators),n.kind==="field"&&(i.initializer=n.value),i}function A(n,e){n.descriptor.get!==void 0?e.descriptor.get=n.descriptor.get:e.descriptor.set=n.descriptor.set}function S(n){for(var e=[],t=function(s){return s.kind==="method"&&s.key===r.key&&s.placement===r.placement},i=0;i<n.length;i++){var r=n[i],o;if(r.kind==="method"&&(o=e.find(t)))if(y(r.descriptor)||y(o.descriptor)){if(d(r)||d(o))throw new ReferenceError("Duplicated methods ("+r.key+") can't be decorated.");o.descriptor=r.descriptor}else{if(d(r)){if(d(o))throw new ReferenceError("Decorators can't be placed on different accessors with for the same property ("+r.key+").");o.decorators=r.decorators}A(r,o)}else e.push(r)}return e}function d(n){return n.decorators&&n.decorators.length}function y(n){return n!==void 0&&!(n.value===void 0&&n.writable===void 0)}function g(n,e){var t=n[e];if(t!==void 0&&typeof t!="function")throw new TypeError("Expected '"+e+"' to be a function");return t}function k(n){var e=$(n,"string");return typeof e=="symbol"?e:String(e)}function $(n,e){if(typeof n!="object"||n===null)return n;var t=n[Symbol.toPrimitive];if(t!==void 0){var i=t.call(n,e||"default");if(typeof i!="object")return i;throw new TypeError("@@toPrimitive must return a primitive value.")}return(e==="string"?String:Number)(n)}function T(n){return G(n)||L(n)||z(n)||C()}function C(){throw new TypeError(`Invalid attempt to destructure non-iterable instance.
+In order to be iterable, non-array objects must have a [Symbol.iterator]() method.`)}function z(n,e){if(!n)return;if(typeof n=="string")return w(n,e);var t=Object.prototype.toString.call(n).slice(8,-1);if(t==="Object"&&n.constructor&&(t=n.constructor.name),t==="Map"||t==="Set")return Array.from(n);if(t==="Arguments"||/^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t))return w(n,e)}function w(n,e){(e==null||e>n.length)&&(e=n.length);for(var t=0,i=new Array(e);t<e;t++)i[t]=n[t];return i}function L(n){if(typeof Symbol!="undefined"&&Symbol.iterator in Object(n))return Array.from(n)}function G(n){if(Array.isArray(n))return n}import{LitElement as b,html as p,css as _,property as h,customElement as E}from"../web_modules/lit-element.js";import{repeat as D}from"../web_modules/lit-html/directives/repeat.js";import{classMap as x}from"../web_modules/lit-html/directives/class-map.js";import"../web_modules/@material/mwc-checkbox.js";import"../web_modules/@material/mwc-icon-button.js";import"./dismissable-item.js";import{style as P}from"./mwc-list-item-css.js";import{GroceryStore as M}from"./grocery-store.js";export let GroceryItem=m([E("grocery-item")],function(n,e){class t extends e{constructor(...i){super(...i);n(this)}}return{F:t,d:[{kind:"field",static:!0,key:"styles",value(){return[P,_`
       mwc-icon-button {
         display: none;
       }
@@ -85,47 +28,7 @@ export let GroceryItem = _decorate([customElement('grocery-item')], function (_i
       div {
         background-color: #E53935;
       }
-    `];
-      }
-
-    }, {
-      kind: "field",
-      decorators: [property()],
-      key: "label",
-      value: void 0
-    }, {
-      kind: "field",
-      decorators: [property()],
-      key: "sublabel",
-      value: void 0
-    }, {
-      kind: "field",
-      decorators: [property({
-        type: Boolean
-      })],
-      key: "checked",
-      value: void 0
-    }, {
-      kind: "method",
-      key: "onchange",
-      value: function onchange(ev) {
-        this.dispatchEvent(new CustomEvent('change', {
-          detail: {
-            checked: ev.target.checked
-          }
-        }));
-      }
-    }, {
-      kind: "method",
-      key: "onremove",
-      value: function onremove(ev) {
-        this.dispatchEvent(new Event('remove'));
-      }
-    }, {
-      kind: "method",
-      key: "render",
-      value: function render() {
-        return html`
+    `]}},{kind:"field",decorators:[h()],key:"label",value:void 0},{kind:"field",decorators:[h()],key:"sublabel",value:void 0},{kind:"field",decorators:[h({type:Boolean})],key:"checked",value:void 0},{kind:"method",key:"onchange",value:function(r){this.dispatchEvent(new CustomEvent("change",{detail:{checked:r.target.checked}}))}},{kind:"method",key:"onremove",value:function(r){this.dispatchEvent(new Event("remove"))}},{kind:"method",key:"render",value:function(){return p`
       <div>
         <dismissable-item @remove=${this.onremove} role="listitem" class="mdc-list-item">
           <mwc-checkbox @change=${this.onchange} ?checked=${this.checked}></mwc-checkbox>
@@ -139,54 +42,7 @@ export let GroceryItem = _decorate([customElement('grocery-item')], function (_i
           </mwc-icon-button>
         </dismissable-item>
       </div>
-    `;
-      }
-    }]
-  };
-}, LitElement);
-export let GroceriesList = _decorate([customElement('groceries-list')], function (_initialize2, _LitElement2) {
-  class GroceriesList extends _LitElement2 {
-    constructor() {
-      super();
-
-      _initialize2(this);
-
-      const onchange = async () => {
-        let first = true;
-
-        for await (let entry of this._store.entries()) {
-          if (first) {
-            this._doneItems = [];
-            this._pendingItems = [];
-            first = false;
-          }
-
-          if (entry.done) {
-            this._doneItems.push(entry);
-          } else {
-            this._pendingItems.push(entry);
-          }
-        }
-
-        await this.requestUpdate();
-      };
-
-      this._store.addEventListener('change', onchange);
-
-      onchange();
-    }
-
-  }
-
-  return {
-    F: GroceriesList,
-    d: [{
-      kind: "field",
-      static: true,
-      key: "styles",
-
-      value() {
-        return [listStyle, css`
+    `}}]}},b),GroceriesList=m([E("groceries-list")],function(n,e){class t extends e{constructor(){super();n(this);const i=async()=>{let r=!0;for await(let o of this._store.entries())r&&(this._doneItems=[],this._pendingItems=[],r=!1),o.done?this._doneItems.push(o):this._pendingItems.push(o);await this.requestUpdate()};this._store.addEventListener("change",i),i()}}return{F:t,d:[{kind:"field",static:!0,key:"styles",value(){return[P,_`
     :host {
       width: 100%;
       background-color: yellow;
@@ -215,68 +71,9 @@ export let GroceriesList = _decorate([customElement('groceries-list')], function
     .hidden {
       display: none;
     }
-  `];
-      }
-
-    }, {
-      kind: "field",
-      key: "_store",
-
-      value() {
-        return new GroceryStore();
-      }
-
-    }, {
-      kind: "field",
-      key: "_pendingItems",
-
-      value() {
-        return null;
-      }
-
-    }, {
-      kind: "field",
-      key: "_doneItems",
-
-      value() {
-        return null;
-      }
-
-    }, {
-      kind: "method",
-      key: "_onchange",
-      value: function _onchange(ev) {
-        ev.stopPropagation();
-
-        this._store.change(ev.target.label, ev.detail.checked);
-      }
-    }, {
-      kind: "method",
-      key: "_onremove",
-      value: function _onremove(ev) {
-        this._store.remove(ev.target.label);
-      }
-    }, {
-      kind: "method",
-      key: "_isAllDone",
-      value: function _isAllDone() {
-        return this._pendingItems !== null && !this._pendingItems.length;
-      }
-    }, {
-      kind: "method",
-      key: "_hasDoneItems",
-      value: function _hasDoneItems() {
-        return this._doneItems && this._doneItems.length;
-      }
-    }, {
-      kind: "method",
-      key: "render",
-      value: function render() {
-        return html`
+  `]}},{kind:"field",key:"_store",value(){return new M}},{kind:"field",key:"_pendingItems",value(){return null}},{kind:"field",key:"_doneItems",value(){return null}},{kind:"method",key:"_onchange",value:function(r){r.stopPropagation(),this._store.change(r.target.label,r.detail.checked)}},{kind:"method",key:"_onremove",value:function(r){this._store.remove(r.target.label)}},{kind:"method",key:"_isAllDone",value:function(){return this._pendingItems!==null&&!this._pendingItems.length}},{kind:"method",key:"_hasDoneItems",value:function(){return this._doneItems&&this._doneItems.length}},{kind:"method",key:"render",value:function(){return p`
       <div role="list" class="mdc-list mdc-list--two-line">
-        <div class="alldone ${classMap({
-          hidden: !this._isAllDone()
-        })}">
+        <div class="alldone ${x({hidden:!this._isAllDone()})}">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
             <path fill="none" d="M0 0h24v24H0V0z"/>
             <path d="M18 7l-1.41-1.41-6.34 6.34 1.41 1.41L18
@@ -289,35 +86,25 @@ export let GroceriesList = _decorate([customElement('groceries-list')], function
         </div>
       </div>
       <div role="list" class="mdc-list mdc-list--two-line">
-        ${this._pendingItems && repeat(this._pendingItems, v => v.name, v => {
-          return html`
+        ${this._pendingItems&&D(this._pendingItems,r=>r.name,r=>p`
             <grocery-item
-              .label=${v.name}
-              .sublabel=${v.note}
+              .label=${r.name}
+              .sublabel=${r.note}
               @change=${this._onchange}
               @remove=${this._onremove}>
             </grocery-item>
-          `;
-        })}
+          `)}
       </div>
-      <hr class=${classMap({
-          hidden: !this._hasDoneItems()
-        })}>
+      <hr class=${x({hidden:!this._hasDoneItems()})}>
       <div role="list" class="mdc-list mdc-list--two-line">
-        ${this._doneItems && repeat(this._doneItems, v => v.name, v => {
-          return html`
+        ${this._doneItems&&D(this._doneItems,r=>r.name,r=>p`
             <grocery-item
-              .label=${v.name}
-              .sublabel=${v.note}
+              .label=${r.name}
+              .sublabel=${r.note}
               checked
               @change=${this._onchange}
               @remove=${this._onremove}>
             </grocery-item>
-          `;
-        })}
+          `)}
       </div>
-    `;
-      }
-    }]
-  };
-}, LitElement);
+    `}}]}},b);
