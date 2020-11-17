@@ -30,7 +30,7 @@ const ndefReader = new class extends EventTarget {
       if (this.#ignoreRead) {
         return;
       }
-      this.dispatchEvent(new Event(ev.type, ev));
+      this.dispatchEvent(new NDEFReadingEvent(ev.type, ev));
     });
   }
 
@@ -376,12 +376,16 @@ export class MainApplication extends LitElement {
     }
   }
 
-  async _scanOperation() {
+  async _scanOperation(force) {
     if (!window.NDEFReader) {
       this._snackbar.labelText = "NFC is not supported; try enabling in about:flags";
       this._actionBtn.textContent = "";
       this._snackbar.show();
       return;
+    }
+
+    if (force) {
+      this._permissionToggle.on = true;
     }
 
     try {
@@ -391,10 +395,7 @@ export class MainApplication extends LitElement {
         this._actionBtn.textContent = "";
         this._snackbar.show();
       } else {
-        const controller = new AbortController();
-        // New invocation of scan() will cancel previous scan().
-        await ndefReader.scan({ signal: controller.signal });
-        controller.abort();
+        ndefReader.stop();
         this._snackbar.labelText = "NFC tags scan operation is disabled.";
         this._actionBtn.textContent = "";
         this._snackbar.show();
@@ -413,7 +414,7 @@ export class MainApplication extends LitElement {
 
   render() {
     return html`
-      <onboarding-wizard @prompt=${() => this._scanOperation()}></onboarding-wizard>
+      <onboarding-wizard @prompt=${() => this._scanOperation(true)}></onboarding-wizard>
       <mwc-drawer hasHeader type=modal>
         <span slot="title">Web NFC Grocery Demo</span>
         <span slot="subtitle">A demonstration of Web NFC</span>
@@ -424,7 +425,7 @@ export class MainApplication extends LitElement {
           <mwc-top-app-bar>
             <mwc-icon-button slot="navigationIcon" icon="menu"></mwc-icon-button>
             <div slot="title">Groceries list</div>
-            <mwc-icon-button-toggle slot="actionItems" id="permissionToggle" @click=${() => this._scanOperation()}>
+            <mwc-icon-button-toggle slot="actionItems" id="permissionToggle" @MDCIconButtonToggle:change=${ev => this._scanOperation(ev.isOn)}>
               <svg slot="onIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="permission-on">
                 <path fill="none" d="M0 0h24v24H0V0z"/>
                 <path d="M20,2L4,2c-1.1,0 -2,0.9 -2,2v16c0,1.1 0.9,2 2,2h16c1.1,0 2,-0.9 2,-2L22,4c0,-1.1 -0.9,-2 -2,-2zM20,20L4,20L4,4h16v16zM18,6h-5c-1.1,0 -2,0.9 -2,2v2.28c-0.6,0.35 -1,0.98 -1,1.72 0,1.1 0.9,2 2,2s2,-0.9 2,-2c0,-0.74 -0.4,-1.38 -1,-1.72L13,8h3v8L8,16L8,8h2L10,6L6,6v12h12L18,6z"/>
