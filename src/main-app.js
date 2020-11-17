@@ -30,7 +30,7 @@ const ndefReader = new class extends EventTarget {
       if (this.#ignoreRead) {
         return;
       }
-      this.dispatchEvent(ev);
+      this.dispatchEvent(new Event(ev.type, ev));
     });
   }
 
@@ -350,10 +350,14 @@ export class MainApplication extends LitElement {
         if (permission.state == 'denied') {
           this._permissionToggle.on = false;
         }
+        if (permission.state == 'prompt') {
+          this._wizard.open();
+        }
       });
     }).catch(err => {
-      console.error("Reading NFC tags is not supported");
-      this._wizard.open();
+      this._snackbar.labelText = "NFC is not supported; try enabling in about:flags";
+      this._actionBtn.textContent = "";
+      this._snackbar.show();
     });
 
     if ('serviceWorker' in navigator) {
