@@ -338,12 +338,8 @@ export class MainApplication extends LitElement {
       }
     });
     navigator.permissions.query({ name: 'nfc' }).then(async permission => {
-      if (permission.state == "granted") {
-        ndefReader.scan();
-        this._permissionToggle.on = true;
-      }
-      permission.addEventListener('change', () => {
-        console.log("perm", permission.state);
+      const applyPermission = () => {
+        console.log("permission state", permission.state);
 
         if (permission.state === "granted") {
           ndefReader.scan();
@@ -355,7 +351,9 @@ export class MainApplication extends LitElement {
         else if (permission.state === 'prompt') {
           this._wizard.open();
         }
-      });
+      }
+      applyPermission();
+      permission.addEventListener('change', applyPermission);
     }).catch(err => {
       this._snackbar.labelText = "NFC is not supported; try enabling in about:flags";
       this._actionBtn.textContent = "";
@@ -425,7 +423,7 @@ export class MainApplication extends LitElement {
           <mwc-top-app-bar>
             <mwc-icon-button slot="navigationIcon" icon="menu"></mwc-icon-button>
             <div slot="title">Groceries list</div>
-            <mwc-icon-button-toggle slot="actionItems" id="permissionToggle" @MDCIconButtonToggle:change=${ev => this._toggleScan(ev.isOn)}>
+            <mwc-icon-button-toggle slot="actionItems" id="permissionToggle" @MDCIconButtonToggle:change=${ev => this._toggleScan(ev.detail.isOn)}>
               <svg slot="onIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="permission-on">
                 <path fill="none" d="M0 0h24v24H0V0z"/>
                 <path d="M20,2L4,2c-1.1,0 -2,0.9 -2,2v16c0,1.1 0.9,2 2,2h16c1.1,0 2,-0.9 2,-2L22,4c0,-1.1 -0.9,-2 -2,-2zM20,20L4,20L4,4h16v16zM18,6h-5c-1.1,0 -2,0.9 -2,2v2.28c-0.6,0.35 -1,0.98 -1,1.72 0,1.1 0.9,2 2,2s2,-0.9 2,-2c0,-0.74 -0.4,-1.38 -1,-1.72L13,8h3v8L8,16L8,8h2L10,6L6,6v12h12L18,6z"/>
