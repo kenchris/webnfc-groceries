@@ -18,6 +18,44 @@ import { GroceryStore } from './grocery-store.js';
 
 import { Workbox } from 'workbox-window';
 
+const ndefReader = new class extends EventTarget {
+  #reader = window.NDEFReader ? new NDEFReader() : new EventTarget();
+  #ignoreRead = false;
+  #controller = null;
+
+  constructor() {
+    super();
+
+    this.#reader.addEventListener("reading", ev => {
+      if (this.#ignoreRead) {
+        return;
+      }
+      this.dispatchEvent(ev);
+    });
+  }
+
+  async write(ndef, options) {
+    this.#ignoreRead = true;
+    const writer = new NDEFWriter();
+    await writer.write(ndef, options);
+    this.#ignoreRead = false;
+  }
+
+  scan() {
+    if (!this.#controller) {
+      this.#controller = new AbortController();
+      this.#reader.scan({ signal: this.#controller.signal });
+    }
+  }
+
+  stop() {
+    if (this.#controller) {
+      this.#controller.abort();
+      this.#controller = null;
+    }
+  }
+}
+
 @customElement('onboarding-wizard')
 export class OnboardingWizard extends LitElement {
 
@@ -108,8 +146,6 @@ export class AddDialog extends LitElement {
       this._product.value = "";
       this._description.value = "";
 
-      console.log(product, !product, product === "");
-
       if (product === "") {
         let options = [
           "Milk", "Cheese", "Beer", "Cocoa", "Candy",
@@ -154,13 +190,10 @@ export class AddDialog extends LitElement {
       this._actionBtn.textContent = "CANCEL";
       this._snackbar.show();
 
-      ndefReader.__ignoreRead__ = true;
-      const writer = new NDEFWriter();
-      await writer.write(ndef, {
+      await ndefReader.write(ndef, {
         overwrite: true,
         signal: controller.signal
       });
-      ndefReader.__ignoreRead__ = false;
 
       this._snackbar.close();
     } catch (err) {
@@ -239,9 +272,6 @@ export class AddDialog extends LitElement {
   }
 }
 
-const ndefReader = window.NDEFReader ? new NDEFReader() : new EventTarget();
-ndefReader.__ignoreRead__ = false;
-
 @customElement('main-app')
 export class MainApplication extends LitElement {
   _store = new GroceryStore;
@@ -299,10 +329,6 @@ export class MainApplication extends LitElement {
     });
 
     ndefReader.addEventListener("reading", ev => {
-      if (ndefReader.__ignoreRead__) {
-        return;
-      }
-
       const decoder = new TextDecoder();
       for (let record of ev.message.records) {
         const data = JSON.parse(decoder.decode(record.data));
@@ -313,12 +339,12 @@ export class MainApplication extends LitElement {
     });
     navigator.permissions.query({ name: 'nfc' }).then(async permission => {
       if (permission.state == "granted") {
-        ndefReader.scan({ recordType: "mime" });
+        ndefReader.scan();
         this._permissionToggle.on = true;
       }
       permission.addEventListener('change', () => {
         if (permission.state == "granted") {
-          ndefReader.scan({ recordType: "mime" });
+          ndefReader.scan();
           this._permissionToggle.on = true;
         }
         if (permission.state == 'denied') {
@@ -356,14 +382,14 @@ export class MainApplication extends LitElement {
 
     try {
       if (this._permissionToggle.on) {
-        await ndefReader.scan({ recordType: "mime" });
+        await ndefReader.scan();
         this._snackbar.labelText = "Add item or touch an NFC tag.";
         this._actionBtn.textContent = "";
         this._snackbar.show();
       } else {
         const controller = new AbortController();
         // New invocation of scan() will cancel previous scan().
-        await ndefReader.scan({ recordType: "mime", signal: controller.signal });
+        await ndefReader.scan({ signal: controller.signal });
         controller.abort();
         this._snackbar.labelText = "NFC tags scan operation is disabled.";
         this._actionBtn.textContent = "";
