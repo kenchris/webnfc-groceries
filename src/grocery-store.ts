@@ -1,6 +1,6 @@
 import { storage } from "kv-storage-polyfill/dist/kv-storage-polyfill.mjs";
 
-let singleton;
+let singleton: GroceryStore | null = null;
 
 export class GroceryStore extends EventTarget {
   constructor() {
@@ -11,9 +11,7 @@ export class GroceryStore extends EventTarget {
     return singleton;
   }
 
-  async set(name, note) {
-    const entry = await storage.get(name);
-
+  async set(name: string, note: string): Promise<void> {
     await storage.set(name, JSON.stringify({
       note: note,
       done: false
@@ -21,17 +19,17 @@ export class GroceryStore extends EventTarget {
     this.dispatchEvent(new Event("change"));
   }
 
-  async has(name) {
+  async has(name: string): Promise<boolean> {
     const entry = await storage.get(name);
     return !!entry;
   }
 
-  async remove(name) {
+  async remove(name: string): Promise<void> {
     await storage.delete(name);
     this.dispatchEvent(new Event("change"));
   }
 
-  async change(name, done) {
+  async change(name: string, done: boolean): Promise<void> {
     const entry = await storage.get(name);
     let json = JSON.parse(entry);
     json.done = done;

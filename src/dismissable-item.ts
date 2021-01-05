@@ -1,4 +1,5 @@
 import { LitElement, html, css, customElement } from 'lit-element';
+import { query } from 'lit-element/lib/decorators';
 import { style as listStyle } from './mwc-list-item-css';
 
 const kMinFlingVelocityValue = 0.4;
@@ -55,13 +56,11 @@ export class DismissableItem extends LitElement {
     `;
   }
 
-  firstUpdated() {
-    this.wrapper = this.shadowRoot.querySelector('#contentWrapper');
-  }
+  // @ts-ignore
+  @query('#contentWrapper') wrapper: HTMLElement;
 
-  tracker?: VelocityTracker = null;
-  wrapper?: HTMLElement = null;
-  scroller?: HTMLElement = null;
+  tracker: VelocityTracker | null = null;
+  scroller: HTMLElement | null = null;
   scrollerOverflow: string = '';
 
   position: number = 0;

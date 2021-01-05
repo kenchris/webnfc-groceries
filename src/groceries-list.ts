@@ -44,30 +44,30 @@ export class GroceryItem extends LitElement {
     `
   ];
 
-  @property() label;
-  @property() sublabel;
-  @property({type: Boolean}) checked;
+  @property() label: string = '';
+  @property() sublabel: string = '';
+  @property({type: Boolean}) checked: boolean = false;
 
-  onchange(ev) {
+  handleCheckboxChange(ev: Event) {
     this.dispatchEvent(new CustomEvent('change', { detail: { checked: ev.target.checked }}));
   }
 
-  onremove(ev) {
+  handleItemDismissal() {
     this.dispatchEvent(new Event('remove'));
   }
 
   render() {
     return html`
       <div>
-        <dismissable-item @remove=${this.onremove} role="listitem" class="mdc-list-item">
-          <mwc-checkbox @change=${this.onchange} ?checked=${this.checked}></mwc-checkbox>
+        <dismissable-item @remove=${this.handleItemDismissal} role="listitem" class="mdc-list-item">
+          <mwc-checkbox @change=${this.handleCheckboxChange} ?checked=${this.checked}></mwc-checkbox>
           <span class="mdc-list-item__text">
             ${this.label}
             <span class="mdc-list-item__secondary-text">${this.sublabel}</span>
           </span>
           <mwc-icon-button class="mdc-list-item__meta"
             aria-label="Delete item" title="Delete" icon="delete"
-            @click=${this.onremove} tabindex="-1">
+            @click=${this.handleItemDismissal} tabindex="-1">
           </mwc-icon-button>
         </dismissable-item>
       </div>
@@ -109,47 +109,47 @@ export class GroceriesList extends LitElement {
     }
   `];
 
-  _store = new GroceryStore;
-  _pendingItems = null;
-  _doneItems = null;
+  #store: GroceryStore = new GroceryStore;
+  #pendingItems: Array<any> = [];
+  #doneItems: Array<any> = [];
 
   constructor() {
     super();
     const onchange = async () => {
       let first = true;
-      for await (let entry of this._store.entries()) {
+      for await (let entry of this.#store.entries()) {
         if (first) {
-          this._doneItems = [];
-          this._pendingItems = [];
+          this.#doneItems = [];
+          this.#pendingItems = [];
           first = false;
         }
         if (entry.done) {
-          this._doneItems.push(entry);
+          this.#doneItems.push(entry);
         } else {
-          this._pendingItems.push(entry);
+          this.#pendingItems.push(entry);
         }
       }
       await this.requestUpdate();
     };
-    this._store.addEventListener('change', onchange);
+    this.#store.addEventListener('change', onchange);
     onchange();
   }
 
-  _onchange(ev) {
+  _onchange(ev: Event): void {
     ev.stopPropagation();
-    this._store.change(ev.target.label, ev.detail.checked);
+    this.#store.change(ev.target.label, ev.detail.checked);
   }
 
-  _onremove(ev) {
-    this._store.remove(ev.target.label);
+  _onremove(ev: Event): void {
+    this.#store.remove(ev.target.label);
   }
 
-  _isAllDone() {
-    return this._pendingItems !== null && !this._pendingItems.length;
+  _isAllDone(): boolean {
+    return !this.#pendingItems.length;
   }
 
-  _hasDoneItems() {
-    return this._doneItems && this._doneItems.length;
+  _hasDoneItems(): boolean {
+    return !!this.#doneItems.length;
   }
 
   render() {
@@ -168,7 +168,7 @@ export class GroceriesList extends LitElement {
         </div>
       </div>
       <div role="list" class="mdc-list mdc-list--two-line">
-        ${this._pendingItems && repeat(this._pendingItems, v => v.name, v => {
+        ${this.#pendingItems && repeat(this.#pendingItems, v => v.name, v => {
           return html`
             <grocery-item
               .label=${v.name}
@@ -181,7 +181,7 @@ export class GroceriesList extends LitElement {
       </div>
       <hr class=${classMap({hidden: !this._hasDoneItems()})}>
       <div role="list" class="mdc-list mdc-list--two-line">
-        ${this._doneItems && repeat(this._doneItems, v => v.name, v => {
+        ${this.#doneItems && repeat(this.#doneItems, v => v.name, v => {
           return html`
             <grocery-item
               .label=${v.name}
