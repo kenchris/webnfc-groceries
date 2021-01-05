@@ -1,12 +1,12 @@
 import { LitElement, html, css, property, customElement } from 'lit-element';
-import { repeat } from 'lit-html/directives/repeat.js';
-import { classMap } from 'lit-html/directives/class-map.js'
+import { repeat } from 'lit-html/directives/repeat';
+import { classMap } from 'lit-html/directives/class-map'
 import "@material/mwc-checkbox";
 import "@material/mwc-icon-button";
 
-import './dismissable-item.js';
-import { style as listStyle } from './mwc-list-item-css.js';
-import { GroceryStore } from './grocery-store.js';
+import './dismissable-item';
+import { style as listStyle } from './mwc-list-item-css';
+import { GroceryStore } from './grocery-store';
 
 @customElement('grocery-item')
 export class GroceryItem extends LitElement {

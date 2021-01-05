@@ -13,7 +13,7 @@ import "@material/mwc-snackbar";
 import "@material/mwc-dialog";
 import "@material/mwc-textfield";
 
-import "./groceries-list.js";
+import "./groceries-list";
 import { GroceryStore } from './grocery-store.js';
 
 import { Workbox } from 'workbox-window';

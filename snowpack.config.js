@@ -10,7 +10,7 @@ module.exports = {
   buildOptions: {
     out: "docs"
   },
-  plugins: ['@snowpack/plugin-optimize', '@snowpack/plugin-babel', '@snowpack/plugin-dotenv'],
+  plugins: ['@snowpack/plugin-optimize', '@snowpack/plugin-dotenv'],
   installOptions: {
     treeshake: false,
     rollup: {

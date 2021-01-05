@@ -15,8 +15,8 @@
     "lit-element": "./lit-element.js",
     "lit-element/lib/decorators": "./lit-element/lib/decorators.js",
     "lit-element/lit-element.js": "./lit-element/lit-element.js",
-    "lit-html/directives/class-map.js": "./lit-html/directives/class-map.js",
-    "lit-html/directives/repeat.js": "./lit-html/directives/repeat.js",
+    "lit-html/directives/class-map": "./lit-html/directives/class-map.js",
+    "lit-html/directives/repeat": "./lit-html/directives/repeat.js",
     "workbox-window": "./workbox-window.js"
   }
 }

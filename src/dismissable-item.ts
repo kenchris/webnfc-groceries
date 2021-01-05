@@ -1,30 +1,29 @@
 import { LitElement, html, css, customElement } from 'lit-element';
-import { style as listStyle } from './mwc-list-item-css.js';
+import { style as listStyle } from './mwc-list-item-css';
 
 const kMinFlingVelocityValue = 0.4;
 const kTouchSlopValue = 5;
 
 class VelocityTracker {
-  constructor() {
-    this._recentTouchMoves = [];
-    this._timeWindow = 50;
-  }
+  #history: Array<{ x: number, timeStamp: number }> = [];
+  #timeWindow: number = 50;
 
-  _pruneHistory(timeStamp) {
-    const index = this._recentTouchMoves.findIndex((touch) => {
-      return touch.timeStamp > timeStamp - this._timeWindow;
+  _pruneHistory(timeStamp: number) {
+    const index = this.#history.findIndex(touch => {
+      return touch.timeStamp > timeStamp - this.#timeWindow;
     });
-    this._recentTouchMoves.splice(0, index + 1);
+    this.#history.splice(0, index + 1);
   }
 
-  update(e) {
-    this._pruneHistory(e.timeStamp);
-    this._recentTouchMoves.push(e);
+  update(x: number, timeStamp: number) {
+    this._pruneHistory(timeStamp);
 
-    const oldestTouchMove = this._recentTouchMoves[0];
+    this.#history.push({ x, timeStamp });
 
-    const deltaX = e.clientX - oldestTouchMove.clientX;
-    const deltaT = e.timeStamp - oldestTouchMove.timeStamp;
+    const oldestTouchMove = this.#history[0];
+
+    const deltaX = x - oldestTouchMove.x;
+    const deltaT = timeStamp - oldestTouchMove.timeStamp;
 
     return {velocityX: (deltaT > 0) ? deltaX / deltaT : 0};
   }
@@ -60,14 +59,21 @@ export class DismissableItem extends LitElement {
     this.wrapper = this.shadowRoot.querySelector('#contentWrapper');
   }
 
+  tracker?: VelocityTracker = null;
+  wrapper?: HTMLElement = null;
+  scroller?: HTMLElement = null;
+  scrollerOverflow: string = '';
+
+  position: number = 0;
+  itemIndex: number = 0;
+  width: number = 0;
+  startX: number = 0;
+  startY: number = 0;
+  startPosition: number = 0;
+  state: string = 'initial';
+
   constructor() {
     super();
-
-    this.scroller = null;
-    this.position = 0;
-    this.itemIndex = 0;
-    this.width = 0;
-    this.state = 'initial';
     this.addEventListener('touchstart', this, {passive: true});
     this.addEventListener('touchmove', this, {passive: true});
     this.addEventListener('touchend', this, {passive: true});
@@ -80,46 +86,46 @@ export class DismissableItem extends LitElement {
     this.scroller = null;
   }
 
-  handleEvent(event) {
-    if (event.pointerType && event.pointerType !== 'touch') {
+  handleEvent(event: PointerEvent | TouchEvent) {
+    if ('pointerType' in event && event.pointerType !== 'touch') {
       return;
     }
 
     switch (event.type) {
       case 'pointerdown':
-        this._onPointerDown(event);
+        this._onPointerDown(event as PointerEvent);
         break;
       case 'pointermove':
-        if (event.pressure) {
-          this.setPointerCapture(event.pointerId);
-          this._onPointerPan(event);
+        if ((event as PointerEvent).pressure) {
+          this.setPointerCapture((event as PointerEvent).pointerId);
+          this._onPointerPan(event as PointerEvent, event.timeStamp);
         }
         break;
       case 'pointerup':
-        this.releasePointerCapture(event.pointerId);
-        this._onPointerUp(event);
+        this.releasePointerCapture((event as PointerEvent).pointerId);
+        this._onPointerUp(event as PointerEvent, event.timeStamp);
         break;
       case 'touchstart':
-        this._onPointerDown(event.changedTouches[0]);
+        this._onPointerDown((event as TouchEvent).changedTouches[0]);
         break;
       case 'touchmove':
-        this._onPointerPan(event.changedTouches[0]);
+        this._onPointerPan((event as TouchEvent).changedTouches[0], event.timeStamp);
         break;
       case 'touchend':
-        this._onPointerUp(event.changedTouches[0]);
+        this._onPointerUp((event as TouchEvent).changedTouches[0], event.timeStamp);
         break;
     }
   }
 
-  setPosition(position) {
+  setPosition(position: number): void {
     this.position = position;
     this.width = this.offsetWidth;
-    this.wrapper.style.opacity = (this.width - Math.abs(position)) / this.width;
+    this.wrapper.style.opacity = String((this.width - Math.abs(position)) / this.width);
     this.wrapper.style.transform = `translateX(${position}px)`;
   }
 
   _dismiss() {
-    this.style.opacity = 0;
+    this.style.opacity = '0';
 
     const currentHeight = getComputedStyle(this).height;
 
@@ -129,14 +135,14 @@ export class DismissableItem extends LitElement {
 
     collapseAnim.onfinish = () => {
       this.setPosition(0);
-      this.style.opacity = 1;
+      this.style.opacity = '1';
       const event = new CustomEvent(
         'remove', {detail: {itemIndex: this.itemIndex}, bubbles: true});
       this.dispatchEvent(event);
     }
   }
 
-  settle(targetPosition) {
+  settle(targetPosition: number): void {
     this.state = 'initial';
     if (targetPosition === this.position) {
       return;
@@ -150,7 +156,7 @@ export class DismissableItem extends LitElement {
             `translateX(${this.position}px)`,
             `translateX(${targetPosition}px)`
           ],
-          opacity: [this.wrapper.style.opacity, isDismiss ? 0 : 1]
+          opacity: [parseFloat(this.wrapper.style.opacity), isDismiss ? 0 : 1]
         },
         {
           duration: Math.abs(targetPosition - this.position) * 0.5,
@@ -162,7 +168,7 @@ export class DismissableItem extends LitElement {
         isDismiss ? this._dismiss() : this.setPosition(0);
   }
 
-  fling(velocityX) {
+  fling(velocityX: number): void {
     this.state = 'initial';
     const targetPosition = velocityX < 0 ? -this.width : this.width;
 
@@ -172,7 +178,7 @@ export class DismissableItem extends LitElement {
             `translateX(${this.position}px)`,
             `translateX(${targetPosition}px)`
           ],
-          opacity: [this.wrapper.style.opacity, 0]
+          opacity: [parseFloat(this.wrapper.style.opacity), 0]
         },
         {
           duration:
@@ -194,14 +200,14 @@ export class DismissableItem extends LitElement {
     }
   }
 
-  _onPointerDown(change) {
+  _onPointerDown(change: PointerEvent | Touch): void {
     this.state = 'initial';
     this.startX = change.clientX;
     this.startY = change.clientY;
     this.startPosition = 0;
   }
 
-  _onPointerPan(change) {
+  _onPointerPan(change: PointerEvent | Touch, timeStamp: number): void {
     if (this.state == 'initial') {
       const deltaX = change.clientX - this.startX;
       const deltaY = change.clientY - this.startY;
@@ -220,26 +226,26 @@ export class DismissableItem extends LitElement {
 
       this.state = 'dragging';
       if (!this.scroller) {
-        this.scroller = this.offsetParent;
-        this._scrollerOverflow = this.scroller.style.overflow;
+        this.scroller = this.offsetParent as HTMLElement;
+        this.scrollerOverflow = this.scroller.style.overflow;
       }
       this.scroller.style.overflow = 'hidden';
     }
 
     if (this.state == 'dragging') {
-      this._tracker = this._tracker || new VelocityTracker();
-      this._tracker.update(change);
+      this.tracker = this.tracker || new VelocityTracker();
+      this.tracker.update(change.clientX, timeStamp);
 
       const deltaX = change.clientX - this.startX;
       this.setPosition(this.startPosition + deltaX);
     }
   }
 
-  _onPointerUp(change) {
+  _onPointerUp(change: PointerEvent | Touch, timeStamp: number) {
     if (this.state == 'dragging') {
-      this.scroller.style.overflow = this._scrollerOverflow;
-      const velocity = this._tracker.update(change).velocityX;
-      this._tracker = null;
+      this.scroller.style.overflow = this.scrollerOverflow;
+      const velocity = this.tracker.update(change.clientX, timeStamp).velocityX;
+      this.tracker = null;
       if (Math.abs(velocity) > kMinFlingVelocityValue) {
         this.fling(velocity);
       } else {
