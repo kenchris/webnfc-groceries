@@ -36,8 +36,8 @@ const ndefReader = new class extends EventTarget {
 
   async write(ndef, options) {
     this.#ignoreRead = true;
-    if (#reader.write) {
-      await #reader.write(ndef, options);
+    if (this.#reader.write) {
+      await this.#reader.write(ndef, options);
     } else {
       const writer = new NDEFWriter();
       await writer.write(ndef, options);
