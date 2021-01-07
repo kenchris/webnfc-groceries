@@ -116,13 +116,9 @@ export class GroceriesList extends LitElement {
   constructor() {
     super();
     const onchange = async () => {
-      let first = true;
+      this.#doneItems = [];
+      this.#pendingItems = [];
       for await (let entry of this.#store.entries()) {
-        if (first) {
-          this.#doneItems = [];
-          this.#pendingItems = [];
-          first = false;
-        }
         if (entry.done) {
           this.#doneItems.push(entry);
         } else {
