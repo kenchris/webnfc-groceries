@@ -35,7 +35,6 @@
     "@material/mwc-textfield": "^0.19.1",
     "@material/mwc-top-app-bar": "^0.19.1",
     "@snowpack/plugin-optimize": "^0.2.9",
-    "kv-storage-polyfill": "^1.1.0",
     "lit-element": "^2.4.0",
     "workbox-build": "^4.3.1",
     "workbox-window": "^4.3.1"

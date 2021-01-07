@@ -11,7 +11,6 @@
     "@material/mwc-snackbar": "./@material/mwc-snackbar.js",
     "@material/mwc-textfield": "./@material/mwc-textfield.js",
     "@material/mwc-top-app-bar": "./@material/mwc-top-app-bar.js",
-    "kv-storage-polyfill/dist/kv-storage-polyfill.mjs": "./kv-storage-polyfill/dist/kv-storage-polyfill.js",
     "lit-element": "./lit-element.js",
     "lit-element/lib/decorators": "./lit-element/lib/decorators.js",
     "lit-element/lit-element.js": "./lit-element/lit-element.js",

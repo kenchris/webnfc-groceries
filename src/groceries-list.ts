@@ -6,7 +6,7 @@ import "@material/mwc-icon-button";
 
 import './dismissable-item';
 import { style as listStyle } from './mwc-list-item-css';
-import { GroceryStore } from './grocery-store';
+import { JSONStore } from './grocery-store';
 
 @customElement('grocery-item')
 export class GroceryItem extends LitElement {
@@ -109,7 +109,7 @@ export class GroceriesList extends LitElement {
     }
   `];
 
-  #store: GroceryStore = new GroceryStore;
+  #store: JSONStore = new JSONStore;
   #pendingItems: Array<any> = [];
   #doneItems: Array<any> = [];
 
@@ -131,9 +131,15 @@ export class GroceriesList extends LitElement {
     onchange();
   }
 
-  _onchange(ev: Event): void {
+  async _onchange(ev: Event): Promise<void> {
     ev.stopPropagation();
-    this.#store.change(ev.target.label, ev.detail.checked);
+    const key = ev.target.label;
+    const checked = ev.detail.checked;
+
+    const entry = await this.#store.get(key);
+    entry.done = checked;
+
+    this.#store.set(key, entry);
   }
 
   _onremove(ev: Event): void {

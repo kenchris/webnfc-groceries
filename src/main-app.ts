@@ -14,7 +14,7 @@ import "@material/mwc-dialog";
 import "@material/mwc-textfield";
 
 import "./groceries-list";
-import { GroceryStore } from './grocery-store.js';
+import { JSONStore } from './grocery-store.js';
 
 import { Workbox } from 'workbox-window';
 
@@ -127,7 +127,7 @@ export class OnboardingWizard extends LitElement {
 
 @customElement('add-dialog')
 export class AddDialog extends LitElement {
-  _store = new GroceryStore;
+  #store = new JSONStore;
 
   @query('mwc-dialog') _dialog;
   @query('mwc-checkbox') _checkbox;
@@ -167,7 +167,7 @@ export class AddDialog extends LitElement {
       if (writeToNFC) {
         this._writeToNFC(product, desc);
       } else {
-        this._store.set(product, desc);
+        this.#store.set(product, { note: desc, done: false });
       }
     });
   }
@@ -278,7 +278,7 @@ export class AddDialog extends LitElement {
 
 @customElement('main-app')
 export class MainApplication extends LitElement {
-  _store = new GroceryStore;
+  #store = new JSONStore;
 
   static styles = css`
     .drawer-content {
@@ -337,7 +337,7 @@ export class MainApplication extends LitElement {
       for (let record of ev.message.records) {
         const data = JSON.parse(decoder.decode(record.data));
         if (data.product) {
-          this._store.set(data.product, data.description);
+          this.#store.set(data.product, { note: data.description, done: false });
         }
       }
     });

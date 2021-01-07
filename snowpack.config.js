@@ -34,7 +34,6 @@ module.exports = {
     "@material/mwc-snackbar",
     "@material/mwc-textfield",
     "@material/mwc-top-app-bar",
-    "kv-storage-polyfill",
     "lit-element",
     "lit-html"
   ]

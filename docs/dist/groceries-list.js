@@ -1,4 +1,4 @@
-var v=Object.defineProperty,u=Object.getOwnPropertyDescriptor,i=(e,t,r,l)=>{for(var s=l>1?void 0:l?u(t,r):t,n=e.length-1,a;n>=0;n--)(a=e[n])&&(s=(l?a(t,r,s):a(s))||s);return l&&s&&v(t,r,s),s};import{LitElement as h,html as o,css as m,property as c,customElement as d}from"../web_modules/lit-element.js";import{repeat as p}from"../web_modules/lit-html/directives/repeat.js";import{classMap as b}from"../web_modules/lit-html/directives/class-map.js";import"../web_modules/@material/mwc-checkbox.js";import"../web_modules/@material/mwc-icon-button.js";import"./dismissable-item.js";import{style as g}from"./mwc-list-item-css.js";import{GroceryStore as w}from"./grocery-store.js";export let GroceryItem=class extends h{constructor(){super(...arguments);this.label="",this.sublabel="",this.checked=!1}handleCheckboxChange(e){this.dispatchEvent(new CustomEvent("change",{detail:{checked:e.target.checked}}))}handleItemDismissal(){this.dispatchEvent(new Event("remove"))}render(){return o`
+var v=Object.defineProperty,u=Object.getOwnPropertyDescriptor,o=(e,t,l,s)=>{for(var i=s>1?void 0:s?u(t,l):t,r=e.length-1,a;r>=0;r--)(a=e[r])&&(i=(s?a(t,l,i):a(i))||i);return s&&i&&v(t,l,i),i};import{LitElement as h,html as n,css as m,property as c,customElement as d}from"../web_modules/lit-element.js";import{repeat as p}from"../web_modules/lit-html/directives/repeat.js";import{classMap as b}from"../web_modules/lit-html/directives/class-map.js";import"../web_modules/@material/mwc-checkbox.js";import"../web_modules/@material/mwc-icon-button.js";import"./dismissable-item.js";import{style as g}from"./mwc-list-item-css.js";import{JSONStore as w}from"./grocery-store.js";export let GroceryItem=class extends h{constructor(){super(...arguments);this.label="",this.sublabel="",this.checked=!1}handleCheckboxChange(e){this.dispatchEvent(new CustomEvent("change",{detail:{checked:e.target.checked}}))}handleItemDismissal(){this.dispatchEvent(new Event("remove"))}render(){return n`
       <div>
         <dismissable-item @remove=${this.handleItemDismissal} role="listitem" class="mdc-list-item">
           <mwc-checkbox @change=${this.handleCheckboxChange} ?checked=${this.checked}></mwc-checkbox>
@@ -41,7 +41,7 @@ var v=Object.defineProperty,u=Object.getOwnPropertyDescriptor,i=(e,t,r,l)=>{for(
       div {
         background-color: #E53935;
       }
-    `],i([c()],GroceryItem.prototype,"label",2),i([c()],GroceryItem.prototype,"sublabel",2),i([c({type:Boolean})],GroceryItem.prototype,"checked",2),GroceryItem=i([d("grocery-item")],GroceryItem);export let GroceriesList=class extends h{constructor(){super();this.#s=new w,this.#e=[],this.#t=[];const e=async()=>{this.#t=[],this.#e=[];for await(let t of this.#s.entries())t.done?this.#t.push(t):this.#e.push(t);await this.requestUpdate()};this.#s.addEventListener("change",e),e()}#s;#e;#t;_onchange(e){e.stopPropagation(),this.#s.change(e.target.label,e.detail.checked)}_onremove(e){this.#s.remove(e.target.label)}_isAllDone(){return!this.#e.length}_hasDoneItems(){return!!this.#t.length}render(){return o`
+    `],o([c()],GroceryItem.prototype,"label",2),o([c()],GroceryItem.prototype,"sublabel",2),o([c({type:Boolean})],GroceryItem.prototype,"checked",2),GroceryItem=o([d("grocery-item")],GroceryItem);export let GroceriesList=class extends h{constructor(){super();this.#e=new w,this.#t=[],this.#s=[];const e=async()=>{this.#s=[],this.#t=[];for await(let t of this.#e.entries())t.done?this.#s.push(t):this.#t.push(t);await this.requestUpdate()};this.#e.addEventListener("change",e),e()}#e;#t;#s;async _onchange(e){e.stopPropagation();const t=e.target.label,l=e.detail.checked,s=await this.#e.get(t);s.done=l,this.#e.set(t,s)}_onremove(e){this.#e.remove(e.target.label)}_isAllDone(){return!this.#t.length}_hasDoneItems(){return!!this.#s.length}render(){return n`
       <div role="list" class="mdc-list mdc-list--two-line">
         <div class="alldone ${b({hidden:!this._isAllDone()})}">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -56,7 +56,7 @@ var v=Object.defineProperty,u=Object.getOwnPropertyDescriptor,i=(e,t,r,l)=>{for(
         </div>
       </div>
       <div role="list" class="mdc-list mdc-list--two-line">
-        ${this.#e&&p(this.#e,e=>e.name,e=>o`
+        ${this.#t&&p(this.#t,e=>e.name,e=>n`
             <grocery-item
               .label=${e.name}
               .sublabel=${e.note}
@@ -67,7 +67,7 @@ var v=Object.defineProperty,u=Object.getOwnPropertyDescriptor,i=(e,t,r,l)=>{for(
       </div>
       <hr class=${b({hidden:!this._hasDoneItems()})}>
       <div role="list" class="mdc-list mdc-list--two-line">
-        ${this.#t&&p(this.#t,e=>e.name,e=>o`
+        ${this.#s&&p(this.#s,e=>e.name,e=>n`
             <grocery-item
               .label=${e.name}
               .sublabel=${e.note}
@@ -106,4 +106,4 @@ var v=Object.defineProperty,u=Object.getOwnPropertyDescriptor,i=(e,t,r,l)=>{for(
     .hidden {
       display: none;
     }
-  `],GroceriesList=i([d("groceries-list")],GroceriesList);
+  `],GroceriesList=o([d("groceries-list")],GroceriesList);
