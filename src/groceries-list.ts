@@ -118,7 +118,8 @@ export class GroceriesList extends LitElement {
     const onchange = async () => {
       this.#doneItems = [];
       this.#pendingItems = [];
-      for await (let entry of this.#store.entries()) {
+      for await (let [key, entry] of this.#store.entries()) {
+        entry.name = key;
         if (entry.done) {
           this.#doneItems.push(entry);
         } else {

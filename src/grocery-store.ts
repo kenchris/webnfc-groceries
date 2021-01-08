@@ -91,9 +91,7 @@ export class JSONStore extends EventTarget {
         break;
       }
 
-      let result = JSON.parse(value);
-      result.name = key;
-      yield result;
+      yield [key, JSON.parse(value)];
     } while (true)
 
     database.close();
