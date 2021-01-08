@@ -174,17 +174,17 @@ export class DismissableItem extends LitElement {
     const isDismiss = targetPosition !== 0;
 
     const animation = this.target.animate(
-        {
-          transform: [
-            `translateX(${this.#position}px)`,
-            `translateX(${targetPosition}px)`
-          ],
-          opacity: [parseFloat(this.target.style.opacity), isDismiss ? 0 : 1]
-        },
-        {
-          duration: Math.abs(targetPosition - this.#position) * 0.5,
-          iterations: 1
-        });
+      {
+        transform: [
+          `translateX(${this.#position}px)`,
+          `translateX(${targetPosition}px)`
+        ],
+        opacity: [parseFloat(this.target.style.opacity), isDismiss ? 0 : 1]
+      },
+      {
+        duration: Math.abs(targetPosition - this.#position) * 0.5,
+        iterations: 1
+      });
 
     this.#position = targetPosition;
     animation.onfinish = () => isDismiss ? this._dismiss() : this.setPosition(0);
@@ -195,18 +195,18 @@ export class DismissableItem extends LitElement {
     const targetPosition = velocityX < 0 ? -this.#width : this.#width;
 
     const animation = this.target.animate(
-        {
-          transform: [
-            `translateX(${this.#position}px)`,
-            `translateX(${targetPosition}px)`
-          ],
-          opacity: [parseFloat(this.target.style.opacity), 0]
-        },
-        {
-          duration:
-              Math.abs(targetPosition - this.#position) / Math.abs(velocityX),
-          iterations: 1
-        });
+      {
+        transform: [
+          `translateX(${this.#position}px)`,
+          `translateX(${targetPosition}px)`
+        ],
+        opacity: [parseFloat(this.target.style.opacity), 0]
+      },
+      {
+        duration:
+            Math.abs(targetPosition - this.#position) / Math.abs(velocityX),
+        iterations: 1
+      });
 
     animation.onfinish = this._dismiss.bind(this);
   }
