@@ -3,6 +3,7 @@ function open(): Promise<IDBDatabase> {
     const request = self.indexedDB.open("kv-storage:default", 1);
     request.onsuccess = () => resolve(request.result);
     request.onerror = () => reject(request.error);
+    request.onupgradeneeded = () => request.result.createObjectStore("store");
   })
 }
 
